@@ -10,7 +10,6 @@ MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
 RUN_ID="${RUN_ID:-}"
 RUN_JSONL=""
-SKILL_COMMAND="${SKILL_COMMAND:-}"
 MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
 PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-auto}"
 KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
@@ -39,7 +38,6 @@ Options:
   --provider NAME        anthropic or openrouter
   --run-id ID            Output run ID
   --run-jsonl PATH       aggregate evaluation JSONL path to append
-  --skill-command CMD    Slash command to invoke, e.g. /lateral-reading-skill:lateral-reading
 EOF
 }
 
@@ -52,7 +50,6 @@ while [[ $# -gt 0 ]]; do
     --provider) PROVIDER="$2"; shift 2 ;;
     --run-id) RUN_ID="$2"; shift 2 ;;
     --run-jsonl) RUN_JSONL="$2"; shift 2 ;;
-    --skill-command) SKILL_COMMAND="$2"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "unknown option: $1" >&2; usage; exit 2 ;;
   esac
@@ -66,9 +63,6 @@ if [[ -z "$RUN_ID" ]]; then
   RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
-if [[ -z "$SKILL_COMMAND" ]]; then
-  SKILL_COMMAND="$(python3 "$ROOT_DIR/scripts/resolve_skill_command.py" --skill "$SKILL")"
-fi
 
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 TOPIC_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$TOPIC_ID")"
@@ -105,15 +99,14 @@ else
   cp -R "$SKILL"/. "$SESSION_DIR/skill"/
   rm -rf "$SESSION_DIR/skill/.git"
 fi
+SKILL_FILE="$(python3 "$ROOT_DIR/scripts/resolve_skill_file.py" --skill "$SESSION_DIR/skill")"
 
-{
-  printf '%s\n\n' "$SKILL_COMMAND"
-  cat "$TOPIC_DIR/input.txt"
-} > "$SESSION_DIR/prompt.md"
+cp "$TOPIC_DIR/input.txt" "$SESSION_DIR/prompt.txt"
 
 CLAUDE_ARGS=(
   --print
   --plugin-dir "$SESSION_DIR/skill"
+  --append-system-prompt-file "$SKILL_FILE"
   --no-session-persistence
   --permission-mode "$PERMISSION_MODE"
   --max-budget-usd "$MAX_BUDGET_USD"
@@ -150,7 +143,7 @@ fi
 
 (
   cd "$SESSION_DIR/skill"
-  claude "${CLAUDE_ARGS[@]}" "$(cat "$SESSION_DIR/prompt.md")"
+  claude "${CLAUDE_ARGS[@]}" "$(cat "$SESSION_DIR/prompt.txt")"
 ) > "$TOPIC_DIR/claude_raw.json"
 
 python3 "$ROOT_DIR/scripts/audit_transcript.py" \
@@ -158,11 +151,21 @@ python3 "$ROOT_DIR/scripts/audit_transcript.py" \
   --topic-id "$TOPIC_ID" \
   --summary-out "$TOPIC_DIR/transcript_audit.json"
 
-REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
+if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
   --search-dir "$SESSION_DIR/skill" \
   --topic-dir "$TOPIC_DIR" \
   --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_SAFE" \
-  --summary-out "$TOPIC_DIR/skill_report_summary.json")"
+  --summary-out "$TOPIC_DIR/skill_report_summary.json" 2>"$TOPIC_DIR/collect_report.stderr")"; then
+  KEEP_SESSION_DIR=1
+  echo "error: skill did not create reports/**/report.json" >&2
+  echo "kept failed session dir: $SESSION_DIR" >&2
+  echo "claude output tail:" >&2
+  tail -n 80 "$TOPIC_DIR/claude_raw.json" >&2 || true
+  echo "session files:" >&2
+  find "$SESSION_DIR/skill" -maxdepth 4 -type f | sort >&2 || true
+  cat "$TOPIC_DIR/collect_report.stderr" >&2 || true
+  exit 1
+fi
 
 python3 "$ROOT_DIR/scripts/validate_report.py" \
   --report "$REPORT_JSON" \

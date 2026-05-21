@@ -75,8 +75,6 @@ The model is never launched from this repo. For each article, `scripts/run_one.s
 The only task input is plaintext in the user prompt:
 
 ```text
-/lateral-reading-skill:lateral-reading
-
 Title: ...
 URL: ...
 Heading: ...
@@ -255,6 +253,7 @@ The leaderboard measures the full stack: Claude Code, the skill prompt and scrip
 - `scripts/audit_session_exposure.py`: checks session exposure strings and broad tool permissions
 - `scripts/audit_transcript.py`: scans Claude output for forbidden evaluation-artifact terms
 - `scripts/collect_skill_report.py`: copies the skill-produced `report.json` and `report.html`
+- `scripts/resolve_skill_file.py`: resolves the skill instruction file for non-interactive runs
 - `scripts/validate_report.py`: schema, citation, and leakage validation
 - `scripts/score_with_autojudge.sh`: AutoJudge plus scoring
 - `autojudge/auto_judge_openrouter.py`: OpenRouter-compatible report judge

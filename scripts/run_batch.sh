@@ -8,7 +8,6 @@ SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
 RUN_ID="${RUN_ID:-}"
-SKILL_COMMAND="${SKILL_COMMAND:-}"
 LIMIT=0
 OVERWRITE=0
 
@@ -22,7 +21,6 @@ Options:
   --model MODEL          Claude Code model or OpenRouter model name
   --provider NAME        anthropic or openrouter
   --run-id ID            Output run ID
-  --skill-command CMD    Slash command to invoke
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
 EOF
@@ -35,7 +33,6 @@ while [[ $# -gt 0 ]]; do
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
     --run-id) RUN_ID="$2"; shift 2 ;;
-    --skill-command) SKILL_COMMAND="$2"; shift 2 ;;
     --limit) LIMIT="$2"; shift 2 ;;
     --overwrite) OVERWRITE=1; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -61,10 +58,8 @@ if [[ -e "$RUN_JSONL" ]]; then
 fi
 mkdir -p "$RUN_DIR"
 
-if [[ -z "$SKILL_COMMAND" ]]; then
-  SKILL_COMMAND="$(python3 "$ROOT_DIR/scripts/resolve_skill_command.py" --skill "$SKILL")"
-fi
 python3 "$ROOT_DIR/scripts/audit_session_exposure.py" --skill "$SKILL"
+SKILL_FILE="$(python3 "$ROOT_DIR/scripts/resolve_skill_file.py" --skill "$SKILL")"
 SKILL_COMMIT=""
 if [[ -d "$SKILL/.git" ]] && git -C "$SKILL" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   SKILL_COMMIT="$(git -C "$SKILL" rev-parse --short HEAD)"
@@ -85,8 +80,7 @@ while IFS= read -r TOPIC_ID; do
     --model "$MODEL" \
     --provider "$PROVIDER" \
     --run-id "$RUN_ID" \
-    --run-jsonl "$RUN_JSONL" \
-    --skill-command "$SKILL_COMMAND"
+    --run-jsonl "$RUN_JSONL"
 done < "$TOPIC_LIST"
 
 mkdir -p "$ROOT_DIR/data/runs/report_generation_runs"
@@ -99,7 +93,7 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "provider": "$PROVIDER",
   "skill": "$SKILL",
   "skill_commit": "$SKILL_COMMIT",
-  "skill_command": "$SKILL_COMMAND",
+  "skill_file": "$SKILL_FILE",
   "topics": "$TOPICS",
   "run_jsonl": "$RUN_JSONL",
   "reports_dir": "$ROOT_DIR/reports/$RUN_SAFE",

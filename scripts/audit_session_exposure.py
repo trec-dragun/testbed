@@ -21,6 +21,7 @@ FORBIDDEN_RUN_ONE_SNIPPETS = [
     "Bash(python3 *)",
     "Bash(python *)",
     "--json-schema",
+    "/lateral-reading-skill:lateral-reading",
 ]
 
 
