@@ -68,6 +68,8 @@ The data and cloned repos are gitignored.
 
 If the NIST package URL is temporarily unavailable, rerun `./scripts/bootstrap.sh` later or manually place the DRAGUN package contents into the expected `data/` layout.
 
+Setup output is intentionally concise. Routine `pip`, `git pull`, and download details are written to `tmp/bootstrap_logs/` and shown only when a step fails.
+
 ## Generation Isolation
 
 The model is never launched from this repo. For each article, `scripts/run_one.sh` creates a fresh temporary workspace and runs Claude Code from the copied skill repo.
@@ -231,6 +233,8 @@ runs/{run_id}/autojudge/
 leaderboard/leaderboard.csv
 leaderboard/leaderboard.json
 ```
+
+During generation, `scripts/run_batch.sh` prints per-article start and completion lines with elapsed time and an ETA based on completed articles.
 
 ## Testing Multiple Backbones
 

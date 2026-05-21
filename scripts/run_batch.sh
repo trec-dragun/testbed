@@ -11,6 +11,14 @@ RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
 
+format_duration() {
+  local seconds="$1"
+  local hours=$((seconds / 3600))
+  local minutes=$(((seconds % 3600) / 60))
+  local secs=$((seconds % 60))
+  printf '%02d:%02d:%02d' "$hours" "$minutes" "$secs"
+}
+
 usage() {
   cat <<'EOF'
 usage: scripts/run_batch.sh [options]
@@ -70,9 +78,21 @@ python3 "$ROOT_DIR/scripts/list_topics.py" --topics "$TOPICS" --limit "$LIMIT" >
 
 TOTAL="$(wc -l < "$TOPIC_LIST" | tr -d ' ')"
 CURRENT=0
+START_TS="$(date +%s)"
 while IFS= read -r TOPIC_ID; do
   CURRENT=$((CURRENT + 1))
-  echo "[$CURRENT/$TOTAL] $TOPIC_ID"
+  ARTICLE_START_TS="$(date +%s)"
+  ELAPSED=$((ARTICLE_START_TS - START_TS))
+  if [[ "$CURRENT" -gt 1 ]]; then
+    COMPLETED=$((CURRENT - 1))
+    AVG=$((ELAPSED / COMPLETED))
+    REMAINING=$((TOTAL - CURRENT + 1))
+    ETA="$((AVG * REMAINING))"
+    ETA_TEXT="$(format_duration "$ETA")"
+  else
+    ETA_TEXT="estimating"
+  fi
+  echo "[$CURRENT/$TOTAL] start $TOPIC_ID | elapsed $(format_duration "$ELAPSED") | eta $ETA_TEXT"
   "$ROOT_DIR/scripts/run_one.sh" \
     --topics "$TOPICS" \
     --topic-id "$TOPIC_ID" \
@@ -81,6 +101,14 @@ while IFS= read -r TOPIC_ID; do
     --provider "$PROVIDER" \
     --run-id "$RUN_ID" \
     --run-jsonl "$RUN_JSONL"
+  ARTICLE_END_TS="$(date +%s)"
+  ARTICLE_SECONDS=$((ARTICLE_END_TS - ARTICLE_START_TS))
+  ELAPSED=$((ARTICLE_END_TS - START_TS))
+  COMPLETED="$CURRENT"
+  AVG=$((ELAPSED / COMPLETED))
+  REMAINING=$((TOTAL - CURRENT))
+  ETA=$((AVG * REMAINING))
+  echo "[$CURRENT/$TOTAL] done  $TOPIC_ID | article $(format_duration "$ARTICLE_SECONDS") | elapsed $(format_duration "$ELAPSED") | eta $(format_duration "$ETA")"
 done < "$TOPIC_LIST"
 
 mkdir -p "$ROOT_DIR/data/runs/report_generation_runs"
