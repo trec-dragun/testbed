@@ -8,9 +8,9 @@ DEST="$ROOT_DIR/skills_under_test/$NAME"
 
 mkdir -p "$ROOT_DIR/skills_under_test"
 if [[ -d "$DEST/.git" ]]; then
-  git -C "$DEST" pull --ff-only
+  git -C "$DEST" pull --ff-only >&2
 else
-  git clone --depth 1 "$URL" "$DEST"
+  git clone --depth 1 "$URL" "$DEST" >&2
 fi
 
 echo "$DEST"
