@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+
+# Downloaded evaluation assets and local third-party clones.
+vendor/*
+!vendor/.gitkeep
+data/trec-2025-dragun-topics.jsonl
+data/human_rubrics/
+data/human_assessments/
+data/official_evaluation_results/
+data/runs/report_generation_runs/*
+!data/runs/report_generation_runs/.gitkeep
+
+# Skill clones and generated runs.
+skills_under_test/*
+!skills_under_test/.gitkeep
+runs/*
+!runs/.gitkeep
+reports/*
+!reports/.gitkeep
+tmp/
+
+# Secrets.
+.env

@@ -1,0 +1,16 @@
+[project]
+name = "dragun-skill-testbed"
+version = "0.1.0"
+description = "Claude Code skill and LLM backbone testbed for DRAGUN-style news trustworthiness reports."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "openai>=1.0.0",
+  "pandas>=1.5.0",
+  "pydantic>=2.0.0",
+  "tqdm>=4.0.0",
+]
+
+[tool.ruff]
+line-length = 100

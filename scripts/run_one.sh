@@ -1,0 +1,175 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+TOPICS="$ROOT_DIR/data/trec-2025-dragun-topics.jsonl"
+TOPIC_ID=""
+SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
+MODEL="${MODEL:-sonnet}"
+PROVIDER="${PROVIDER:-anthropic}"
+RUN_ID="${RUN_ID:-}"
+RUN_JSONL=""
+SKILL_COMMAND="${SKILL_COMMAND:-}"
+MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
+PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-auto}"
+KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
+OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
+DEFAULT_ALLOWED_TOOLS=(
+  WebFetch
+  WebSearch
+  Read
+  Write
+  Edit
+  "Bash(mkdir -p reports*)"
+  "Bash(python3 skills/*/scripts/render_report_html.py *)"
+  "Bash(python skills/*/scripts/render_report_html.py *)"
+  "Bash(python3 skills/*/scripts/validate_report.py *)"
+  "Bash(python skills/*/scripts/validate_report.py *)"
+)
+
+usage() {
+  cat <<'EOF'
+usage: scripts/run_one.sh --topic-id ID [options]
+
+Options:
+  --topics PATH          topics JSONL
+  --skill PATH           Skill repo to test
+  --model MODEL          Claude Code model or OpenRouter model name
+  --provider NAME        anthropic or openrouter
+  --run-id ID            Output run ID
+  --run-jsonl PATH       aggregate evaluation JSONL path to append
+  --skill-command CMD    Slash command to invoke, e.g. /lateral-reading-skill:lateral-reading
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --topics) TOPICS="$2"; shift 2 ;;
+    --topic-id) TOPIC_ID="$2"; shift 2 ;;
+    --skill) SKILL="$2"; shift 2 ;;
+    --model) MODEL="$2"; shift 2 ;;
+    --provider) PROVIDER="$2"; shift 2 ;;
+    --run-id) RUN_ID="$2"; shift 2 ;;
+    --run-jsonl) RUN_JSONL="$2"; shift 2 ;;
+    --skill-command) SKILL_COMMAND="$2"; shift 2 ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "unknown option: $1" >&2; usage; exit 2 ;;
+  esac
+done
+
+if [[ -z "$TOPIC_ID" ]]; then
+  echo "error: --topic-id is required" >&2
+  exit 2
+fi
+if [[ -z "$RUN_ID" ]]; then
+  RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
+fi
+RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
+if [[ -z "$SKILL_COMMAND" ]]; then
+  SKILL_COMMAND="$(python3 "$ROOT_DIR/scripts/resolve_skill_command.py" --skill "$SKILL")"
+fi
+
+RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
+TOPIC_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$TOPIC_ID")"
+RUN_DIR="$ROOT_DIR/runs/$RUN_SAFE"
+TOPIC_DIR="$RUN_DIR/topics/$TOPIC_SAFE"
+if [[ -z "$RUN_JSONL" ]]; then
+  RUN_JSONL="$RUN_DIR/dragun_task2.jsonl"
+fi
+
+if [[ "$OVERWRITE_TOPIC" == "1" && -d "$TOPIC_DIR" ]]; then
+  rm -rf "$TOPIC_DIR"
+fi
+mkdir -p "$TOPIC_DIR"
+
+SESSION_DIR="$(mktemp -d "${TMPDIR:-/tmp}/news-skill-session.XXXXXX")"
+cleanup() {
+  if [[ "$KEEP_SESSION_DIR" != "1" ]]; then
+    rm -rf "$SESSION_DIR"
+  else
+    echo "kept session dir: $SESSION_DIR" >&2
+  fi
+}
+trap cleanup EXIT
+
+mkdir -p "$SESSION_DIR/skill"
+python3 "$ROOT_DIR/scripts/make_article_input.py" \
+  --topics "$TOPICS" \
+  --topic-id "$TOPIC_ID" \
+  --out-text "$TOPIC_DIR/input.txt"
+
+if command -v rsync >/dev/null 2>&1; then
+  rsync -a --exclude .git "$SKILL"/ "$SESSION_DIR/skill"/
+else
+  cp -R "$SKILL"/. "$SESSION_DIR/skill"/
+  rm -rf "$SESSION_DIR/skill/.git"
+fi
+
+{
+  printf '%s\n\n' "$SKILL_COMMAND"
+  cat "$TOPIC_DIR/input.txt"
+} > "$SESSION_DIR/prompt.md"
+
+CLAUDE_ARGS=(
+  --print
+  --plugin-dir "$SESSION_DIR/skill"
+  --no-session-persistence
+  --permission-mode "$PERMISSION_MODE"
+  --max-budget-usd "$MAX_BUDGET_USD"
+  --model "$MODEL"
+)
+if [[ -n "${ALLOWED_TOOLS:-}" ]]; then
+  CLAUDE_ARGS+=(--allowed-tools "$ALLOWED_TOOLS")
+else
+  CLAUDE_ARGS+=(--allowed-tools "${DEFAULT_ALLOWED_TOOLS[@]}")
+fi
+
+if [[ "${CLAUDE_BARE:-auto}" == "1" || ( "${CLAUDE_BARE:-auto}" == "auto" && "$PROVIDER" == "openrouter" ) || ( "${CLAUDE_BARE:-auto}" == "auto" && -n "${ANTHROPIC_API_KEY:-}" ) ]]; then
+  CLAUDE_ARGS=(--bare "${CLAUDE_ARGS[@]}")
+else
+  CLAUDE_ARGS+=(--setting-sources project)
+fi
+
+if [[ "$PROVIDER" == "openrouter" ]]; then
+  if [[ -z "${OPENROUTER_API_KEY:-}" ]]; then
+    echo "error: OPENROUTER_API_KEY is required for --provider openrouter" >&2
+    exit 2
+  fi
+  export ANTHROPIC_BASE_URL="${ANTHROPIC_BASE_URL:-https://openrouter.ai/api}"
+  export ANTHROPIC_AUTH_TOKEN="${ANTHROPIC_AUTH_TOKEN:-$OPENROUTER_API_KEY}"
+  export ANTHROPIC_API_KEY=""
+  export ANTHROPIC_DEFAULT_OPUS_MODEL="$MODEL"
+  export ANTHROPIC_DEFAULT_SONNET_MODEL="$MODEL"
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL="$MODEL"
+  export CLAUDE_CODE_SUBAGENT_MODEL="$MODEL"
+elif [[ "$PROVIDER" != "anthropic" ]]; then
+  echo "error: unsupported provider: $PROVIDER" >&2
+  exit 2
+fi
+
+(
+  cd "$SESSION_DIR/skill"
+  claude "${CLAUDE_ARGS[@]}" "$(cat "$SESSION_DIR/prompt.md")"
+) > "$TOPIC_DIR/claude_raw.json"
+
+python3 "$ROOT_DIR/scripts/audit_transcript.py" \
+  --raw "$TOPIC_DIR/claude_raw.json" \
+  --topic-id "$TOPIC_ID" \
+  --summary-out "$TOPIC_DIR/transcript_audit.json"
+
+REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
+  --search-dir "$SESSION_DIR/skill" \
+  --topic-dir "$TOPIC_DIR" \
+  --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_SAFE" \
+  --summary-out "$TOPIC_DIR/skill_report_summary.json")"
+
+python3 "$ROOT_DIR/scripts/validate_report.py" \
+  --report "$REPORT_JSON" \
+  --topic-id "$TOPIC_ID" \
+  --run-id "$RUN_ID" \
+  --summary-out "$TOPIC_DIR/validation.json" \
+  --out-json "$TOPIC_DIR/dragun.json" \
+  --out-jsonl "$RUN_JSONL"
+
+echo "$TOPIC_DIR/dragun.json"
