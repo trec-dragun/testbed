@@ -112,6 +112,7 @@ print_claude_diagnostics() {
 
 SESSION_DIR="$(mktemp -d "${TMPDIR:-/tmp}/news-skill-session.XXXXXX")"
 SESSION_SYSTEM_PROMPT="$SESSION_DIR/session_system_prompt.md"
+SESSION_CLAUDE_DEBUG_FILE="$SESSION_DIR/claude_debug.log"
 cleanup() {
   if [[ "$KEEP_SESSION_DIR" != "1" ]]; then
     rm -rf "$SESSION_DIR"
@@ -167,7 +168,7 @@ CLAUDE_ARGS=(
   --effort "$CLAUDE_REASONING_EFFORT"
 )
 if [[ "${CLAUDE_DEBUG_LOG:-0}" == "1" ]]; then
-  CLAUDE_ARGS+=(--debug-file "$CLAUDE_DEBUG_FILE")
+  CLAUDE_ARGS+=(--debug-file "$SESSION_CLAUDE_DEBUG_FILE")
 fi
 if [[ -n "${ALLOWED_TOOLS:-}" ]]; then
   CLAUDE_ARGS+=(--allowed-tools "$ALLOWED_TOOLS")
@@ -214,6 +215,9 @@ set +e
 ) > "$CLAUDE_STDOUT" 2>"$CLAUDE_STDERR"
 CLAUDE_STATUS=$?
 set -e
+if [[ -s "$SESSION_CLAUDE_DEBUG_FILE" ]]; then
+  cp "$SESSION_CLAUDE_DEBUG_FILE" "$CLAUDE_DEBUG_FILE"
+fi
 printf '%s\n' "$CLAUDE_STATUS" > "$CLAUDE_EXIT_CODE"
 if [[ "$CLAUDE_STATUS" -ne 0 ]]; then
   KEEP_SESSION_DIR=1
