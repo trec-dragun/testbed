@@ -8,6 +8,7 @@ SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
+RUN_PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
 RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
@@ -55,6 +56,14 @@ if [[ -z "$RUN_ID" ]]; then
   RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
+if [[ -z "$RUN_PERMISSION_MODE" ]]; then
+  if [[ "$PROVIDER" == "openrouter" ]]; then
+    RUN_PERMISSION_MODE="default"
+  else
+    RUN_PERMISSION_MODE="auto"
+  fi
+fi
+export CLAUDE_PERMISSION_MODE="$RUN_PERMISSION_MODE"
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 RUN_DIR="$ROOT_DIR/runs/$RUN_SAFE"
 RUN_JSONL="$RUN_DIR/dragun_task2.jsonl"
@@ -128,6 +137,7 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "model": "$MODEL",
   "provider": "$PROVIDER",
   "claude_reasoning_effort": "$CLAUDE_REASONING_EFFORT",
+  "claude_permission_mode": "$RUN_PERMISSION_MODE",
   "skill": "$SKILL",
   "skill_commit": "$SKILL_COMMIT",
   "skill_file": "$SKILL_FILE",

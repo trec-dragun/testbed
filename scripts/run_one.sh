@@ -12,7 +12,7 @@ CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_ID="${RUN_ID:-}"
 RUN_JSONL=""
 MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
-PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-auto}"
+PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
 KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
 OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
 DEFAULT_ALLOWED_TOOLS=(
@@ -66,6 +66,13 @@ if [[ -z "$RUN_ID" ]]; then
   RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
+if [[ -z "$PERMISSION_MODE" ]]; then
+  if [[ "$PROVIDER" == "openrouter" ]]; then
+    PERMISSION_MODE="default"
+  else
+    PERMISSION_MODE="auto"
+  fi
+fi
 
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 TOPIC_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$TOPIC_ID")"

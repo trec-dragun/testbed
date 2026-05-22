@@ -109,10 +109,10 @@ The launch scripts grant the tested skill only the tools needed inside the tempo
 - `Bash(python3 skills/*/scripts/validate_report.py *)`
 - `Bash(python skills/*/scripts/validate_report.py *)`
 
-This avoids generic `python`, `curl`, or shell access that could inspect files outside the session. The default permission mode is `auto`, so users should not need to approve each fetch, file write, folder creation, or render command. Override only if you understand the leakage risk:
+This avoids generic `python`, `curl`, or shell access that could inspect files outside the session. Anthropic runs default to permission mode `auto`; OpenRouter runs default to `default` because Claude Code's auto-mode classifier is another model call and some OpenRouter endpoints reject its classifier request shape. The explicit `--allowed-tools` list still pre-approves the fetch, file write, folder creation, and render actions the skill needs. Override only if you understand the leakage risk:
 
 ```bash
-export CLAUDE_PERMISSION_MODE=default
+export CLAUDE_PERMISSION_MODE=auto
 export ALLOWED_TOOLS="WebFetch,WebSearch,Read,Write,Edit,Bash(mkdir -p reports*)"
 ```
 
