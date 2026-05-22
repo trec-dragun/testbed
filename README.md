@@ -116,6 +116,8 @@ export CLAUDE_PERMISSION_MODE=auto
 export ALLOWED_TOOLS="WebFetch,WebSearch,Read,Write,Edit,Bash(mkdir -p reports*)"
 ```
 
+Each session also receives a short noninteractive tool contract: do not ask for approval, use WebSearch/WebFetch for web retrieval, avoid Bash for search or Python snippets, and still write `reports/.../report.json` if a tool request is denied.
+
 ## Output Contract
 
 The skill should write its normal output folder:
@@ -141,6 +143,8 @@ reports/lateral-reading-YYYYMMDD-HHMMSS/
 ```
 
 The wrapper copies the skill folder to `reports/{run_id}/{topic_id}/` and wraps `report.json` into evaluator JSONL:
+
+If a weaker backbone returns a valid `{"responses": ...}` JSON object in Claude stdout but forgets to write files, the wrapper recovers it into `skill_report/report.json`, copies the input into `target.txt`, and renders `report.html` with the skill's own render script. `skill_report_summary.json` records this as `fallback_from_stdout: true`.
 
 ```json
 {

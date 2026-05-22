@@ -111,6 +111,7 @@ print_claude_diagnostics() {
 }
 
 SESSION_DIR="$(mktemp -d "${TMPDIR:-/tmp}/news-skill-session.XXXXXX")"
+SESSION_SYSTEM_PROMPT="$SESSION_DIR/session_system_prompt.md"
 cleanup() {
   if [[ "$KEEP_SESSION_DIR" != "1" ]]; then
     rm -rf "$SESSION_DIR"
@@ -133,13 +134,32 @@ else
   rm -rf "$SESSION_DIR/skill/.git"
 fi
 SKILL_FILE="$(python3 "$ROOT_DIR/scripts/resolve_skill_file.py" --skill "$SESSION_DIR/skill")"
+RENDER_SCRIPT=""
+if [[ -f "$SESSION_DIR/skill/skills/lateral-reading/scripts/render_report_html.py" ]]; then
+  RENDER_SCRIPT="$SESSION_DIR/skill/skills/lateral-reading/scripts/render_report_html.py"
+else
+  RENDER_SCRIPT="$(find "$SESSION_DIR/skill" -path "*/scripts/render_report_html.py" -type f -print -quit)"
+fi
 
 cp "$TOPIC_DIR/input.txt" "$SESSION_DIR/prompt.txt"
+{
+  cat "$SKILL_FILE"
+  cat <<'EOF'
+
+## Noninteractive Session Constraints
+
+This is a noninteractive run. Do not ask the user for permission or approval.
+Use WebSearch and WebFetch for web search and retrieval. Do not use Bash for web access, search, directory discovery, reading files, or Python snippets.
+Use Bash only for the explicitly allowed local report commands: creating a reports folder, running the skill's report validator, and rendering report HTML with the skill's render script.
+Use relative paths under the current workspace, and write the required report artifacts under `reports/`.
+If a tool request is denied, continue with the allowed tools and still produce `reports/.../report.json`.
+EOF
+} > "$SESSION_SYSTEM_PROMPT"
 
 CLAUDE_ARGS=(
   --print
   --plugin-dir "$SESSION_DIR/skill"
-  --append-system-prompt-file "$SKILL_FILE"
+  --append-system-prompt-file "$SESSION_SYSTEM_PROMPT"
   --no-session-persistence
   --permission-mode "$PERMISSION_MODE"
   --max-budget-usd "$MAX_BUDGET_USD"
@@ -212,6 +232,9 @@ if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
   --search-dir "$SESSION_DIR/skill" \
   --topic-dir "$TOPIC_DIR" \
   --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_SAFE" \
+  --fallback-raw "$CLAUDE_STDOUT" \
+  --target-text "$TOPIC_DIR/input.txt" \
+  --render-script "$RENDER_SCRIPT" \
   --summary-out "$TOPIC_DIR/skill_report_summary.json" 2>"$TOPIC_DIR/collect_report.stderr")"; then
   KEEP_SESSION_DIR=1
   echo "error: skill did not create reports/**/report.json" >&2
