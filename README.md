@@ -92,7 +92,7 @@ For OpenRouter or Anthropic API-key runs, the harness uses `claude --bare --no-s
 
 Claude Code sessions default to `--effort high` for consistent reasoning depth across tested backbones. Override with `--effort low`, `--effort medium`, `--effort xhigh`, or `--effort max` only when intentionally running an ablation.
 
-For OpenRouter runs, the wrapper points Claude Code at OpenRouter's Anthropic-compatible endpoint and passes `OPENROUTER_API_KEY` through `ANTHROPIC_API_KEY` for `--bare` startup plus an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS` for OpenRouter authentication. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use tools or may return no final output. Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs.
+For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use tools or may return no final output. Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs. Set `OPENROUTER_PREFLIGHT=0` only if you need to skip the key check.
 
 ## Claude Code Permissions
 
@@ -262,6 +262,7 @@ The leaderboard measures the full stack: Claude Code, the skill prompt and scrip
 - `scripts/launch.sh`: setup plus all-topic generation
 - `scripts/run_one.sh`: one isolated Claude Code session for one article
 - `scripts/run_batch.sh`: all selected articles
+- `scripts/check_openrouter_key.sh`: fail-fast OpenRouter API key preflight
 - `scripts/audit_session_exposure.py`: checks session exposure strings and broad tool permissions
 - `scripts/audit_transcript.py`: scans Claude output for forbidden evaluation-artifact terms
 - `scripts/collect_skill_report.py`: copies the skill-produced `report.json` and `report.html`

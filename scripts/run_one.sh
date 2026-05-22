@@ -162,7 +162,7 @@ if [[ "$PROVIDER" == "openrouter" ]]; then
     exit 2
   fi
   export ANTHROPIC_BASE_URL="${ANTHROPIC_BASE_URL:-https://openrouter.ai/api}"
-  export ANTHROPIC_API_KEY="$OPENROUTER_API_KEY"
+  export ANTHROPIC_API_KEY=""
   export ANTHROPIC_AUTH_TOKEN="$OPENROUTER_API_KEY"
   OPENROUTER_AUTH_HEADER="Authorization: Bearer $OPENROUTER_API_KEY"
   if [[ -n "${ANTHROPIC_CUSTOM_HEADERS:-}" ]]; then

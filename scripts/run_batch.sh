@@ -69,6 +69,10 @@ if [[ -e "$RUN_JSONL" ]]; then
 fi
 mkdir -p "$RUN_DIR"
 
+if [[ "$PROVIDER" == "openrouter" && "${OPENROUTER_PREFLIGHT:-1}" == "1" ]]; then
+  "$ROOT_DIR/scripts/check_openrouter_key.sh"
+fi
+
 python3 "$ROOT_DIR/scripts/audit_session_exposure.py" --skill "$SKILL"
 SKILL_FILE="$(python3 "$ROOT_DIR/scripts/resolve_skill_file.py" --skill "$SKILL")"
 SKILL_COMMIT=""
