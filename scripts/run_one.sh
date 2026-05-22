@@ -71,7 +71,7 @@ fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 if [[ -z "$PERMISSION_MODE" ]]; then
   if [[ "$PROVIDER" == "openrouter" ]]; then
-    PERMISSION_MODE="default"
+    PERMISSION_MODE="acceptEdits"
   else
     PERMISSION_MODE="auto"
   fi
@@ -118,6 +118,8 @@ print_claude_diagnostics() {
 }
 
 SESSION_DIR="$(mktemp -d "${TMPDIR:-/tmp}/news-skill-session.XXXXXX")"
+SESSION_SKILL_DIR="$SESSION_DIR/skill"
+SESSION_WORK_DIR="$SESSION_DIR/work"
 SESSION_SYSTEM_PROMPT="$SESSION_DIR/session_system_prompt.md"
 SESSION_CLAUDE_DEBUG_FILE="$SESSION_DIR/claude_debug.log"
 cleanup() {
@@ -130,31 +132,35 @@ cleanup() {
 }
 trap cleanup EXIT
 
-mkdir -p "$SESSION_DIR/skill"
+mkdir -p "$SESSION_SKILL_DIR" "$SESSION_WORK_DIR/reports"
 python3 "$ROOT_DIR/scripts/make_article_input.py" \
   --topics "$TOPICS" \
   --topic-id "$TOPIC_ID" \
   --out-text "$TOPIC_DIR/input.txt"
 
 if command -v rsync >/dev/null 2>&1; then
-  rsync -a --exclude .git "$SKILL"/ "$SESSION_DIR/skill"/
+  rsync -a --exclude .git "$SKILL"/ "$SESSION_SKILL_DIR"/
 else
-  cp -R "$SKILL"/. "$SESSION_DIR/skill"/
-  rm -rf "$SESSION_DIR/skill/.git"
+  cp -R "$SKILL"/. "$SESSION_SKILL_DIR"/
+  rm -rf "$SESSION_SKILL_DIR/.git"
 fi
-SKILL_FILE="$(python3 "$ROOT_DIR/scripts/resolve_skill_file.py" --skill "$SESSION_DIR/skill")"
+SKILL_FILE="$(python3 "$ROOT_DIR/scripts/resolve_skill_file.py" --skill "$SESSION_SKILL_DIR")"
 RENDER_SCRIPT=""
-if [[ -f "$SESSION_DIR/skill/skills/lateral-reading/scripts/render_report_html.py" ]]; then
-  RENDER_SCRIPT="$SESSION_DIR/skill/skills/lateral-reading/scripts/render_report_html.py"
+if [[ -f "$SESSION_SKILL_DIR/skills/lateral-reading/scripts/render_report_html.py" ]]; then
+  RENDER_SCRIPT="$SESSION_SKILL_DIR/skills/lateral-reading/scripts/render_report_html.py"
 else
-  RENDER_SCRIPT="$(find "$SESSION_DIR/skill" -path "*/scripts/render_report_html.py" -type f -print -quit)"
+  RENDER_SCRIPT="$(find "$SESSION_SKILL_DIR" -path "*/scripts/render_report_html.py" -type f -print -quit)"
 fi
 
 if [[ "$LOCK_SKILL_DIR" == "1" ]]; then
-  mkdir -p "$SESSION_DIR/skill/reports"
-  chmod -R u-w "$SESSION_DIR/skill"
-  chmod u+w "$SESSION_DIR/skill/reports"
+  chmod -R u-w "$SESSION_SKILL_DIR"
 fi
+
+for linked_name in skills schemas; do
+  if [[ -e "$SESSION_SKILL_DIR/$linked_name" ]]; then
+    ln -s "$SESSION_SKILL_DIR/$linked_name" "$SESSION_WORK_DIR/$linked_name"
+  fi
+done
 
 cp "$TOPIC_DIR/input.txt" "$SESSION_DIR/prompt.txt"
 {
@@ -166,15 +172,17 @@ cp "$TOPIC_DIR/input.txt" "$SESSION_DIR/prompt.txt"
 This is a noninteractive run. Do not ask the user for permission or approval.
 Use WebSearch and WebFetch for web search and retrieval. Do not use Bash for web access, search, directory discovery, reading files, or Python snippets.
 Use Bash only for the explicitly allowed local report commands: creating a reports folder, running the skill's report validator, and rendering report HTML with the skill's render script.
-The skill files are read-only. Do not modify scripts, references, examples, schemas, or plugin files.
+The linked skill files under `skills/` and `schemas/` are read-only. Do not modify scripts, references, examples, schemas, or plugin files.
 Use relative paths under the current workspace, and write the required report artifacts only under `reports/`.
+Do not probe or test filesystem permissions; assume `reports/` is writable and skill files are read-only.
 If a tool request is denied, continue with the allowed tools and still produce `reports/.../report.json`.
+If file creation still fails, print only the report JSON object with a top-level `responses` array as the final output.
 EOF
 } > "$SESSION_SYSTEM_PROMPT"
 
 CLAUDE_ARGS=(
   --print
-  --plugin-dir "$SESSION_DIR/skill"
+  --plugin-dir "$SESSION_SKILL_DIR"
   --append-system-prompt-file "$SESSION_SYSTEM_PROMPT"
   --no-session-persistence
   --permission-mode "$PERMISSION_MODE"
@@ -225,7 +233,7 @@ fi
 
 set +e
 (
-  cd "$SESSION_DIR/skill"
+  cd "$SESSION_WORK_DIR"
   claude "${CLAUDE_ARGS[@]}" "$(cat "$SESSION_DIR/prompt.txt")"
 ) > "$CLAUDE_STDOUT" 2>"$CLAUDE_STDERR"
 CLAUDE_STATUS=$?
@@ -254,7 +262,7 @@ if [[ -s "$CLAUDE_DEBUG_FILE" ]]; then
 fi
 
 if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
-  --search-dir "$SESSION_DIR/skill" \
+  --search-dir "$SESSION_WORK_DIR" \
   --topic-dir "$TOPIC_DIR" \
   --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_ARTIFACT_SAFE" \
   --fallback-raw "$CLAUDE_STDOUT" \
@@ -266,7 +274,7 @@ if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
   echo "kept failed session dir: $SESSION_DIR" >&2
   print_claude_diagnostics
   echo "session files:" >&2
-  find "$SESSION_DIR/skill" -maxdepth 4 -type f | sort >&2 || true
+  find "$SESSION_DIR" -maxdepth 5 -type f | sort >&2 || true
   cat "$TOPIC_DIR/collect_report.stderr" >&2 || true
   exit 1
 fi

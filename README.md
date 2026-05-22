@@ -72,7 +72,7 @@ Setup output is intentionally concise. Routine `pip`, `git pull`, and download d
 
 ## Generation Isolation
 
-The model is never launched from this repo. For each article, `scripts/run_one.sh` creates a fresh temporary workspace and runs Claude Code from the copied skill repo.
+The model is never launched from this repo. For each article, `scripts/run_one.sh` creates a fresh temporary workspace and runs Claude Code from a writable `work/` directory with the copied skill mounted read-only.
 
 The only task input is plaintext in the user prompt:
 
@@ -108,16 +108,16 @@ The launch scripts grant the tested skill only the tools needed inside the tempo
 - `Bash(python3 skills/*/scripts/validate_report.py *)`
 - `Bash(python skills/*/scripts/validate_report.py *)`
 
-The copied skill tree is also made read-only before Claude Code starts, except for `reports/`. This prevents weaker backbones from editing validators, examples, schemas, references, or helper scripts while still allowing the expected report artifacts to be created. Set `LOCK_SKILL_DIR=0` only when debugging a custom skill that genuinely needs to modify its own files during generation.
+Claude Code runs from a fresh writable `work/` directory. The copied skill tree is mounted into that workspace through read-only `skills/` and `schemas/` links, while output is collected only from `work/reports/`. This prevents weaker backbones from editing validators, examples, schemas, references, or helper scripts while still allowing the expected report artifacts to be created. Set `LOCK_SKILL_DIR=0` only when debugging a custom skill that genuinely needs to modify its own files during generation.
 
-This avoids generic `python`, `curl`, `Edit`, or shell access that could inspect files outside the session or mutate the skill under test. Anthropic runs default to permission mode `auto`; OpenRouter runs default to `default` because Claude Code's auto-mode classifier is another model call and some OpenRouter endpoints reject its classifier request shape. The explicit `--allowed-tools` list still pre-approves the fetch, file write, folder creation, and render actions the skill needs. Override only if you understand the leakage risk:
+This avoids generic `python`, `curl`, `Edit`, or shell access that could inspect files outside the session or mutate the skill under test. Anthropic runs default to permission mode `auto`; OpenRouter runs default to `acceptEdits` because Claude Code's auto-mode classifier is another model call and some OpenRouter endpoints reject its classifier request shape. The explicit `--allowed-tools` list still pre-approves the fetch, file write, folder creation, and render actions the skill needs. Override only if you understand the leakage risk:
 
 ```bash
 export CLAUDE_PERMISSION_MODE=auto
 export ALLOWED_TOOLS="WebFetch,WebSearch,Read,Write,Bash(mkdir -p reports*)"
 ```
 
-Each session also receives a short noninteractive tool contract: do not ask for approval, use WebSearch/WebFetch for web retrieval, avoid Bash for search or Python snippets, treat the skill files as read-only, and still write `reports/.../report.json` if a tool request is denied.
+Each session also receives a short noninteractive tool contract: do not ask for approval, use WebSearch/WebFetch for web retrieval, avoid Bash for search or Python snippets, treat the skill files as read-only, and still write `reports/.../report.json` if a tool request is denied. If file creation still fails, the model is told to print only the report JSON so the wrapper can recover it.
 
 ## Output Contract
 

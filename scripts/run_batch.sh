@@ -58,7 +58,7 @@ fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 if [[ -z "$RUN_PERMISSION_MODE" ]]; then
   if [[ "$PROVIDER" == "openrouter" ]]; then
-    RUN_PERMISSION_MODE="default"
+    RUN_PERMISSION_MODE="acceptEdits"
   else
     RUN_PERMISSION_MODE="auto"
   fi
