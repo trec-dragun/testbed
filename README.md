@@ -92,6 +92,8 @@ For OpenRouter or Anthropic API-key runs, the harness uses `claude --bare --no-s
 
 Claude Code sessions default to `--effort high` for consistent reasoning depth across tested backbones. Override with `--effort low`, `--effort medium`, `--effort xhigh`, or `--effort max` only when intentionally running an ablation.
 
+For OpenRouter runs, the wrapper sets Claude Code's Anthropic-compatible model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use tools or may return no final output. Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs.
+
 ## Claude Code Permissions
 
 The launch scripts grant the tested skill only the tools needed inside the temporary session workspace:
@@ -174,6 +176,8 @@ runs/{run_id}/
   manifest.json
   topics/{topic_id}/
     claude_raw.json
+    claude_stderr.log
+    claude_exit_code.txt
     transcript_audit.json
     input.txt
     skill_report/

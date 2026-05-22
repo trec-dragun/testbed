@@ -74,11 +74,34 @@ TOPIC_DIR="$RUN_DIR/topics/$TOPIC_SAFE"
 if [[ -z "$RUN_JSONL" ]]; then
   RUN_JSONL="$RUN_DIR/dragun_task2.jsonl"
 fi
+CLAUDE_STDOUT="$TOPIC_DIR/claude_raw.json"
+CLAUDE_STDERR="$TOPIC_DIR/claude_stderr.log"
+CLAUDE_EXIT_CODE="$TOPIC_DIR/claude_exit_code.txt"
+CLAUDE_DEBUG_FILE="$TOPIC_DIR/claude_debug.log"
 
 if [[ "$OVERWRITE_TOPIC" == "1" && -d "$TOPIC_DIR" ]]; then
   rm -rf "$TOPIC_DIR"
 fi
 mkdir -p "$TOPIC_DIR"
+
+print_claude_diagnostics() {
+  echo "claude stdout tail: $CLAUDE_STDOUT" >&2
+  if [[ -s "$CLAUDE_STDOUT" ]]; then
+    tail -n 80 "$CLAUDE_STDOUT" >&2 || true
+  else
+    echo "(empty)" >&2
+  fi
+  echo "claude stderr tail: $CLAUDE_STDERR" >&2
+  if [[ -s "$CLAUDE_STDERR" ]]; then
+    tail -n 120 "$CLAUDE_STDERR" >&2 || true
+  else
+    echo "(empty)" >&2
+  fi
+  if [[ -s "$CLAUDE_DEBUG_FILE" ]]; then
+    echo "claude debug tail: $CLAUDE_DEBUG_FILE" >&2
+    tail -n 120 "$CLAUDE_DEBUG_FILE" >&2 || true
+  fi
+}
 
 SESSION_DIR="$(mktemp -d "${TMPDIR:-/tmp}/news-skill-session.XXXXXX")"
 cleanup() {
@@ -116,11 +139,16 @@ CLAUDE_ARGS=(
   --model "$MODEL"
   --effort "$CLAUDE_REASONING_EFFORT"
 )
+if [[ "${CLAUDE_DEBUG_LOG:-0}" == "1" ]]; then
+  CLAUDE_ARGS+=(--debug-file "$CLAUDE_DEBUG_FILE")
+fi
 if [[ -n "${ALLOWED_TOOLS:-}" ]]; then
   CLAUDE_ARGS+=(--allowed-tools "$ALLOWED_TOOLS")
 else
   CLAUDE_ARGS+=(--allowed-tools "${DEFAULT_ALLOWED_TOOLS[@]}")
 fi
+
+export CLAUDE_CODE_EFFORT_LEVEL="$CLAUDE_REASONING_EFFORT"
 
 if [[ "${CLAUDE_BARE:-auto}" == "1" || ( "${CLAUDE_BARE:-auto}" == "auto" && "$PROVIDER" == "openrouter" ) || ( "${CLAUDE_BARE:-auto}" == "auto" && -n "${ANTHROPIC_API_KEY:-}" ) ]]; then
   CLAUDE_ARGS=(--bare "${CLAUDE_ARGS[@]}")
@@ -136,6 +164,7 @@ if [[ "$PROVIDER" == "openrouter" ]]; then
   export ANTHROPIC_BASE_URL="${ANTHROPIC_BASE_URL:-https://openrouter.ai/api}"
   export ANTHROPIC_AUTH_TOKEN="${ANTHROPIC_AUTH_TOKEN:-$OPENROUTER_API_KEY}"
   export ANTHROPIC_API_KEY=""
+  export ANTHROPIC_MODEL="$MODEL"
   export ANTHROPIC_DEFAULT_OPUS_MODEL="$MODEL"
   export ANTHROPIC_DEFAULT_SONNET_MODEL="$MODEL"
   export ANTHROPIC_DEFAULT_HAIKU_MODEL="$MODEL"
@@ -145,13 +174,24 @@ elif [[ "$PROVIDER" != "anthropic" ]]; then
   exit 2
 fi
 
+set +e
 (
   cd "$SESSION_DIR/skill"
   claude "${CLAUDE_ARGS[@]}" "$(cat "$SESSION_DIR/prompt.txt")"
-) > "$TOPIC_DIR/claude_raw.json"
+) > "$CLAUDE_STDOUT" 2>"$CLAUDE_STDERR"
+CLAUDE_STATUS=$?
+set -e
+printf '%s\n' "$CLAUDE_STATUS" > "$CLAUDE_EXIT_CODE"
+if [[ "$CLAUDE_STATUS" -ne 0 ]]; then
+  KEEP_SESSION_DIR=1
+  echo "error: claude exited with status $CLAUDE_STATUS" >&2
+  echo "kept failed session dir: $SESSION_DIR" >&2
+  print_claude_diagnostics
+  exit "$CLAUDE_STATUS"
+fi
 
 python3 "$ROOT_DIR/scripts/audit_transcript.py" \
-  --raw "$TOPIC_DIR/claude_raw.json" \
+  --raw "$CLAUDE_STDOUT" \
   --topic-id "$TOPIC_ID" \
   --summary-out "$TOPIC_DIR/transcript_audit.json"
 
@@ -163,8 +203,7 @@ if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
   KEEP_SESSION_DIR=1
   echo "error: skill did not create reports/**/report.json" >&2
   echo "kept failed session dir: $SESSION_DIR" >&2
-  echo "claude output tail:" >&2
-  tail -n 80 "$TOPIC_DIR/claude_raw.json" >&2 || true
+  print_claude_diagnostics
   echo "session files:" >&2
   find "$SESSION_DIR/skill" -maxdepth 4 -type f | sort >&2 || true
   cat "$TOPIC_DIR/collect_report.stderr" >&2 || true
