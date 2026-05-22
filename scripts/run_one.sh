@@ -16,12 +16,12 @@ MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
 PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
 KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
 OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
+LOCK_SKILL_DIR="${LOCK_SKILL_DIR:-1}"
 DEFAULT_ALLOWED_TOOLS=(
   WebFetch
   WebSearch
   Read
   Write
-  Edit
   "Bash(mkdir -p reports*)"
   "Bash(python3 skills/*/scripts/render_report_html.py *)"
   "Bash(python skills/*/scripts/render_report_html.py *)"
@@ -122,6 +122,7 @@ SESSION_SYSTEM_PROMPT="$SESSION_DIR/session_system_prompt.md"
 SESSION_CLAUDE_DEBUG_FILE="$SESSION_DIR/claude_debug.log"
 cleanup() {
   if [[ "$KEEP_SESSION_DIR" != "1" ]]; then
+    chmod -R u+w "$SESSION_DIR" 2>/dev/null || true
     rm -rf "$SESSION_DIR"
   else
     echo "kept session dir: $SESSION_DIR" >&2
@@ -149,6 +150,12 @@ else
   RENDER_SCRIPT="$(find "$SESSION_DIR/skill" -path "*/scripts/render_report_html.py" -type f -print -quit)"
 fi
 
+if [[ "$LOCK_SKILL_DIR" == "1" ]]; then
+  mkdir -p "$SESSION_DIR/skill/reports"
+  chmod -R u-w "$SESSION_DIR/skill"
+  chmod u+w "$SESSION_DIR/skill/reports"
+fi
+
 cp "$TOPIC_DIR/input.txt" "$SESSION_DIR/prompt.txt"
 {
   cat "$SKILL_FILE"
@@ -159,7 +166,8 @@ cp "$TOPIC_DIR/input.txt" "$SESSION_DIR/prompt.txt"
 This is a noninteractive run. Do not ask the user for permission or approval.
 Use WebSearch and WebFetch for web search and retrieval. Do not use Bash for web access, search, directory discovery, reading files, or Python snippets.
 Use Bash only for the explicitly allowed local report commands: creating a reports folder, running the skill's report validator, and rendering report HTML with the skill's render script.
-Use relative paths under the current workspace, and write the required report artifacts under `reports/`.
+The skill files are read-only. Do not modify scripts, references, examples, schemas, or plugin files.
+Use relative paths under the current workspace, and write the required report artifacts only under `reports/`.
 If a tool request is denied, continue with the allowed tools and still produce `reports/.../report.json`.
 EOF
 } > "$SESSION_SYSTEM_PROMPT"

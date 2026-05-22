@@ -20,6 +20,7 @@ FORBIDDEN_RUN_ONE_SNIPPETS = [
     "Bash(curl *)",
     "Bash(python3 *)",
     "Bash(python *)",
+    "\n  Edit\n",
     "--json-schema",
     "/lateral-reading-skill:lateral-reading",
     "--debug-file \"$CLAUDE_DEBUG_FILE\"",
