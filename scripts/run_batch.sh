@@ -90,13 +90,16 @@ if [[ -d "$SKILL/.git" ]] && git -C "$SKILL" rev-parse --is-inside-work-tree >/d
 fi
 
 TOPIC_LIST="$RUN_DIR/topics.txt"
+TOPIC_MAP="$RUN_DIR/topic_map.jsonl"
 python3 "$ROOT_DIR/scripts/list_topics.py" --topics "$TOPICS" --limit "$LIMIT" > "$TOPIC_LIST"
+: > "$TOPIC_MAP"
 
 TOTAL="$(wc -l < "$TOPIC_LIST" | tr -d ' ')"
 CURRENT=0
 START_TS="$(date +%s)"
 while IFS= read -r TOPIC_ID; do
   CURRENT=$((CURRENT + 1))
+  TOPIC_ALIAS="$(printf 'article_%03d' "$CURRENT")"
   ARTICLE_START_TS="$(date +%s)"
   ELAPSED=$((ARTICLE_START_TS - START_TS))
   if [[ "$CURRENT" -gt 1 ]]; then
@@ -112,12 +115,21 @@ while IFS= read -r TOPIC_ID; do
   "$ROOT_DIR/scripts/run_one.sh" \
     --topics "$TOPICS" \
     --topic-id "$TOPIC_ID" \
+    --topic-alias "$TOPIC_ALIAS" \
     --skill "$SKILL" \
     --model "$MODEL" \
     --provider "$PROVIDER" \
     --effort "$CLAUDE_REASONING_EFFORT" \
     --run-id "$RUN_ID" \
     --run-jsonl "$RUN_JSONL"
+  python3 - "$TOPIC_MAP" "$TOPIC_ALIAS" "$TOPIC_ID" <<'PY'
+import json
+import sys
+
+path, alias, topic_id = sys.argv[1:]
+with open(path, "a", encoding="utf-8") as handle:
+    handle.write(json.dumps({"alias": alias, "topic_id": topic_id}, ensure_ascii=False) + "\n")
+PY
   ARTICLE_END_TS="$(date +%s)"
   ARTICLE_SECONDS=$((ARTICLE_END_TS - ARTICLE_START_TS))
   ELAPSED=$((ARTICLE_END_TS - START_TS))
@@ -142,6 +154,7 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "skill_commit": "$SKILL_COMMIT",
   "skill_file": "$SKILL_FILE",
   "topics": "$TOPICS",
+  "topic_map": "$TOPIC_MAP",
   "run_jsonl": "$RUN_JSONL",
   "reports_dir": "$ROOT_DIR/reports/$RUN_SAFE",
   "topic_id_hidden_from_model": true,

@@ -84,7 +84,7 @@ Heading: ...
 Article body...
 ```
 
-The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. It adds `metadata.topic_id` only after collecting the skill's `report.json`.
+The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. Claude-facing artifact paths use anonymous aliases such as `article_001`; the private `runs/{run_id}/topic_map.jsonl` maps aliases back to topic IDs after generation. The wrapper adds `metadata.topic_id` only after collecting the skill's `report.json`.
 
 Before a batch starts, `scripts/run_batch.sh` runs `scripts/audit_session_exposure.py --skill ...`. This fails fast if the session launcher, default tool allowlist, or selected skill repo contains explicit evaluation identifiers such as DRAGUN, TREC, AutoJudge, human rubric paths, MS MARCO topic IDs, or similar leakage terms.
 
@@ -178,11 +178,13 @@ After a full launch, expect:
 runs/{run_id}/
   dragun_task2.jsonl
   manifest.json
-  topics/{topic_id}/
+  topic_map.jsonl
+  topics/article_001/
     claude_raw.json
     claude_stderr.log
     claude_exit_code.txt
     transcript_audit.json
+    debug_audit.json
     input.txt
     skill_report/
       target.txt
@@ -193,7 +195,7 @@ runs/{run_id}/
     dragun.json
 
 data/runs/report_generation_runs/{run_id}
-reports/{run_id}/{topic_id}/report.html
+reports/{run_id}/article_001/report.html
 ```
 
 The `data/runs/report_generation_runs/{run_id}` file is the AutoJudge input.

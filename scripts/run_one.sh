@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 TOPICS="$ROOT_DIR/data/trec-2025-dragun-topics.jsonl"
 TOPIC_ID=""
+TOPIC_ALIAS=""
 SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
@@ -35,6 +36,7 @@ usage: scripts/run_one.sh --topic-id ID [options]
 Options:
   --topics PATH          topics JSONL
   --skill PATH           Skill repo to test
+  --topic-alias NAME     Anonymous artifact folder name for this topic
   --model MODEL          Claude Code model or OpenRouter model name
   --provider NAME        anthropic or openrouter
   --effort EFFORT        Claude Code reasoning effort (default: high)
@@ -47,6 +49,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --topics) TOPICS="$2"; shift 2 ;;
     --topic-id) TOPIC_ID="$2"; shift 2 ;;
+    --topic-alias) TOPIC_ALIAS="$2"; shift 2 ;;
     --skill) SKILL="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
@@ -76,8 +79,12 @@ fi
 
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 TOPIC_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$TOPIC_ID")"
+if [[ -z "$TOPIC_ALIAS" ]]; then
+  TOPIC_ALIAS="$(python3 -c 'import hashlib, sys; print("topic_" + hashlib.sha256(sys.argv[1].encode()).hexdigest()[:12])' "$TOPIC_ID")"
+fi
+TOPIC_ARTIFACT_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$TOPIC_ALIAS")"
 RUN_DIR="$ROOT_DIR/runs/$RUN_SAFE"
-TOPIC_DIR="$RUN_DIR/topics/$TOPIC_SAFE"
+TOPIC_DIR="$RUN_DIR/topics/$TOPIC_ARTIFACT_SAFE"
 if [[ -z "$RUN_JSONL" ]]; then
   RUN_JSONL="$RUN_DIR/dragun_task2.jsonl"
 fi
@@ -231,11 +238,17 @@ python3 "$ROOT_DIR/scripts/audit_transcript.py" \
   --raw "$CLAUDE_STDOUT" \
   --topic-id "$TOPIC_ID" \
   --summary-out "$TOPIC_DIR/transcript_audit.json"
+if [[ -s "$CLAUDE_DEBUG_FILE" ]]; then
+  python3 "$ROOT_DIR/scripts/audit_transcript.py" \
+    --raw "$CLAUDE_DEBUG_FILE" \
+    --topic-id "$TOPIC_ID" \
+    --summary-out "$TOPIC_DIR/debug_audit.json"
+fi
 
 if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
   --search-dir "$SESSION_DIR/skill" \
   --topic-dir "$TOPIC_DIR" \
-  --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_SAFE" \
+  --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_ARTIFACT_SAFE" \
   --fallback-raw "$CLAUDE_STDOUT" \
   --target-text "$TOPIC_DIR/input.txt" \
   --render-script "$RENDER_SCRIPT" \
