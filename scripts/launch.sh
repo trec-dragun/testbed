@@ -7,6 +7,7 @@ SKILL_REPO="${SKILL_REPO:-https://github.com/trec-dragun/lateral-reading-skill.g
 SKILL_PATH=""
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
+CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_ID="${RUN_ID:-}"
 BOOTSTRAP=1
 OVERWRITE=0
@@ -24,6 +25,7 @@ Options:
   --skill PATH           Existing local skill repo
   --model MODEL          Claude Code model or OpenRouter model name
   --provider NAME        anthropic or openrouter
+  --effort EFFORT        Claude Code reasoning effort (default: high)
   --run-id ID            Output run ID
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
@@ -38,6 +40,7 @@ while [[ $# -gt 0 ]]; do
     --skill) SKILL_PATH="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
+    --effort) CLAUDE_REASONING_EFFORT="$2"; shift 2 ;;
     --run-id) RUN_ID="$2"; shift 2 ;;
     --limit) LIMIT="$2"; shift 2 ;;
     --overwrite) OVERWRITE=1; shift ;;
@@ -60,6 +63,7 @@ BATCH_ARGS=(
   --skill "$SKILL_PATH"
   --model "$MODEL"
   --provider "$PROVIDER"
+  --effort "$CLAUDE_REASONING_EFFORT"
   --limit "$LIMIT"
 )
 if [[ -n "$RUN_ID" ]]; then

@@ -6,6 +6,7 @@ the Task 2 report-evaluation behavior, with minimal changes:
 
 - endpoint, model, and API key are CLI/env configurable
 - OpenRouter's /api/v1 endpoint works without editing source code
+- OpenRouter reasoning effort defaults to high for consistent judging
 - optional --run-tags filters target runs while keeping organizer few-shot runs
 """
 
@@ -60,22 +61,31 @@ def call_llm(
     system_prompt: str,
     user_input: str,
     response_schema: dict,
+    reasoning_effort: str,
 ) -> tuple[str, str]:
-    response = client.chat.completions.create(
-        model=model,
-        messages=[
+    request: dict[str, Any] = {
+        "model": model,
+        "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_input},
         ],
-        response_format={
+        "response_format": {
             "type": "json_schema",
             "json_schema": {"name": "assessments", "schema": response_schema},
         },
-        temperature=0,
-        top_p=1,
-    )
+        "temperature": 0,
+        "top_p": 1,
+    }
+    if reasoning_effort:
+        request["extra_body"] = {"reasoning": {"effort": reasoning_effort}}
+
+    response = client.chat.completions.create(**request)
     message = response.choices[0].message
-    reasoning = getattr(message, "reasoning_content", "") or ""
+    reasoning = (
+        getattr(message, "reasoning", None)
+        or getattr(message, "reasoning_content", None)
+        or ""
+    )
     content = message.content or ""
     if not isinstance(content, str):
         content = json.dumps(content, ensure_ascii=False)
@@ -162,6 +172,7 @@ def run_auto_report_evaluation(
     output_folder: Path,
     client: Any,
     model: str,
+    reasoning_effort: str,
     run_tags: set[str] | None,
 ) -> None:
     system_prompt = (SCRIPT_DIR / "system_prompts" / "report_judge.txt").read_text(encoding="utf-8")
@@ -215,7 +226,14 @@ def run_auto_report_evaluation(
             "or has no relation (none) to each short answer in the rubric.\n\n"
             f"{json.dumps(report_text, ensure_ascii=False, indent=2)}\n\n"
         )
-        _reasoning, content = call_llm(client, model, system_prompt, user_input, schema)
+        _reasoning, content = call_llm(
+            client,
+            model,
+            system_prompt,
+            user_input,
+            schema,
+            reasoning_effort,
+        )
         result = ReportAssessments.model_validate_json(content)
         for assessment in result.assessments:
             outputs.append(
@@ -239,6 +257,12 @@ def main() -> int:
     parser.add_argument("--output_folder_path", required=True, type=Path)
     parser.add_argument("--base-url", default=os.environ.get("JUDGE_BASE_URL", "https://openrouter.ai/api/v1"))
     parser.add_argument("--model", default=os.environ.get("JUDGE_MODEL", "openai/gpt-oss-120b"))
+    parser.add_argument(
+        "--reasoning-effort",
+        default=os.environ.get("JUDGE_REASONING_EFFORT", "high"),
+        choices=["off", "none", "minimal", "low", "medium", "high", "xhigh"],
+        help="OpenRouter reasoning effort. Use off to omit the OpenRouter reasoning field.",
+    )
     parser.add_argument("--api-key-env", default=os.environ.get("JUDGE_API_KEY_ENV", "OPENROUTER_API_KEY"))
     parser.add_argument("--api-key", default=None)
     parser.add_argument("--run-tags", nargs="*", help="Evaluate only these non-organizer run tags")
@@ -254,6 +278,7 @@ def main() -> int:
         output_folder=args.output_folder_path,
         client=client,
         model=args.model,
+        reasoning_effort="" if args.reasoning_effort == "off" else args.reasoning_effort,
         run_tags=run_tags,
     )
     return 0

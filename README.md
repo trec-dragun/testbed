@@ -90,6 +90,8 @@ Before a batch starts, `scripts/run_batch.sh` runs `scripts/audit_session_exposu
 
 For OpenRouter or Anthropic API-key runs, the harness uses `claude --bare --no-session-persistence`, which disables auto memory and session persistence. For a normal Claude Code subscription account, Claude Code currently cannot use `--bare` because bare mode does not read OAuth/keychain credentials; the harness then uses a fresh temp workspace plus `--no-session-persistence --setting-sources project`.
 
+Claude Code sessions default to `--effort high` for consistent reasoning depth across tested backbones. Override with `--effort low`, `--effort medium`, `--effort xhigh`, or `--effort max` only when intentionally running an ablation.
+
 ## Claude Code Permissions
 
 The launch scripts grant the tested skill only the tools needed inside the temporary session workspace:
@@ -191,6 +193,8 @@ The `data/runs/report_generation_runs/{run_id}` file is the AutoJudge input.
 ## AutoJudge
 
 This repo includes `autojudge/auto_judge_openrouter.py`, derived from `trec-dragun/resources`. The modification is deliberately small: the report judge endpoint, model, and API key are configurable for OpenRouter or any OpenAI-compatible service.
+
+OpenRouter AutoJudge calls default to `reasoning.effort=high`, passed through the OpenAI SDK as `extra_body={"reasoning": {"effort": "high"}}`. Override with `--judge-reasoning-effort` or `JUDGE_REASONING_EFFORT`; use `--judge-reasoning-effort off` if the judge endpoint does not support OpenRouter's reasoning field.
 
 Score a completed run:
 

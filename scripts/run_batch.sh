@@ -7,6 +7,7 @@ TOPICS="$ROOT_DIR/data/trec-2025-dragun-topics.jsonl"
 SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
+CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
@@ -28,6 +29,7 @@ Options:
   --skill PATH           Skill repo to test
   --model MODEL          Claude Code model or OpenRouter model name
   --provider NAME        anthropic or openrouter
+  --effort EFFORT        Claude Code reasoning effort (default: high)
   --run-id ID            Output run ID
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
@@ -40,6 +42,7 @@ while [[ $# -gt 0 ]]; do
     --skill) SKILL="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
+    --effort) CLAUDE_REASONING_EFFORT="$2"; shift 2 ;;
     --run-id) RUN_ID="$2"; shift 2 ;;
     --limit) LIMIT="$2"; shift 2 ;;
     --overwrite) OVERWRITE=1; shift ;;
@@ -99,6 +102,7 @@ while IFS= read -r TOPIC_ID; do
     --skill "$SKILL" \
     --model "$MODEL" \
     --provider "$PROVIDER" \
+    --effort "$CLAUDE_REASONING_EFFORT" \
     --run-id "$RUN_ID" \
     --run-jsonl "$RUN_JSONL"
   ARTICLE_END_TS="$(date +%s)"
@@ -119,6 +123,7 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "run_id": "$RUN_ID",
   "model": "$MODEL",
   "provider": "$PROVIDER",
+  "claude_reasoning_effort": "$CLAUDE_REASONING_EFFORT",
   "skill": "$SKILL",
   "skill_commit": "$SKILL_COMMIT",
   "skill_file": "$SKILL_FILE",

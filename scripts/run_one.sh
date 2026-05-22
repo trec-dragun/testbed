@@ -8,6 +8,7 @@ TOPIC_ID=""
 SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
+CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_ID="${RUN_ID:-}"
 RUN_JSONL=""
 MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
@@ -36,6 +37,7 @@ Options:
   --skill PATH           Skill repo to test
   --model MODEL          Claude Code model or OpenRouter model name
   --provider NAME        anthropic or openrouter
+  --effort EFFORT        Claude Code reasoning effort (default: high)
   --run-id ID            Output run ID
   --run-jsonl PATH       aggregate evaluation JSONL path to append
 EOF
@@ -48,6 +50,7 @@ while [[ $# -gt 0 ]]; do
     --skill) SKILL="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
+    --effort) CLAUDE_REASONING_EFFORT="$2"; shift 2 ;;
     --run-id) RUN_ID="$2"; shift 2 ;;
     --run-jsonl) RUN_JSONL="$2"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
@@ -111,6 +114,7 @@ CLAUDE_ARGS=(
   --permission-mode "$PERMISSION_MODE"
   --max-budget-usd "$MAX_BUDGET_USD"
   --model "$MODEL"
+  --effort "$CLAUDE_REASONING_EFFORT"
 )
 if [[ -n "${ALLOWED_TOOLS:-}" ]]; then
   CLAUDE_ARGS+=(--allowed-tools "$ALLOWED_TOOLS")
