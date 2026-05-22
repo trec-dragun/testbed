@@ -91,8 +91,10 @@ fi
 
 TOPIC_LIST="$RUN_DIR/topics.txt"
 TOPIC_MAP="$RUN_DIR/topic_map.jsonl"
+PRIVATE_TOPIC_DIR="$RUN_DIR/private_topic_ids"
 python3 "$ROOT_DIR/scripts/list_topics.py" --topics "$TOPICS" --limit "$LIMIT" > "$TOPIC_LIST"
 : > "$TOPIC_MAP"
+mkdir -p "$PRIVATE_TOPIC_DIR"
 
 TOTAL="$(wc -l < "$TOPIC_LIST" | tr -d ' ')"
 CURRENT=0
@@ -111,10 +113,12 @@ while IFS= read -r TOPIC_ID; do
   else
     ETA_TEXT="estimating"
   fi
-  echo "[$CURRENT/$TOTAL] start $TOPIC_ID | elapsed $(format_duration "$ELAPSED") | eta $ETA_TEXT"
+  TOPIC_ID_FILE="$PRIVATE_TOPIC_DIR/$TOPIC_ALIAS.txt"
+  printf '%s\n' "$TOPIC_ID" > "$TOPIC_ID_FILE"
+  echo "[$CURRENT/$TOTAL] start $TOPIC_ALIAS | elapsed $(format_duration "$ELAPSED") | eta $ETA_TEXT"
   "$ROOT_DIR/scripts/run_one.sh" \
     --topics "$TOPICS" \
-    --topic-id "$TOPIC_ID" \
+    --topic-id-file "$TOPIC_ID_FILE" \
     --topic-alias "$TOPIC_ALIAS" \
     --skill "$SKILL" \
     --model "$MODEL" \
@@ -137,7 +141,7 @@ PY
   AVG=$((ELAPSED / COMPLETED))
   REMAINING=$((TOTAL - CURRENT))
   ETA=$((AVG * REMAINING))
-  echo "[$CURRENT/$TOTAL] done  $TOPIC_ID | article $(format_duration "$ARTICLE_SECONDS") | elapsed $(format_duration "$ELAPSED") | eta $(format_duration "$ETA")"
+  echo "[$CURRENT/$TOTAL] done  $TOPIC_ALIAS | article $(format_duration "$ARTICLE_SECONDS") | elapsed $(format_duration "$ELAPSED") | eta $(format_duration "$ETA")"
 done < "$TOPIC_LIST"
 
 mkdir -p "$ROOT_DIR/data/runs/report_generation_runs"

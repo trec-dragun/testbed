@@ -28,6 +28,51 @@ def copy_report_dir(source: Path, destination: Path) -> None:
     shutil.copytree(source, destination)
 
 
+def render_report(
+    *,
+    report_dir: Path,
+    target_text: Path | None,
+    render_script: Path | None,
+) -> None:
+    target_path = report_dir / "target.txt"
+    report_json = report_dir / "report.json"
+    report_html = report_dir / "report.html"
+
+    if not target_path.exists():
+        if target_text and target_text.exists():
+            shutil.copy2(target_text, target_path)
+        else:
+            target_path.write_text("", encoding="utf-8")
+
+    if report_html.exists():
+        return
+
+    if render_script and render_script.is_file():
+        subprocess.run(
+            [
+                "python3",
+                str(render_script),
+                "--input",
+                str(target_path),
+                "--report",
+                str(report_json),
+                "--out",
+                str(report_html),
+            ],
+            check=True,
+            stdout=subprocess.DEVNULL,
+        )
+    else:
+        report = json.loads(report_json.read_text(encoding="utf-8"))
+        report_html.write_text(
+            "<!doctype html><meta charset=\"utf-8\"><title>Report</title>"
+            "<pre id=\"report\"></pre><script>"
+            f"document.getElementById('report').textContent = {json.dumps(json.dumps(report, ensure_ascii=False, indent=2))};"
+            "</script>\n",
+            encoding="utf-8",
+        )
+
+
 def normalize_report(candidate: Any) -> dict[str, Any] | None:
     if not isinstance(candidate, dict):
         return None
@@ -89,31 +134,7 @@ def write_fallback_report(
 
     report_json = topic_report_dir / "report.json"
     report_json.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
-    report_html = topic_report_dir / "report.html"
-    if render_script and render_script.is_file():
-        subprocess.run(
-            [
-                "python3",
-                str(render_script),
-                "--input",
-                str(topic_report_dir / "target.txt"),
-                "--report",
-                str(report_json),
-                "--out",
-                str(report_html),
-            ],
-            check=True,
-            stdout=subprocess.DEVNULL,
-        )
-    else:
-        report_html.write_text(
-            "<!doctype html><meta charset=\"utf-8\"><title>Report</title>"
-            "<pre id=\"report\"></pre><script>"
-            f"document.getElementById('report').textContent = {json.dumps(json.dumps(report, ensure_ascii=False, indent=2))};"
-            "</script>\n",
-            encoding="utf-8",
-        )
+    render_report(report_dir=topic_report_dir, target_text=target_text, render_script=render_script)
 
 
 def main() -> int:
@@ -133,6 +154,7 @@ def main() -> int:
 
     if report_json:
         report_dir = report_json.parent
+        render_report(report_dir=report_dir, target_text=args.target_text, render_script=args.render_script)
         copy_report_dir(report_dir, topic_report_dir)
     else:
         report = report_from_raw(args.fallback_raw) if args.fallback_raw else None

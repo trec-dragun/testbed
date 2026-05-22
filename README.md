@@ -84,7 +84,7 @@ Heading: ...
 Article body...
 ```
 
-The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. Claude-facing artifact paths use anonymous aliases such as `article_001`; the private `runs/{run_id}/topic_map.jsonl` maps aliases back to topic IDs after generation. The wrapper adds `metadata.topic_id` only after collecting the skill's `report.json`.
+The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. Claude-facing artifact paths and progress logs use anonymous aliases such as `article_001`; the private `runs/{run_id}/topic_map.jsonl` maps aliases back to topic IDs after generation. The wrapper adds `metadata.topic_id` only after collecting the skill's `report.json`.
 
 Before a batch starts, `scripts/run_batch.sh` runs `scripts/audit_session_exposure.py --skill ...`. This fails fast if the session launcher, default tool allowlist, or selected skill repo contains explicit evaluation identifiers such as DRAGUN, TREC, AutoJudge, human rubric paths, MS MARCO topic IDs, or similar leakage terms.
 
@@ -100,24 +100,20 @@ The launch scripts grant the tested skill only the tools needed inside the tempo
 
 - `WebFetch`
 - `WebSearch`
-- `Read`
 - `Write`
-- `Bash(mkdir -p reports*)`
-- `Bash(python3 skills/*/scripts/render_report_html.py *)`
-- `Bash(python skills/*/scripts/render_report_html.py *)`
-- `Bash(python3 skills/*/scripts/validate_report.py *)`
-- `Bash(python skills/*/scripts/validate_report.py *)`
 
 Claude Code runs from a fresh writable `work/` directory. The copied skill tree is mounted into that workspace through read-only `skills/` and `schemas/` links, while output is collected only from `work/reports/`. This prevents weaker backbones from editing validators, examples, schemas, references, or helper scripts while still allowing the expected report artifacts to be created. Set `LOCK_SKILL_DIR=0` only when debugging a custom skill that genuinely needs to modify its own files during generation.
 
-This avoids generic `python`, `curl`, `Edit`, or shell access that could inspect files outside the session or mutate the skill under test. Anthropic runs default to permission mode `auto`; OpenRouter runs default to `acceptEdits` because Claude Code's auto-mode classifier is another model call and some OpenRouter endpoints reject its classifier request shape. The explicit `--allowed-tools` list still pre-approves the fetch, file write, folder creation, and render actions the skill needs. Override only if you understand the leakage risk:
+The runner also explicitly disallows `Bash`, `Read`, and `Edit` by default. The wrapper, not the tested model, validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
+
+This avoids generic `python`, `curl`, `Read`, `Edit`, or shell access that could inspect files outside the session or mutate the skill under test. Anthropic runs default to permission mode `auto`; OpenRouter runs default to `acceptEdits` because Claude Code's auto-mode classifier is another model call and some OpenRouter endpoints reject its classifier request shape. The explicit `--allowed-tools` list still pre-approves the fetch and file write actions the skill needs. Override only if you understand the leakage risk:
 
 ```bash
 export CLAUDE_PERMISSION_MODE=auto
-export ALLOWED_TOOLS="WebFetch,WebSearch,Read,Write,Bash(mkdir -p reports*)"
+export ALLOWED_TOOLS="WebFetch,WebSearch,Write"
 ```
 
-Each session also receives a short noninteractive tool contract: do not ask for approval, use WebSearch/WebFetch for web retrieval, avoid Bash for search or Python snippets, treat the skill files as read-only, and still write `reports/.../report.json` if a tool request is denied. If file creation still fails, the model is told to print only the report JSON so the wrapper can recover it.
+Each session also receives a short noninteractive tool contract: do not ask for approval, use WebSearch/WebFetch for web retrieval, do not use Bash or Read, treat the skill files as read-only, and still write `reports/.../report.json` if a tool request is denied. If file creation still fails, the model is told to print only the report JSON so the wrapper can recover it.
 
 ## Output Contract
 
@@ -179,6 +175,7 @@ After a full launch, expect:
 runs/{run_id}/
   dragun_task2.jsonl
   manifest.json
+  private_topic_ids/
   topic_map.jsonl
   topics/article_001/
     claude_raw.json

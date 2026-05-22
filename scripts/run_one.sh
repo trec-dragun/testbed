@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 TOPICS="$ROOT_DIR/data/trec-2025-dragun-topics.jsonl"
 TOPIC_ID=""
+TOPIC_ID_FILE=""
 TOPIC_ALIAS=""
 SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
 MODEL="${MODEL:-sonnet}"
@@ -20,13 +21,12 @@ LOCK_SKILL_DIR="${LOCK_SKILL_DIR:-1}"
 DEFAULT_ALLOWED_TOOLS=(
   WebFetch
   WebSearch
-  Read
   Write
-  "Bash(mkdir -p reports*)"
-  "Bash(python3 skills/*/scripts/render_report_html.py *)"
-  "Bash(python skills/*/scripts/render_report_html.py *)"
-  "Bash(python3 skills/*/scripts/validate_report.py *)"
-  "Bash(python skills/*/scripts/validate_report.py *)"
+)
+DEFAULT_DISALLOWED_TOOLS=(
+  Bash
+  Edit
+  Read
 )
 
 usage() {
@@ -37,6 +37,7 @@ Options:
   --topics PATH          topics JSONL
   --skill PATH           Skill repo to test
   --topic-alias NAME     Anonymous artifact folder name for this topic
+  --topic-id-file PATH   Read the topic ID from a private file instead of argv
   --model MODEL          Claude Code model or OpenRouter model name
   --provider NAME        anthropic or openrouter
   --effort EFFORT        Claude Code reasoning effort (default: high)
@@ -49,6 +50,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --topics) TOPICS="$2"; shift 2 ;;
     --topic-id) TOPIC_ID="$2"; shift 2 ;;
+    --topic-id-file) TOPIC_ID_FILE="$2"; shift 2 ;;
     --topic-alias) TOPIC_ALIAS="$2"; shift 2 ;;
     --skill) SKILL="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
@@ -61,6 +63,9 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [[ -z "$TOPIC_ID" && -n "$TOPIC_ID_FILE" ]]; then
+  TOPIC_ID="$(<"$TOPIC_ID_FILE")"
+fi
 if [[ -z "$TOPIC_ID" ]]; then
   echo "error: --topic-id is required" >&2
   exit 2
@@ -78,7 +83,6 @@ if [[ -z "$PERMISSION_MODE" ]]; then
 fi
 
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
-TOPIC_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$TOPIC_ID")"
 if [[ -z "$TOPIC_ALIAS" ]]; then
   TOPIC_ALIAS="$(python3 -c 'import hashlib, sys; print("topic_" + hashlib.sha256(sys.argv[1].encode()).hexdigest()[:12])' "$TOPIC_ID")"
 fi
@@ -170,8 +174,8 @@ cp "$TOPIC_DIR/input.txt" "$SESSION_DIR/prompt.txt"
 ## Noninteractive Session Constraints
 
 This is a noninteractive run. Do not ask the user for permission or approval.
-Use WebSearch and WebFetch for web search and retrieval. Do not use Bash for web access, search, directory discovery, reading files, or Python snippets.
-Use Bash only for the explicitly allowed local report commands: creating a reports folder, running the skill's report validator, and rendering report HTML with the skill's render script.
+Use WebSearch and WebFetch for web search and retrieval. Do not use Bash, Read, directory discovery, or Python snippets.
+The wrapper will validate `report.json` and render `report.html` with the skill's render script after this session ends.
 The linked skill files under `skills/` and `schemas/` are read-only. Do not modify scripts, references, examples, schemas, or plugin files.
 Use relative paths under the current workspace, and write the required report artifacts only under `reports/`.
 Do not probe or test filesystem permissions; assume `reports/` is writable and skill files are read-only.
@@ -197,6 +201,11 @@ if [[ -n "${ALLOWED_TOOLS:-}" ]]; then
   CLAUDE_ARGS+=(--allowed-tools "$ALLOWED_TOOLS")
 else
   CLAUDE_ARGS+=(--allowed-tools "${DEFAULT_ALLOWED_TOOLS[@]}")
+fi
+if [[ -n "${DISALLOWED_TOOLS:-}" ]]; then
+  CLAUDE_ARGS+=(--disallowed-tools "$DISALLOWED_TOOLS")
+else
+  CLAUDE_ARGS+=(--disallowed-tools "${DEFAULT_DISALLOWED_TOOLS[@]}")
 fi
 
 export CLAUDE_CODE_EFFORT_LEVEL="$CLAUDE_REASONING_EFFORT"
@@ -250,15 +259,27 @@ if [[ "$CLAUDE_STATUS" -ne 0 ]]; then
   exit "$CLAUDE_STATUS"
 fi
 
-python3 "$ROOT_DIR/scripts/audit_transcript.py" \
+if ! python3 "$ROOT_DIR/scripts/audit_transcript.py" \
   --raw "$CLAUDE_STDOUT" \
   --topic-id "$TOPIC_ID" \
-  --summary-out "$TOPIC_DIR/transcript_audit.json"
+  --summary-out "$TOPIC_DIR/transcript_audit.json"; then
+  KEEP_SESSION_DIR=1
+  echo "error: claude output exposed a hidden evaluation artifact" >&2
+  echo "kept failed session dir: $SESSION_DIR" >&2
+  print_claude_diagnostics
+  exit 1
+fi
 if [[ -s "$CLAUDE_DEBUG_FILE" ]]; then
-  python3 "$ROOT_DIR/scripts/audit_transcript.py" \
+  if ! python3 "$ROOT_DIR/scripts/audit_transcript.py" \
     --raw "$CLAUDE_DEBUG_FILE" \
     --topic-id "$TOPIC_ID" \
-    --summary-out "$TOPIC_DIR/debug_audit.json"
+    --summary-out "$TOPIC_DIR/debug_audit.json"; then
+    KEEP_SESSION_DIR=1
+    echo "error: claude debug log exposed a hidden evaluation artifact" >&2
+    echo "kept failed session dir: $SESSION_DIR" >&2
+    print_claude_diagnostics
+    exit 1
+  fi
 fi
 
 if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \

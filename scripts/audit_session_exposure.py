@@ -17,14 +17,11 @@ FORBIDDEN_VISIBLE_RE = re.compile(
 )
 FORBIDDEN_RUN_ONE_SNIPPETS = [
     "dragun-skill-session",
-    "Bash(curl *)",
-    "Bash(python3 *)",
-    "Bash(python *)",
-    "\n  Edit\n",
     "--json-schema",
     "/lateral-reading-skill:lateral-reading",
     "--debug-file \"$CLAUDE_DEBUG_FILE\"",
 ]
+FORBIDDEN_DEFAULT_ALLOWED_TOOLS = ("Read", "Edit", "Bash(")
 
 
 def scan_run_one() -> list[str]:
@@ -34,6 +31,14 @@ def scan_run_one() -> list[str]:
     for snippet in FORBIDDEN_RUN_ONE_SNIPPETS:
         if snippet in text:
             issues.append(f"{path}: forbidden session exposure or broad tool permission: {snippet}")
+    match = re.search(r"DEFAULT_ALLOWED_TOOLS=\(\n(?P<body>.*?)\n\)", text, re.DOTALL)
+    if not match:
+        issues.append(f"{path}: could not find DEFAULT_ALLOWED_TOOLS")
+        return issues
+    allowed_tools = match.group("body")
+    for forbidden in FORBIDDEN_DEFAULT_ALLOWED_TOOLS:
+        if forbidden in allowed_tools:
+            issues.append(f"{path}: forbidden default allowed tool: {forbidden}")
     return issues
 
 
