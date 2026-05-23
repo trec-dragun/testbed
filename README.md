@@ -86,10 +86,12 @@ Setup output is intentionally concise. Routine `pip`, `git pull`, and download d
 
 The model is never launched from this repo. For each article, `scripts/run_one.sh` creates a fresh temporary workspace, copies the skill repo into it, and runs Claude Code from that temporary `work/` directory.
 
-The user prompt has exactly one skill invocation followed by the plaintext article:
+The user prompt has one skill invocation, one generic artifact-writing instruction, and then the plaintext article:
 
 ```text
 /lateral-reading-skill:lateral-reading
+
+Create the skill output files under reports/. At minimum, write target.txt and report.json to disk. Do not print report.json or report.html in chat.
 
 Title: ...
 URL: ...
@@ -98,7 +100,7 @@ Heading: ...
 Article body...
 ```
 
-The slash command is resolved from `.claude-plugin/plugin.json` plus `skills/*/SKILL.md`, or set explicitly with `--skill-command`. The article text itself contains no `docid`.
+The slash command is resolved from `.claude-plugin/plugin.json` plus `skills/*/SKILL.md`, or set explicitly with `--skill-command`. The article text itself contains no `docid`. The generic artifact instruction is needed because noninteractive `claude --print` sessions may otherwise return the report in stdout instead of writing the skill's files.
 
 The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. Claude-facing artifact paths and progress logs use anonymous aliases such as `article_001`; the private `runs/{run_id}/topic_map.jsonl` maps aliases back to topic IDs after generation. The wrapper adds `metadata.topic_id` only after collecting the skill's `report.json`.
 
