@@ -96,8 +96,6 @@ For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenR
 
 OpenRouter generation runs default to `OPENROUTER_SERVICE_TIER=flex` for lower cost when the upstream supports service tiers. Claude Code does not expose OpenRouter's top-level `service_tier` request field, so the runner starts a local per-session proxy that injects it before forwarding to OpenRouter. Set `OPENROUTER_SERVICE_TIER=off` to disable, or `OPENROUTER_SERVICE_TIER=priority` to request priority.
 
-If Claude Code exits successfully but produces neither `reports/**/report.json` nor a valid JSON object in stdout, OpenRouter runs default to one direct JSON fallback call with the same model, article input, and compact skill instructions. This is controlled by `OPENROUTER_DIRECT_FALLBACK=1`; set `OPENROUTER_DIRECT_FALLBACK=0` to treat no-output tool-loop failures as hard failures instead. Fallback artifacts are written as `direct_openrouter_raw.json`, `direct_openrouter.stderr`, and a normal rendered `skill_report/` folder, so these cases remain auditable.
-
 Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs. The debug file path given to Claude Code is inside the anonymous temporary session and copied back afterward, so hidden topic IDs are not exposed through debug CLI arguments. Set `OPENROUTER_PREFLIGHT=0` only if you need to skip the key check.
 
 ## Claude Code Permissions

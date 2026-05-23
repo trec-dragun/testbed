@@ -20,7 +20,6 @@ KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
 OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
 LOCK_SKILL_DIR="${LOCK_SKILL_DIR:-1}"
 OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-flex}"
-OPENROUTER_DIRECT_FALLBACK="${OPENROUTER_DIRECT_FALLBACK:-1}"
 OPENROUTER_PROXY_PID=""
 DEFAULT_ALLOWED_TOOLS=(
   WebFetch
@@ -134,22 +133,6 @@ collect_report() {
     --target-text "$TOPIC_DIR/input.txt" \
     --render-script "$RENDER_SCRIPT" \
     --summary-out "$TOPIC_DIR/skill_report_summary.json"
-}
-
-run_direct_openrouter_fallback() {
-  if [[ "$PROVIDER" != "openrouter" || "$OPENROUTER_DIRECT_FALLBACK" == "0" || "$OPENROUTER_DIRECT_FALLBACK" == "off" ]]; then
-    return 1
-  fi
-  echo "Claude Code produced no report; trying direct OpenRouter JSON fallback..." >&2
-  python3 "$ROOT_DIR/scripts/openrouter_direct_report.py" \
-    --model "$MODEL" \
-    --input "$TOPIC_DIR/input.txt" \
-    --skill-file "$SKILL_FILE" \
-    --out "$SESSION_WORK_DIR/reports/direct-openrouter-fallback/report.json" \
-    --raw-out "$TOPIC_DIR/direct_openrouter_raw.json" \
-    --reasoning-effort "$CLAUDE_REASONING_EFFORT" \
-    --service-tier "$OPENROUTER_SERVICE_TIER" \
-    2>"$TOPIC_DIR/direct_openrouter.stderr"
 }
 
 SESSION_DIR="$(mktemp -d "${TMPDIR:-/tmp}/news-skill-session.XXXXXX")"
@@ -368,38 +351,14 @@ if [[ -s "$CLAUDE_DEBUG_FILE" ]]; then
 fi
 
 if ! REPORT_JSON="$(collect_report 2>"$TOPIC_DIR/collect_report.stderr")"; then
-  if run_direct_openrouter_fallback; then
-    if [[ -s "$TOPIC_DIR/direct_openrouter_raw.json" ]]; then
-      if ! python3 "$ROOT_DIR/scripts/audit_transcript.py" \
-        --raw "$TOPIC_DIR/direct_openrouter_raw.json" \
-        --topic-id "$TOPIC_ID" \
-        --summary-out "$TOPIC_DIR/direct_openrouter_audit.json"; then
-        KEEP_SESSION_DIR=1
-        echo "error: direct OpenRouter fallback exposed a hidden evaluation artifact" >&2
-        echo "kept failed session dir: $SESSION_DIR" >&2
-        cat "$TOPIC_DIR/direct_openrouter.stderr" >&2 || true
-        exit 1
-      fi
-    fi
-    if ! REPORT_JSON="$(collect_report 2>"$TOPIC_DIR/collect_report.stderr")"; then
-      KEEP_SESSION_DIR=1
-      echo "error: direct OpenRouter fallback did not create reports/**/report.json" >&2
-      echo "kept failed session dir: $SESSION_DIR" >&2
-      print_claude_diagnostics
-      cat "$TOPIC_DIR/direct_openrouter.stderr" >&2 || true
-      cat "$TOPIC_DIR/collect_report.stderr" >&2 || true
-      exit 1
-    fi
-  else
-    KEEP_SESSION_DIR=1
-    echo "error: skill did not create reports/**/report.json" >&2
-    echo "kept failed session dir: $SESSION_DIR" >&2
-    print_claude_diagnostics
-    echo "session files:" >&2
-    find "$SESSION_DIR" -maxdepth 5 -type f | sort >&2 || true
-    cat "$TOPIC_DIR/collect_report.stderr" >&2 || true
-    exit 1
-  fi
+  KEEP_SESSION_DIR=1
+  echo "error: skill did not create reports/**/report.json" >&2
+  echo "kept failed session dir: $SESSION_DIR" >&2
+  print_claude_diagnostics
+  echo "session files:" >&2
+  find "$SESSION_DIR" -maxdepth 5 -type f | sort >&2 || true
+  cat "$TOPIC_DIR/collect_report.stderr" >&2 || true
+  exit 1
 fi
 
 python3 "$ROOT_DIR/scripts/validate_report.py" \
