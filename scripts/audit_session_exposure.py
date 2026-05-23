@@ -18,10 +18,11 @@ FORBIDDEN_VISIBLE_RE = re.compile(
 FORBIDDEN_RUN_ONE_SNIPPETS = [
     "dragun-skill-session",
     "--json-schema",
-    "/lateral-reading-skill:lateral-reading",
     "--debug-file \"$CLAUDE_DEBUG_FILE\"",
+    "--dangerously-skip-permissions",
+    "--allow-dangerously-skip-permissions",
 ]
-FORBIDDEN_DEFAULT_ALLOWED_TOOLS = ("Read", "Edit", "Bash(")
+FORBIDDEN_DEFAULT_TOOLS = ("Edit", "Bash", "Glob", "Grep", "LS")
 
 
 def scan_run_one() -> list[str]:
@@ -31,14 +32,14 @@ def scan_run_one() -> list[str]:
     for snippet in FORBIDDEN_RUN_ONE_SNIPPETS:
         if snippet in text:
             issues.append(f"{path}: forbidden session exposure or broad tool permission: {snippet}")
-    match = re.search(r"DEFAULT_ALLOWED_TOOLS=\(\n(?P<body>.*?)\n\)", text, re.DOTALL)
+    match = re.search(r'CLAUDE_TOOLS_DEFAULT="\$\{CLAUDE_TOOLS:-(?P<body>[^}]*)\}"', text)
     if not match:
-        issues.append(f"{path}: could not find DEFAULT_ALLOWED_TOOLS")
+        issues.append(f"{path}: could not find CLAUDE_TOOLS_DEFAULT")
         return issues
-    allowed_tools = match.group("body")
-    for forbidden in FORBIDDEN_DEFAULT_ALLOWED_TOOLS:
-        if forbidden in allowed_tools:
-            issues.append(f"{path}: forbidden default allowed tool: {forbidden}")
+    default_tools = match.group("body")
+    for forbidden in FORBIDDEN_DEFAULT_TOOLS:
+        if forbidden in default_tools:
+            issues.append(f"{path}: forbidden default tool: {forbidden}")
     return issues
 
 

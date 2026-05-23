@@ -8,29 +8,19 @@ TOPIC_ID=""
 TOPIC_ID_FILE=""
 TOPIC_ALIAS=""
 SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
+SKILL_COMMAND="${SKILL_COMMAND:-}"
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
+PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-acceptEdits}"
+CLAUDE_TOOLS_DEFAULT="${CLAUDE_TOOLS:-WebFetch,WebSearch,Read,Write}"
 RUN_ID="${RUN_ID:-}"
 RUN_JSONL=""
 MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
-CLAUDE_MAX_ATTEMPTS="${CLAUDE_MAX_ATTEMPTS:-3}"
-PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
 KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
 OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
-LOCK_SKILL_DIR="${LOCK_SKILL_DIR:-1}"
 OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-flex}"
 OPENROUTER_PROXY_PID=""
-DEFAULT_ALLOWED_TOOLS=(
-  WebFetch
-  WebSearch
-  Write
-)
-DEFAULT_DISALLOWED_TOOLS=(
-  Bash
-  Edit
-  Read
-)
 
 usage() {
   cat <<'EOF'
@@ -39,6 +29,7 @@ usage: scripts/run_one.sh --topic-id ID [options]
 Options:
   --topics PATH          topics JSONL
   --skill PATH           Skill repo to test
+  --skill-command CMD    Slash command to invoke, e.g. /plugin:skill
   --topic-alias NAME     Anonymous artifact folder name for this topic
   --topic-id-file PATH   Read the topic ID from a private file instead of argv
   --model MODEL          Claude Code model or OpenRouter model name
@@ -56,6 +47,7 @@ while [[ $# -gt 0 ]]; do
     --topic-id-file) TOPIC_ID_FILE="$2"; shift 2 ;;
     --topic-alias) TOPIC_ALIAS="$2"; shift 2 ;;
     --skill) SKILL="$2"; shift 2 ;;
+    --skill-command) SKILL_COMMAND="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
     --effort) CLAUDE_REASONING_EFFORT="$2"; shift 2 ;;
@@ -73,19 +65,15 @@ if [[ -z "$TOPIC_ID" ]]; then
   echo "error: --topic-id is required" >&2
   exit 2
 fi
+if [[ -z "$SKILL_COMMAND" ]]; then
+  SKILL_COMMAND="$(python3 "$ROOT_DIR/scripts/resolve_skill_command.py" --skill "$SKILL")"
+fi
 if [[ -z "$RUN_ID" ]]; then
   RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
-if [[ -z "$PERMISSION_MODE" ]]; then
-  if [[ "$PROVIDER" == "openrouter" ]]; then
-    PERMISSION_MODE="acceptEdits"
-  else
-    PERMISSION_MODE="auto"
-  fi
-fi
-
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
+
 if [[ -z "$TOPIC_ALIAS" ]]; then
   TOPIC_ALIAS="$(python3 -c 'import hashlib, sys; print("topic_" + hashlib.sha256(sys.argv[1].encode()).hexdigest()[:12])' "$TOPIC_ID")"
 fi
@@ -95,7 +83,8 @@ TOPIC_DIR="$RUN_DIR/topics/$TOPIC_ARTIFACT_SAFE"
 if [[ -z "$RUN_JSONL" ]]; then
   RUN_JSONL="$RUN_DIR/dragun_task2.jsonl"
 fi
-CLAUDE_STDOUT="$TOPIC_DIR/claude_raw.json"
+
+CLAUDE_STDOUT="$TOPIC_DIR/claude_raw.txt"
 CLAUDE_STDERR="$TOPIC_DIR/claude_stderr.log"
 CLAUDE_EXIT_CODE="$TOPIC_DIR/claude_exit_code.txt"
 CLAUDE_DEBUG_FILE="$TOPIC_DIR/claude_debug.log"
@@ -124,22 +113,11 @@ print_claude_diagnostics() {
   fi
 }
 
-collect_report() {
-  python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
-    --search-dir "$SESSION_WORK_DIR" \
-    --topic-dir "$TOPIC_DIR" \
-    --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_ARTIFACT_SAFE" \
-    --fallback-raw "$CLAUDE_STDOUT" \
-    --target-text "$TOPIC_DIR/input.txt" \
-    --render-script "$RENDER_SCRIPT" \
-    --summary-out "$TOPIC_DIR/skill_report_summary.json"
-}
-
 SESSION_DIR="$(mktemp -d "${TMPDIR:-/tmp}/news-skill-session.XXXXXX")"
-SESSION_SKILL_DIR="$SESSION_DIR/skill"
 SESSION_WORK_DIR="$SESSION_DIR/work"
-SESSION_SYSTEM_PROMPT="$SESSION_DIR/session_system_prompt.md"
+SESSION_PROMPT="$SESSION_DIR/prompt.txt"
 SESSION_CLAUDE_DEBUG_FILE="$SESSION_DIR/claude_debug.log"
+
 cleanup() {
   if [[ -n "$OPENROUTER_PROXY_PID" ]]; then
     kill "$OPENROUTER_PROXY_PID" 2>/dev/null || true
@@ -154,76 +132,39 @@ cleanup() {
 }
 trap cleanup EXIT
 
-mkdir -p "$SESSION_SKILL_DIR" "$SESSION_WORK_DIR/reports"
+mkdir -p "$SESSION_WORK_DIR/reports"
 python3 "$ROOT_DIR/scripts/make_article_input.py" \
   --topics "$TOPICS" \
   --topic-id "$TOPIC_ID" \
   --out-text "$TOPIC_DIR/input.txt"
 
 if command -v rsync >/dev/null 2>&1; then
-  rsync -a --exclude .git "$SKILL"/ "$SESSION_SKILL_DIR"/
+  rsync -a --exclude .git "$SKILL"/ "$SESSION_WORK_DIR"/
 else
-  cp -R "$SKILL"/. "$SESSION_SKILL_DIR"/
-  rm -rf "$SESSION_SKILL_DIR/.git"
-fi
-SKILL_FILE="$(python3 "$ROOT_DIR/scripts/resolve_skill_file.py" --skill "$SESSION_SKILL_DIR")"
-RENDER_SCRIPT=""
-if [[ -f "$SESSION_SKILL_DIR/skills/lateral-reading/scripts/render_report_html.py" ]]; then
-  RENDER_SCRIPT="$SESSION_SKILL_DIR/skills/lateral-reading/scripts/render_report_html.py"
-else
-  RENDER_SCRIPT="$(find "$SESSION_SKILL_DIR" -path "*/scripts/render_report_html.py" -type f -print -quit)"
+  cp -R "$SKILL"/. "$SESSION_WORK_DIR"/
+  rm -rf "$SESSION_WORK_DIR/.git"
 fi
 
-if [[ "$LOCK_SKILL_DIR" == "1" ]]; then
-  chmod -R u-w "$SESSION_SKILL_DIR"
-fi
+RENDER_SCRIPT="$(find "$SESSION_WORK_DIR" -path "*/scripts/render_report_html.py" -type f -print -quit)"
 
-for linked_name in skills schemas; do
-  if [[ -e "$SESSION_SKILL_DIR/$linked_name" ]]; then
-    ln -s "$SESSION_SKILL_DIR/$linked_name" "$SESSION_WORK_DIR/$linked_name"
-  fi
-done
-
-cp "$TOPIC_DIR/input.txt" "$SESSION_DIR/prompt.txt"
 {
-  cat "$SKILL_FILE"
-  cat <<'EOF'
-
-## Noninteractive Session Constraints
-
-This is a noninteractive run. Do not ask the user for permission or approval.
-Use WebSearch and WebFetch for web search and retrieval. Do not use Bash, Read, directory discovery, or Python snippets.
-The wrapper will validate `report.json` and render `report.html` with the skill's render script after this session ends.
-The linked skill files under `skills/` and `schemas/` are read-only. Do not modify scripts, references, examples, schemas, or plugin files.
-Use relative paths under the current workspace, and write the required report artifacts only under `reports/`.
-Do not probe or test filesystem permissions; assume `reports/` is writable and skill files are read-only.
-If a tool request is denied, continue with the allowed tools and still produce `reports/.../report.json`.
-If file creation still fails, print only the report JSON object with a top-level `responses` array as the final output.
-EOF
-} > "$SESSION_SYSTEM_PROMPT"
+  printf '%s\n\n' "$SKILL_COMMAND"
+  cat "$TOPIC_DIR/input.txt"
+} > "$SESSION_PROMPT"
 
 CLAUDE_ARGS=(
   --print
-  --plugin-dir "$SESSION_SKILL_DIR"
-  --append-system-prompt-file "$SESSION_SYSTEM_PROMPT"
+  --input-format text
+  --plugin-dir "$SESSION_WORK_DIR"
   --no-session-persistence
   --permission-mode "$PERMISSION_MODE"
   --max-budget-usd "$MAX_BUDGET_USD"
   --model "$MODEL"
   --effort "$CLAUDE_REASONING_EFFORT"
+  --tools "$CLAUDE_TOOLS_DEFAULT"
 )
 if [[ "${CLAUDE_DEBUG_LOG:-0}" == "1" ]]; then
   CLAUDE_ARGS+=(--debug-file "$SESSION_CLAUDE_DEBUG_FILE")
-fi
-if [[ -n "${ALLOWED_TOOLS:-}" ]]; then
-  CLAUDE_ARGS+=(--allowed-tools "$ALLOWED_TOOLS")
-else
-  CLAUDE_ARGS+=(--allowed-tools "${DEFAULT_ALLOWED_TOOLS[@]}")
-fi
-if [[ -n "${DISALLOWED_TOOLS:-}" ]]; then
-  CLAUDE_ARGS+=(--disallowed-tools "$DISALLOWED_TOOLS")
-else
-  CLAUDE_ARGS+=(--disallowed-tools "${DEFAULT_DISALLOWED_TOOLS[@]}")
 fi
 
 export CLAUDE_CODE_EFFORT_LEVEL="$CLAUDE_REASONING_EFFORT"
@@ -283,38 +224,16 @@ elif [[ "$PROVIDER" != "anthropic" ]]; then
   exit 2
 fi
 
-should_retry_claude() {
-  local status="$1"
-  if [[ "$status" -eq 0 ]]; then
-    return 1
-  fi
-  grep -Eiq \
-    "stream closed before completion|temporar|timeout|timed out|overloaded|upstream|connection reset|rate limit" \
-    "$CLAUDE_STDOUT" "$CLAUDE_STDERR" "$SESSION_CLAUDE_DEBUG_FILE" 2>/dev/null
-}
+: > "$CLAUDE_STDOUT"
+: > "$CLAUDE_STDERR"
+set +e
+(
+  cd "$SESSION_WORK_DIR"
+  claude "${CLAUDE_ARGS[@]}" < "$SESSION_PROMPT"
+) > "$CLAUDE_STDOUT" 2>"$CLAUDE_STDERR"
+CLAUDE_STATUS=$?
+set -e
 
-CLAUDE_STATUS=1
-for ((ATTEMPT = 1; ATTEMPT <= CLAUDE_MAX_ATTEMPTS; ATTEMPT++)); do
-  : > "$CLAUDE_STDOUT"
-  : > "$CLAUDE_STDERR"
-  rm -f "$SESSION_CLAUDE_DEBUG_FILE"
-  set +e
-  (
-    cd "$SESSION_WORK_DIR"
-    claude "${CLAUDE_ARGS[@]}" "$(cat "$SESSION_DIR/prompt.txt")"
-  ) > "$CLAUDE_STDOUT" 2>"$CLAUDE_STDERR"
-  CLAUDE_STATUS=$?
-  set -e
-  if [[ "$CLAUDE_STATUS" -eq 0 ]]; then
-    break
-  fi
-  if [[ "$ATTEMPT" -lt "$CLAUDE_MAX_ATTEMPTS" ]] && should_retry_claude "$CLAUDE_STATUS"; then
-    echo "claude attempt $ATTEMPT/$CLAUDE_MAX_ATTEMPTS failed with a transient provider error; retrying..." >&2
-    sleep $((ATTEMPT * 5))
-    continue
-  fi
-  break
-done
 if [[ -s "$SESSION_CLAUDE_DEBUG_FILE" ]]; then
   cp "$SESSION_CLAUDE_DEBUG_FILE" "$CLAUDE_DEBUG_FILE"
 fi
@@ -350,7 +269,14 @@ if [[ -s "$CLAUDE_DEBUG_FILE" ]]; then
   fi
 fi
 
-if ! REPORT_JSON="$(collect_report 2>"$TOPIC_DIR/collect_report.stderr")"; then
+if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
+  --search-dir "$SESSION_WORK_DIR" \
+  --topic-dir "$TOPIC_DIR" \
+  --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_ARTIFACT_SAFE" \
+  --target-text "$TOPIC_DIR/input.txt" \
+  --render-script "$RENDER_SCRIPT" \
+  --summary-out "$TOPIC_DIR/skill_report_summary.json" \
+  2>"$TOPIC_DIR/collect_report.stderr")"; then
   KEEP_SESSION_DIR=1
   echo "error: skill did not create reports/**/report.json" >&2
   echo "kept failed session dir: $SESSION_DIR" >&2

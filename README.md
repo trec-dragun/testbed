@@ -52,6 +52,18 @@ export OPENROUTER_API_KEY="sk-or-..."
   --overwrite
 ```
 
+If a custom plugin exposes more than one skill, pass the exact slash command:
+
+```bash
+./scripts/launch.sh \
+  --skill ./skills_under_test/my-skill \
+  --skill-command /my-plugin:my-skill \
+  --provider anthropic \
+  --model sonnet \
+  --run-id anthropic_sonnet_my_skill \
+  --overwrite
+```
+
 For a smoke test, add `--limit 1`.
 
 ## What Setup Downloads
@@ -70,13 +82,15 @@ If the NIST package URL is temporarily unavailable, rerun `./scripts/bootstrap.s
 
 Setup output is intentionally concise. Routine `pip`, `git pull`, and download details are written to `tmp/bootstrap_logs/` and shown only when a step fails.
 
-## Generation Isolation
+## Generation Flow
 
-The model is never launched from this repo. For each article, `scripts/run_one.sh` creates a fresh temporary workspace and runs Claude Code from a writable `work/` directory with the copied skill mounted read-only.
+The model is never launched from this repo. For each article, `scripts/run_one.sh` creates a fresh temporary workspace, copies the skill repo into it, and runs Claude Code from that temporary `work/` directory.
 
-The only task input is plaintext in the user prompt:
+The user prompt has exactly one skill invocation followed by the plaintext article:
 
 ```text
+/lateral-reading-skill:lateral-reading
+
 Title: ...
 URL: ...
 Heading: ...
@@ -84,40 +98,41 @@ Heading: ...
 Article body...
 ```
 
+The slash command is resolved from `.claude-plugin/plugin.json` plus `skills/*/SKILL.md`, or set explicitly with `--skill-command`. The article text itself contains no `docid`.
+
 The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. Claude-facing artifact paths and progress logs use anonymous aliases such as `article_001`; the private `runs/{run_id}/topic_map.jsonl` maps aliases back to topic IDs after generation. The wrapper adds `metadata.topic_id` only after collecting the skill's `report.json`.
 
-Before a batch starts, `scripts/run_batch.sh` runs `scripts/audit_session_exposure.py --skill ...`. This fails fast if the session launcher, default tool allowlist, or selected skill repo contains explicit evaluation identifiers such as DRAGUN, TREC, AutoJudge, human rubric paths, MS MARCO topic IDs, or similar leakage terms.
+Before a batch starts, `scripts/run_batch.sh` runs `scripts/audit_session_exposure.py --skill ...`. This fails fast if the session launcher, default tool set, or selected skill repo contains explicit evaluation identifiers such as DRAGUN, TREC, AutoJudge, human rubric paths, MS MARCO topic IDs, or similar leakage terms.
 
 For OpenRouter or Anthropic API-key runs, the harness uses `claude --bare --no-session-persistence`, which disables auto memory and session persistence. For a normal Claude Code subscription account, Claude Code currently cannot use `--bare` because bare mode does not read OAuth/keychain credentials; the harness then uses a fresh temp workspace plus `--no-session-persistence --setting-sources project`.
 
 Claude Code sessions default to `--effort high` for consistent reasoning depth across tested backbones. Override with `--effort low`, `--effort medium`, `--effort xhigh`, or `--effort max` only when intentionally running an ablation.
 
-For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use tools, close streams early, or return no final output. The runner retries transient provider failures such as `stream closed before completion` up to `CLAUDE_MAX_ATTEMPTS=3`.
+For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use tools, close streams early, or return no final output. The runner does not synthesize a report or silently recover from those failures.
 
 OpenRouter generation runs default to `OPENROUTER_SERVICE_TIER=flex` for lower cost when the upstream supports service tiers. Claude Code does not expose OpenRouter's top-level `service_tier` request field, so the runner starts a local per-session proxy that injects it before forwarding to OpenRouter. Set `OPENROUTER_SERVICE_TIER=off` to disable, or `OPENROUTER_SERVICE_TIER=priority` to request priority.
 
 Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs. The debug file path given to Claude Code is inside the anonymous temporary session and copied back afterward, so hidden topic IDs are not exposed through debug CLI arguments. Set `OPENROUTER_PREFLIGHT=0` only if you need to skip the key check.
 
-## Claude Code Permissions
+## Claude Code Tools
 
-The launch scripts grant the tested skill only the tools needed inside the temporary session workspace:
+The launch scripts expose a small Claude Code tool set:
 
 - `WebFetch`
 - `WebSearch`
+- `Read`
 - `Write`
 
-Claude Code runs from a fresh writable `work/` directory. The copied skill tree is mounted into that workspace through read-only `skills/` and `schemas/` links, while output is collected only from `work/reports/`. This prevents weaker backbones from editing validators, examples, schemas, references, or helper scripts while still allowing the expected report artifacts to be created. Set `LOCK_SKILL_DIR=0` only when debugging a custom skill that genuinely needs to modify its own files during generation.
+Claude Code runs from a fresh temporary `work/` directory containing only the copied skill repo. The wrapper keeps topic IDs, rubrics, AutoJudge files, and official results outside that workspace and does not reference their paths in the prompt.
 
-The runner also explicitly disallows `Bash`, `Read`, and `Edit` by default. The wrapper, not the tested model, validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
+`Bash`, `Edit`, `Glob`, `Grep`, and `LS` are not in the default tool set. The tested model should write `reports/**/report.json`; the wrapper validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
 
-This avoids generic `python`, `curl`, `Read`, `Edit`, or shell access that could inspect files outside the session or mutate the skill under test. Anthropic runs default to permission mode `auto`; OpenRouter runs default to `acceptEdits` because Claude Code's auto-mode classifier is another model call and some OpenRouter endpoints reject its classifier request shape. The explicit `--allowed-tools` list still pre-approves the fetch and file write actions the skill needs. Override only if you understand the leakage risk:
+Runs default to permission mode `acceptEdits` so noninteractive sessions do not wait for approval prompts. Override only if you understand the leakage risk:
 
 ```bash
 export CLAUDE_PERMISSION_MODE=auto
-export ALLOWED_TOOLS="WebFetch,WebSearch,Write"
+export CLAUDE_TOOLS="WebFetch,WebSearch,Read,Write"
 ```
-
-Each session also receives a short noninteractive tool contract: do not ask for approval, use WebSearch/WebFetch for web retrieval, do not use Bash or Read, treat the skill files as read-only, and still write `reports/.../report.json` if a tool request is denied. If file creation still fails, the model is told to print only the report JSON so the wrapper can recover it.
 
 ## Output Contract
 
@@ -143,9 +158,7 @@ reports/lateral-reading-YYYYMMDD-HHMMSS/
 }
 ```
 
-The wrapper copies the skill folder to anonymous public paths such as `reports/{run_id}/article_001/` and wraps `report.json` into evaluator JSONL:
-
-If a weaker backbone returns a valid `{"responses": ...}` JSON object in Claude stdout but forgets to write files, the wrapper recovers it into `skill_report/report.json`, copies the input into `target.txt`, and renders `report.html` with the skill's own render script. `skill_report_summary.json` records this as `fallback_from_stdout: true`.
+The wrapper copies the skill folder to anonymous public paths such as `reports/{run_id}/article_001/` and wraps `report.json` into evaluator JSONL. If the skill does not create `reports/**/report.json`, the topic fails. Claude stdout is saved for debugging, but it is never parsed into a replacement report.
 
 ```json
 {
@@ -182,7 +195,7 @@ runs/{run_id}/
   private_topic_ids/
   topic_map.jsonl
   topics/article_001/
-    claude_raw.json
+    claude_raw.txt
     claude_stderr.log
     claude_exit_code.txt
     transcript_audit.json
@@ -271,9 +284,10 @@ The leaderboard measures the full stack: Claude Code, the skill prompt and scrip
 - `scripts/run_one.sh`: one isolated Claude Code session for one article
 - `scripts/run_batch.sh`: all selected articles
 - `scripts/check_openrouter_key.sh`: fail-fast OpenRouter API key preflight
-- `scripts/audit_session_exposure.py`: checks session exposure strings and broad tool permissions
+- `scripts/audit_session_exposure.py`: checks session exposure strings and the default tool set
 - `scripts/audit_transcript.py`: scans Claude output for forbidden evaluation-artifact terms
 - `scripts/collect_skill_report.py`: copies the skill-produced `report.json` and `report.html`
+- `scripts/resolve_skill_command.py`: resolves the slash command used to invoke the skill
 - `scripts/resolve_skill_file.py`: resolves the skill instruction file for non-interactive runs
 - `scripts/validate_report.py`: schema, citation, and leakage validation
 - `scripts/score_with_autojudge.sh`: AutoJudge plus scoring

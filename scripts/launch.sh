@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 SKILL_REPO="${SKILL_REPO:-https://github.com/trec-dragun/lateral-reading-skill.git}"
 SKILL_PATH=""
+SKILL_COMMAND="${SKILL_COMMAND:-}"
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
@@ -23,6 +24,7 @@ One-command path for setup plus running all DRAGUN articles.
 Options:
   --skill-repo URL       Git repo for the skill under test
   --skill PATH           Existing local skill repo
+  --skill-command CMD    Slash command to invoke, e.g. /plugin:skill
   --model MODEL          Claude Code model or OpenRouter model name
   --provider NAME        anthropic or openrouter
   --effort EFFORT        Claude Code reasoning effort (default: high)
@@ -38,6 +40,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --skill-repo) SKILL_REPO="$2"; shift 2 ;;
     --skill) SKILL_PATH="$2"; shift 2 ;;
+    --skill-command) SKILL_COMMAND="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
     --effort) CLAUDE_REASONING_EFFORT="$2"; shift 2 ;;
@@ -66,6 +69,9 @@ BATCH_ARGS=(
   --effort "$CLAUDE_REASONING_EFFORT"
   --limit "$LIMIT"
 )
+if [[ -n "$SKILL_COMMAND" ]]; then
+  BATCH_ARGS+=(--skill-command "$SKILL_COMMAND")
+fi
 if [[ -n "$RUN_ID" ]]; then
   BATCH_ARGS+=(--run-id "$RUN_ID")
 fi

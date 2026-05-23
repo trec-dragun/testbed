@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 TOPICS="$ROOT_DIR/data/trec-2025-dragun-topics.jsonl"
 SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
+SKILL_COMMAND="${SKILL_COMMAND:-}"
 MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
@@ -28,6 +29,7 @@ usage: scripts/run_batch.sh [options]
 Options:
   --topics PATH          topics JSONL
   --skill PATH           Skill repo to test
+  --skill-command CMD    Slash command to invoke, e.g. /plugin:skill
   --model MODEL          Claude Code model or OpenRouter model name
   --provider NAME        anthropic or openrouter
   --effort EFFORT        Claude Code reasoning effort (default: high)
@@ -41,6 +43,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --topics) TOPICS="$2"; shift 2 ;;
     --skill) SKILL="$2"; shift 2 ;;
+    --skill-command) SKILL_COMMAND="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
     --effort) CLAUDE_REASONING_EFFORT="$2"; shift 2 ;;
@@ -56,12 +59,11 @@ if [[ -z "$RUN_ID" ]]; then
   RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
+if [[ -z "$SKILL_COMMAND" ]]; then
+  SKILL_COMMAND="$(python3 "$ROOT_DIR/scripts/resolve_skill_command.py" --skill "$SKILL")"
+fi
 if [[ -z "$RUN_PERMISSION_MODE" ]]; then
-  if [[ "$PROVIDER" == "openrouter" ]]; then
-    RUN_PERMISSION_MODE="acceptEdits"
-  else
-    RUN_PERMISSION_MODE="auto"
-  fi
+  RUN_PERMISSION_MODE="acceptEdits"
 fi
 export CLAUDE_PERMISSION_MODE="$RUN_PERMISSION_MODE"
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
@@ -121,6 +123,7 @@ while IFS= read -r TOPIC_ID; do
     --topic-id-file "$TOPIC_ID_FILE" \
     --topic-alias "$TOPIC_ALIAS" \
     --skill "$SKILL" \
+    --skill-command "$SKILL_COMMAND" \
     --model "$MODEL" \
     --provider "$PROVIDER" \
     --effort "$CLAUDE_REASONING_EFFORT" \
@@ -155,6 +158,7 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "claude_reasoning_effort": "$CLAUDE_REASONING_EFFORT",
   "claude_permission_mode": "$RUN_PERMISSION_MODE",
   "skill": "$SKILL",
+  "skill_command": "$SKILL_COMMAND",
   "skill_commit": "$SKILL_COMMIT",
   "skill_file": "$SKILL_FILE",
   "topics": "$TOPICS",
