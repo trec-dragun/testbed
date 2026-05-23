@@ -162,6 +162,7 @@ CLAUDE_ARGS=(
   --model "$MODEL"
   --effort "$CLAUDE_REASONING_EFFORT"
   --tools "$CLAUDE_TOOLS_DEFAULT"
+  --allowed-tools "$CLAUDE_TOOLS_DEFAULT"
 )
 if [[ "${CLAUDE_DEBUG_LOG:-0}" == "1" ]]; then
   CLAUDE_ARGS+=(--debug-file "$SESSION_CLAUDE_DEBUG_FILE")

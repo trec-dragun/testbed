@@ -125,7 +125,7 @@ The launch scripts expose a small Claude Code tool set:
 
 Claude Code runs from a fresh temporary `work/` directory containing only the copied skill repo. The wrapper keeps topic IDs, rubrics, AutoJudge files, and official results outside that workspace and does not reference their paths in the prompt.
 
-`Bash`, `Edit`, `Glob`, `Grep`, and `LS` are not in the default tool set. The tested model should write `reports/**/report.json`; the wrapper validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
+`Bash`, `Edit`, `Glob`, `Grep`, and `LS` are not in the default tool set. The same tool set is passed to both `--tools` and `--allowed-tools`, so noninteractive runs can fetch, read skill references, and write report files without stopping for approval. The tested model should write `reports/**/report.json`; the wrapper validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
 
 Runs default to permission mode `acceptEdits` so noninteractive sessions do not wait for approval prompts. Override only if you understand the leakage risk:
 
