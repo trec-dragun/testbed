@@ -19,7 +19,7 @@ RUN_JSONL=""
 MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
 KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
 OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
-OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-flex}"
+OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-auto}"
 OPENROUTER_PROXY_PID=""
 
 usage() {
@@ -169,8 +169,10 @@ if [[ "${CLAUDE_DEBUG_LOG:-0}" == "1" ]]; then
 fi
 
 export CLAUDE_CODE_EFFORT_LEVEL="$CLAUDE_REASONING_EFFORT"
+export CLAUDE_CODE_DISABLE_AUTO_MEMORY=1
+export CLAUDE_CODE_DISABLE_CLAUDE_MDS=1
 
-if [[ "${CLAUDE_BARE:-auto}" == "1" || ( "${CLAUDE_BARE:-auto}" == "auto" && "$PROVIDER" == "openrouter" ) || ( "${CLAUDE_BARE:-auto}" == "auto" && -n "${ANTHROPIC_API_KEY:-}" ) ]]; then
+if [[ "${CLAUDE_BARE:-0}" == "1" ]]; then
   CLAUDE_ARGS=(--bare "${CLAUDE_ARGS[@]}")
 else
   CLAUDE_ARGS+=(--setting-sources project)
@@ -182,12 +184,19 @@ if [[ "$PROVIDER" == "openrouter" ]]; then
     exit 2
   fi
   OPENROUTER_UPSTREAM_BASE_URL="${ANTHROPIC_BASE_URL:-https://openrouter.ai/api}"
-  if [[ "$OPENROUTER_SERVICE_TIER" != "off" && "$OPENROUTER_SERVICE_TIER" != "none" && -n "$OPENROUTER_SERVICE_TIER" ]]; then
+  OPENROUTER_EFFECTIVE_SERVICE_TIER="$OPENROUTER_SERVICE_TIER"
+  if [[ "$OPENROUTER_EFFECTIVE_SERVICE_TIER" == "auto" ]]; then
+    case "$MODEL" in
+      openai/*|google/*) OPENROUTER_EFFECTIVE_SERVICE_TIER="flex" ;;
+      *) OPENROUTER_EFFECTIVE_SERVICE_TIER="" ;;
+    esac
+  fi
+  if [[ "$OPENROUTER_EFFECTIVE_SERVICE_TIER" != "off" && "$OPENROUTER_EFFECTIVE_SERVICE_TIER" != "none" && -n "$OPENROUTER_EFFECTIVE_SERVICE_TIER" ]]; then
     OPENROUTER_PROXY_PORT_FILE="$SESSION_DIR/openrouter_proxy.port"
     OPENROUTER_PROXY_LOG="$TOPIC_DIR/openrouter_proxy.log"
     python3 "$ROOT_DIR/scripts/openrouter_service_tier_proxy.py" \
       --base-url "$OPENROUTER_UPSTREAM_BASE_URL" \
-      --service-tier "$OPENROUTER_SERVICE_TIER" \
+      --service-tier "$OPENROUTER_EFFECTIVE_SERVICE_TIER" \
       --port-file "$OPENROUTER_PROXY_PORT_FILE" \
       >"$OPENROUTER_PROXY_LOG" 2>&1 &
     OPENROUTER_PROXY_PID=$!
