@@ -14,10 +14,13 @@ CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_ID="${RUN_ID:-}"
 RUN_JSONL=""
 MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
+CLAUDE_MAX_ATTEMPTS="${CLAUDE_MAX_ATTEMPTS:-3}"
 PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
 KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
 OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
 LOCK_SKILL_DIR="${LOCK_SKILL_DIR:-1}"
+OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-flex}"
+OPENROUTER_PROXY_PID=""
 DEFAULT_ALLOWED_TOOLS=(
   WebFetch
   WebSearch
@@ -127,6 +130,10 @@ SESSION_WORK_DIR="$SESSION_DIR/work"
 SESSION_SYSTEM_PROMPT="$SESSION_DIR/session_system_prompt.md"
 SESSION_CLAUDE_DEBUG_FILE="$SESSION_DIR/claude_debug.log"
 cleanup() {
+  if [[ -n "$OPENROUTER_PROXY_PID" ]]; then
+    kill "$OPENROUTER_PROXY_PID" 2>/dev/null || true
+    wait "$OPENROUTER_PROXY_PID" 2>/dev/null || true
+  fi
   if [[ "$KEEP_SESSION_DIR" != "1" ]]; then
     chmod -R u+w "$SESSION_DIR" 2>/dev/null || true
     rm -rf "$SESSION_DIR"
@@ -221,7 +228,32 @@ if [[ "$PROVIDER" == "openrouter" ]]; then
     echo "error: OPENROUTER_API_KEY is required for --provider openrouter" >&2
     exit 2
   fi
-  export ANTHROPIC_BASE_URL="${ANTHROPIC_BASE_URL:-https://openrouter.ai/api}"
+  OPENROUTER_UPSTREAM_BASE_URL="${ANTHROPIC_BASE_URL:-https://openrouter.ai/api}"
+  if [[ "$OPENROUTER_SERVICE_TIER" != "off" && "$OPENROUTER_SERVICE_TIER" != "none" && -n "$OPENROUTER_SERVICE_TIER" ]]; then
+    OPENROUTER_PROXY_PORT_FILE="$SESSION_DIR/openrouter_proxy.port"
+    OPENROUTER_PROXY_LOG="$TOPIC_DIR/openrouter_proxy.log"
+    python3 "$ROOT_DIR/scripts/openrouter_service_tier_proxy.py" \
+      --base-url "$OPENROUTER_UPSTREAM_BASE_URL" \
+      --service-tier "$OPENROUTER_SERVICE_TIER" \
+      --port-file "$OPENROUTER_PROXY_PORT_FILE" \
+      >"$OPENROUTER_PROXY_LOG" 2>&1 &
+    OPENROUTER_PROXY_PID=$!
+    for _ in {1..50}; do
+      if [[ -s "$OPENROUTER_PROXY_PORT_FILE" ]]; then
+        break
+      fi
+      sleep 0.1
+    done
+    if [[ ! -s "$OPENROUTER_PROXY_PORT_FILE" ]]; then
+      echo "error: OpenRouter service-tier proxy did not start" >&2
+      cat "$OPENROUTER_PROXY_LOG" >&2 || true
+      exit 1
+    fi
+    OPENROUTER_PROXY_PORT="$(<"$OPENROUTER_PROXY_PORT_FILE")"
+    export ANTHROPIC_BASE_URL="http://127.0.0.1:${OPENROUTER_PROXY_PORT}/api"
+  else
+    export ANTHROPIC_BASE_URL="$OPENROUTER_UPSTREAM_BASE_URL"
+  fi
   export ANTHROPIC_API_KEY=""
   export ANTHROPIC_AUTH_TOKEN="$OPENROUTER_API_KEY"
   OPENROUTER_AUTH_HEADER="Authorization: Bearer $OPENROUTER_API_KEY"
@@ -240,13 +272,38 @@ elif [[ "$PROVIDER" != "anthropic" ]]; then
   exit 2
 fi
 
-set +e
-(
-  cd "$SESSION_WORK_DIR"
-  claude "${CLAUDE_ARGS[@]}" "$(cat "$SESSION_DIR/prompt.txt")"
-) > "$CLAUDE_STDOUT" 2>"$CLAUDE_STDERR"
-CLAUDE_STATUS=$?
-set -e
+should_retry_claude() {
+  local status="$1"
+  if [[ "$status" -eq 0 ]]; then
+    return 1
+  fi
+  grep -Eiq \
+    "stream closed before completion|temporar|timeout|timed out|overloaded|upstream|connection reset|rate limit" \
+    "$CLAUDE_STDOUT" "$CLAUDE_STDERR" "$SESSION_CLAUDE_DEBUG_FILE" 2>/dev/null
+}
+
+CLAUDE_STATUS=1
+for ((ATTEMPT = 1; ATTEMPT <= CLAUDE_MAX_ATTEMPTS; ATTEMPT++)); do
+  : > "$CLAUDE_STDOUT"
+  : > "$CLAUDE_STDERR"
+  rm -f "$SESSION_CLAUDE_DEBUG_FILE"
+  set +e
+  (
+    cd "$SESSION_WORK_DIR"
+    claude "${CLAUDE_ARGS[@]}" "$(cat "$SESSION_DIR/prompt.txt")"
+  ) > "$CLAUDE_STDOUT" 2>"$CLAUDE_STDERR"
+  CLAUDE_STATUS=$?
+  set -e
+  if [[ "$CLAUDE_STATUS" -eq 0 ]]; then
+    break
+  fi
+  if [[ "$ATTEMPT" -lt "$CLAUDE_MAX_ATTEMPTS" ]] && should_retry_claude "$CLAUDE_STATUS"; then
+    echo "claude attempt $ATTEMPT/$CLAUDE_MAX_ATTEMPTS failed with a transient provider error; retrying..." >&2
+    sleep $((ATTEMPT * 5))
+    continue
+  fi
+  break
+done
 if [[ -s "$SESSION_CLAUDE_DEBUG_FILE" ]]; then
   cp "$SESSION_CLAUDE_DEBUG_FILE" "$CLAUDE_DEBUG_FILE"
 fi

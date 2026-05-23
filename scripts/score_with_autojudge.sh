@@ -9,6 +9,7 @@ JUDGE_BASE_URL="${JUDGE_BASE_URL:-https://openrouter.ai/api/v1}"
 JUDGE_MODEL="${JUDGE_MODEL:-openai/gpt-oss-120b}"
 JUDGE_API_KEY_ENV="${JUDGE_API_KEY_ENV:-OPENROUTER_API_KEY}"
 JUDGE_REASONING_EFFORT="${JUDGE_REASONING_EFFORT:-high}"
+JUDGE_SERVICE_TIER="${JUDGE_SERVICE_TIER:-flex}"
 
 usage() {
   cat <<'EOF'
@@ -21,6 +22,8 @@ Options:
   --judge-model MODEL    Judge model name
   --judge-reasoning-effort EFFORT
                          OpenRouter reasoning effort, or off to omit (default: high)
+  --judge-service-tier TIER
+                         OpenRouter service_tier, or off to omit (default: flex)
   --api-key-env NAME     Environment variable containing the API key
 EOF
 }
@@ -33,6 +36,7 @@ while [[ $# -gt 0 ]]; do
     --judge-base-url) JUDGE_BASE_URL="$2"; shift 2 ;;
     --judge-model) JUDGE_MODEL="$2"; shift 2 ;;
     --judge-reasoning-effort) JUDGE_REASONING_EFFORT="$2"; shift 2 ;;
+    --judge-service-tier) JUDGE_SERVICE_TIER="$2"; shift 2 ;;
     --api-key-env) JUDGE_API_KEY_ENV="$2"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "unknown option: $1" >&2; usage; exit 2 ;;
@@ -69,6 +73,7 @@ python "$ROOT_DIR/autojudge/auto_judge_openrouter.py" \
   --base-url "$JUDGE_BASE_URL" \
   --model "$JUDGE_MODEL" \
   --reasoning-effort "$JUDGE_REASONING_EFFORT" \
+  --service-tier "$JUDGE_SERVICE_TIER" \
   --api-key-env "$JUDGE_API_KEY_ENV" \
   --run-tags "$RUN_ID"
 

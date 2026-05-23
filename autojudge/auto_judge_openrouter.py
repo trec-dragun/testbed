@@ -7,6 +7,7 @@ the Task 2 report-evaluation behavior, with minimal changes:
 - endpoint, model, and API key are CLI/env configurable
 - OpenRouter's /api/v1 endpoint works without editing source code
 - OpenRouter reasoning effort defaults to high for consistent judging
+- OpenRouter service tier defaults to flex when using an OpenRouter base URL
 - optional --run-tags filters target runs while keeping organizer few-shot runs
 """
 
@@ -62,6 +63,7 @@ def call_llm(
     user_input: str,
     response_schema: dict,
     reasoning_effort: str,
+    service_tier: str,
 ) -> tuple[str, str]:
     request: dict[str, Any] = {
         "model": model,
@@ -76,8 +78,13 @@ def call_llm(
         "temperature": 0,
         "top_p": 1,
     }
+    extra_body: dict[str, Any] = {}
     if reasoning_effort:
-        request["extra_body"] = {"reasoning": {"effort": reasoning_effort}}
+        extra_body["reasoning"] = {"effort": reasoning_effort}
+    if service_tier:
+        extra_body["service_tier"] = service_tier
+    if extra_body:
+        request["extra_body"] = extra_body
 
     response = client.chat.completions.create(**request)
     message = response.choices[0].message
@@ -173,6 +180,7 @@ def run_auto_report_evaluation(
     client: Any,
     model: str,
     reasoning_effort: str,
+    service_tier: str,
     run_tags: set[str] | None,
 ) -> None:
     system_prompt = (SCRIPT_DIR / "system_prompts" / "report_judge.txt").read_text(encoding="utf-8")
@@ -233,6 +241,7 @@ def run_auto_report_evaluation(
             user_input,
             schema,
             reasoning_effort,
+            service_tier,
         )
         result = ReportAssessments.model_validate_json(content)
         for assessment in result.assessments:
@@ -263,6 +272,12 @@ def main() -> int:
         choices=["off", "none", "minimal", "low", "medium", "high", "xhigh"],
         help="OpenRouter reasoning effort. Use off to omit the OpenRouter reasoning field.",
     )
+    parser.add_argument(
+        "--service-tier",
+        default=os.environ.get("JUDGE_SERVICE_TIER", "flex"),
+        choices=["off", "none", "auto", "standard", "standard_only", "flex", "priority"],
+        help="OpenRouter service_tier request value. Use off to omit (default: flex for OpenRouter).",
+    )
     parser.add_argument("--api-key-env", default=os.environ.get("JUDGE_API_KEY_ENV", "OPENROUTER_API_KEY"))
     parser.add_argument("--api-key", default=None)
     parser.add_argument("--run-tags", nargs="*", help="Evaluate only these non-organizer run tags")
@@ -273,12 +288,16 @@ def main() -> int:
         api_key = os.environ.get(args.api_key_env) or os.environ.get("OPENAI_API_KEY") or "EMPTY"
     client = make_client(args.base_url, api_key)
     run_tags = set(args.run_tags) if args.run_tags else None
+    service_tier = ""
+    if "openrouter.ai" in args.base_url and args.service_tier not in {"off", "none"}:
+        service_tier = args.service_tier
     run_auto_report_evaluation(
         input_folder=args.input_folder_path,
         output_folder=args.output_folder_path,
         client=client,
         model=args.model,
         reasoning_effort="" if args.reasoning_effort == "off" else args.reasoning_effort,
+        service_tier=service_tier,
         run_tags=run_tags,
     )
     return 0

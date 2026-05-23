@@ -92,7 +92,11 @@ For OpenRouter or Anthropic API-key runs, the harness uses `claude --bare --no-s
 
 Claude Code sessions default to `--effort high` for consistent reasoning depth across tested backbones. Override with `--effort low`, `--effort medium`, `--effort xhigh`, or `--effort max` only when intentionally running an ablation.
 
-For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use tools or may return no final output. Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs. The debug file path given to Claude Code is inside the anonymous temporary session and copied back afterward, so hidden topic IDs are not exposed through debug CLI arguments. Set `OPENROUTER_PREFLIGHT=0` only if you need to skip the key check.
+For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use tools, close streams early, or return no final output. The runner retries transient provider failures such as `stream closed before completion` up to `CLAUDE_MAX_ATTEMPTS=3`.
+
+OpenRouter generation runs default to `OPENROUTER_SERVICE_TIER=flex` for lower cost when the upstream supports service tiers. Claude Code does not expose OpenRouter's top-level `service_tier` request field, so the runner starts a local per-session proxy that injects it before forwarding to OpenRouter. Set `OPENROUTER_SERVICE_TIER=off` to disable, or `OPENROUTER_SERVICE_TIER=priority` to request priority.
+
+Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs. The debug file path given to Claude Code is inside the anonymous temporary session and copied back afterward, so hidden topic IDs are not exposed through debug CLI arguments. Set `OPENROUTER_PREFLIGHT=0` only if you need to skip the key check.
 
 ## Claude Code Permissions
 
@@ -202,7 +206,7 @@ The `data/runs/report_generation_runs/{run_id}` file is the AutoJudge input.
 
 This repo includes `autojudge/auto_judge_openrouter.py`, derived from `trec-dragun/resources`. The modification is deliberately small: the report judge endpoint, model, and API key are configurable for OpenRouter or any OpenAI-compatible service.
 
-OpenRouter AutoJudge calls default to `reasoning.effort=high`, passed through the OpenAI SDK as `extra_body={"reasoning": {"effort": "high"}}`. Override with `--judge-reasoning-effort` or `JUDGE_REASONING_EFFORT`; use `--judge-reasoning-effort off` if the judge endpoint does not support OpenRouter's reasoning field.
+OpenRouter AutoJudge calls default to `reasoning.effort=high` and `service_tier=flex`, passed through the OpenAI SDK `extra_body`. Override with `--judge-reasoning-effort` / `JUDGE_REASONING_EFFORT` and `--judge-service-tier` / `JUDGE_SERVICE_TIER`; use `off` if the judge endpoint does not support a field.
 
 Score a completed run:
 
