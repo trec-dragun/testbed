@@ -149,7 +149,6 @@ RENDER_SCRIPT="$(find "$SESSION_WORK_DIR" -path "*/scripts/render_report_html.py
 
 {
   printf '%s\n\n' "$SKILL_COMMAND"
-  printf 'Create the skill output files under reports/. At minimum, write target.txt and report.json to disk. Do not print report.json or report.html in chat.\n\n'
   cat "$TOPIC_DIR/input.txt"
 } > "$SESSION_PROMPT"
 
