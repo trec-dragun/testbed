@@ -22,6 +22,7 @@ OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
 OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-auto}"
 OPENROUTER_PROXY_PID=""
 CLAUDE_TRACE="${CLAUDE_TRACE:-1}"
+QUIET_FAILURE="${RUN_ONE_QUIET_FAILURE:-0}"
 
 usage() {
   cat <<'EOF'
@@ -141,7 +142,7 @@ cleanup() {
     kill "$OPENROUTER_PROXY_PID" 2>/dev/null || true
     wait "$OPENROUTER_PROXY_PID" 2>/dev/null || true
   fi
-  if [[ "$KEEP_SESSION_DIR" != "1" ]]; then
+  if [[ "$KEEP_SESSION_DIR" != "1" || "$QUIET_FAILURE" == "1" ]]; then
     chmod -R u+w "$SESSION_DIR" 2>/dev/null || true
     rm -rf "$SESSION_DIR"
   else
@@ -277,31 +278,51 @@ fi
 printf '%s\n' "$CLAUDE_STATUS" > "$CLAUDE_EXIT_CODE"
 if [[ "$CLAUDE_STATUS" -ne 0 ]]; then
   KEEP_SESSION_DIR=1
-  echo "error: claude exited with status $CLAUDE_STATUS" >&2
-  echo "kept failed session dir: $SESSION_DIR" >&2
-  print_claude_diagnostics
+  if [[ "$QUIET_FAILURE" != "1" ]]; then
+    echo "error: claude exited with status $CLAUDE_STATUS" >&2
+    echo "kept failed session dir: $SESSION_DIR" >&2
+    print_claude_diagnostics
+  fi
   exit "$CLAUDE_STATUS"
 fi
 
+AUDIT_STDERR="$TOPIC_DIR/transcript_audit.stderr"
+if [[ "$QUIET_FAILURE" == "1" ]]; then
+  AUDIT_REDIRECT=("$AUDIT_STDERR")
+else
+  AUDIT_REDIRECT=("/dev/stderr")
+fi
 if ! python3 "$ROOT_DIR/scripts/audit_transcript.py" \
   --raw "$CLAUDE_STDOUT" \
   --topic-id "$TOPIC_ID" \
-  --summary-out "$TOPIC_DIR/transcript_audit.json"; then
+  --summary-out "$TOPIC_DIR/transcript_audit.json" \
+  2>"${AUDIT_REDIRECT[0]}"; then
   KEEP_SESSION_DIR=1
-  echo "error: claude output exposed a hidden evaluation artifact" >&2
-  echo "kept failed session dir: $SESSION_DIR" >&2
-  print_claude_diagnostics
+  if [[ "$QUIET_FAILURE" != "1" ]]; then
+    echo "error: claude output exposed a hidden evaluation artifact" >&2
+    echo "kept failed session dir: $SESSION_DIR" >&2
+    print_claude_diagnostics
+  fi
   exit 1
 fi
 if [[ -s "$CLAUDE_DEBUG_FILE" ]]; then
+  DEBUG_AUDIT_STDERR="$TOPIC_DIR/debug_audit.stderr"
+  if [[ "$QUIET_FAILURE" == "1" ]]; then
+    DEBUG_AUDIT_REDIRECT=("$DEBUG_AUDIT_STDERR")
+  else
+    DEBUG_AUDIT_REDIRECT=("/dev/stderr")
+  fi
   if ! python3 "$ROOT_DIR/scripts/audit_transcript.py" \
     --raw "$CLAUDE_DEBUG_FILE" \
     --topic-id "$TOPIC_ID" \
-    --summary-out "$TOPIC_DIR/debug_audit.json"; then
+    --summary-out "$TOPIC_DIR/debug_audit.json" \
+    2>"${DEBUG_AUDIT_REDIRECT[0]}"; then
     KEEP_SESSION_DIR=1
-    echo "error: claude debug log exposed a hidden evaluation artifact" >&2
-    echo "kept failed session dir: $SESSION_DIR" >&2
-    print_claude_diagnostics
+    if [[ "$QUIET_FAILURE" != "1" ]]; then
+      echo "error: claude debug log exposed a hidden evaluation artifact" >&2
+      echo "kept failed session dir: $SESSION_DIR" >&2
+      print_claude_diagnostics
+    fi
     exit 1
   fi
 fi
@@ -315,21 +336,37 @@ if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
   --summary-out "$TOPIC_DIR/skill_report_summary.json" \
   2>"$TOPIC_DIR/collect_report.stderr")"; then
   KEEP_SESSION_DIR=1
-  echo "error: skill did not create reports/**/report.json" >&2
-  echo "kept failed session dir: $SESSION_DIR" >&2
-  print_claude_diagnostics
-  echo "session files:" >&2
-  find "$SESSION_DIR" -maxdepth 5 -type f | sort >&2 || true
-  cat "$TOPIC_DIR/collect_report.stderr" >&2 || true
+  if [[ "$QUIET_FAILURE" != "1" ]]; then
+    echo "error: skill did not create reports/**/report.json" >&2
+    echo "kept failed session dir: $SESSION_DIR" >&2
+    print_claude_diagnostics
+    echo "session files:" >&2
+    find "$SESSION_DIR" -maxdepth 5 -type f | sort >&2 || true
+    cat "$TOPIC_DIR/collect_report.stderr" >&2 || true
+  fi
   exit 1
 fi
 
-python3 "$ROOT_DIR/scripts/validate_report.py" \
+VALIDATION_STDERR="$TOPIC_DIR/validation.stderr"
+if ! python3 "$ROOT_DIR/scripts/validate_report.py" \
   --report "$REPORT_JSON" \
   --topic-id "$TOPIC_ID" \
   --run-id "$RUN_ID" \
   --summary-out "$TOPIC_DIR/validation.json" \
   --out-json "$TOPIC_DIR/dragun.json" \
-  --out-jsonl "$RUN_JSONL"
+  --out-jsonl "$RUN_JSONL" \
+  2>"$VALIDATION_STDERR"; then
+  KEEP_SESSION_DIR=1
+  if [[ "$QUIET_FAILURE" != "1" ]]; then
+    cat "$VALIDATION_STDERR" >&2 || true
+    echo "error: report validation failed" >&2
+    echo "kept failed session dir: $SESSION_DIR" >&2
+    print_claude_diagnostics
+  fi
+  exit 1
+fi
+if [[ -s "$VALIDATION_STDERR" && "$QUIET_FAILURE" != "1" ]]; then
+  cat "$VALIDATION_STDERR" >&2 || true
+fi
 
 echo "$TOPIC_DIR/dragun.json"

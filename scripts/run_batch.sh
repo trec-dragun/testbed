@@ -13,6 +13,7 @@ RUN_PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
 RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
+MAX_ATTEMPTS="${RUN_TOPIC_MAX_ATTEMPTS:-3}"
 
 format_duration() {
   local seconds="$1"
@@ -36,6 +37,7 @@ Options:
   --run-id ID            Output run ID
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
+  --max-attempts N       Maximum attempts per article (default: 3)
 EOF
 }
 
@@ -50,6 +52,7 @@ while [[ $# -gt 0 ]]; do
     --run-id) RUN_ID="$2"; shift 2 ;;
     --limit) LIMIT="$2"; shift 2 ;;
     --overwrite) OVERWRITE=1; shift ;;
+    --max-attempts) MAX_ATTEMPTS="$2"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "unknown option: $1" >&2; usage; exit 2 ;;
   esac
@@ -57,6 +60,10 @@ done
 
 if [[ -z "$RUN_ID" ]]; then
   RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
+fi
+if ! [[ "$MAX_ATTEMPTS" =~ ^[1-9][0-9]*$ ]]; then
+  echo "error: --max-attempts must be a positive integer" >&2
+  exit 2
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 if [[ -z "$SKILL_COMMAND" ]]; then
@@ -118,17 +125,61 @@ while IFS= read -r TOPIC_ID; do
   TOPIC_ID_FILE="$PRIVATE_TOPIC_DIR/$TOPIC_ALIAS.txt"
   printf '%s\n' "$TOPIC_ID" > "$TOPIC_ID_FILE"
   echo "[$CURRENT/$TOTAL] start $TOPIC_ALIAS | elapsed $(format_duration "$ELAPSED") | eta $ETA_TEXT"
-  "$ROOT_DIR/scripts/run_one.sh" \
-    --topics "$TOPICS" \
-    --topic-id-file "$TOPIC_ID_FILE" \
-    --topic-alias "$TOPIC_ALIAS" \
-    --skill "$SKILL" \
-    --skill-command "$SKILL_COMMAND" \
-    --model "$MODEL" \
-    --provider "$PROVIDER" \
-    --effort "$CLAUDE_REASONING_EFFORT" \
-    --run-id "$RUN_ID" \
-    --run-jsonl "$RUN_JSONL"
+  TOPIC_DIR="$RUN_DIR/topics/$TOPIC_ALIAS"
+  ATTEMPT=1
+  while true; do
+    if [[ "$ATTEMPT" -gt 1 ]]; then
+      echo "[$CURRENT/$TOTAL] retry $TOPIC_ALIAS | attempt $ATTEMPT/$MAX_ATTEMPTS"
+    fi
+    set +e
+    if [[ "$ATTEMPT" -lt "$MAX_ATTEMPTS" ]]; then
+      RUN_ONE_QUIET_FAILURE=1 "$ROOT_DIR/scripts/run_one.sh" \
+        --topics "$TOPICS" \
+        --topic-id-file "$TOPIC_ID_FILE" \
+        --topic-alias "$TOPIC_ALIAS" \
+        --skill "$SKILL" \
+        --skill-command "$SKILL_COMMAND" \
+        --model "$MODEL" \
+        --provider "$PROVIDER" \
+        --effort "$CLAUDE_REASONING_EFFORT" \
+        --run-id "$RUN_ID" \
+        --run-jsonl "$RUN_JSONL"
+    else
+      "$ROOT_DIR/scripts/run_one.sh" \
+        --topics "$TOPICS" \
+        --topic-id-file "$TOPIC_ID_FILE" \
+        --topic-alias "$TOPIC_ALIAS" \
+        --skill "$SKILL" \
+        --skill-command "$SKILL_COMMAND" \
+        --model "$MODEL" \
+        --provider "$PROVIDER" \
+        --effort "$CLAUDE_REASONING_EFFORT" \
+        --run-id "$RUN_ID" \
+        --run-jsonl "$RUN_JSONL"
+    fi
+    ATTEMPT_STATUS=$?
+    set -e
+    if [[ "$ATTEMPT_STATUS" -eq 0 ]]; then
+      break
+    fi
+    ATTEMPT_DIR="$RUN_DIR/failed_attempts/$TOPIC_ALIAS/attempt_$(printf '%02d' "$ATTEMPT")"
+    mkdir -p "$(dirname "$ATTEMPT_DIR")"
+    if [[ -d "$TOPIC_DIR" ]]; then
+      rm -rf "$ATTEMPT_DIR"
+      mv "$TOPIC_DIR" "$ATTEMPT_DIR"
+    fi
+    rm -rf "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_ALIAS"
+    if [[ "$ATTEMPT" -ge "$MAX_ATTEMPTS" ]]; then
+      echo "error: $TOPIC_ALIAS failed on attempt $ATTEMPT/$MAX_ATTEMPTS" >&2
+      echo "logs: $ATTEMPT_DIR" >&2
+      exit "$ATTEMPT_STATUS"
+    fi
+    echo "[$CURRENT/$TOTAL] failed $TOPIC_ALIAS | attempt $ATTEMPT/$MAX_ATTEMPTS | retrying"
+    ATTEMPT=$((ATTEMPT + 1))
+  done
+  if [[ "$ATTEMPT" -gt 1 ]]; then
+    echo "[$CURRENT/$TOTAL] recovered $TOPIC_ALIAS | attempt $ATTEMPT/$MAX_ATTEMPTS"
+  fi
   python3 - "$TOPIC_MAP" "$TOPIC_ALIAS" "$TOPIC_ID" <<'PY'
 import json
 import sys
