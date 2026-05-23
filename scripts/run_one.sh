@@ -21,6 +21,7 @@ KEEP_SESSION_DIR="${KEEP_SESSION_DIR:-0}"
 OVERWRITE_TOPIC="${OVERWRITE_TOPIC:-0}"
 OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-auto}"
 OPENROUTER_PROXY_PID=""
+CLAUDE_TRACE="${CLAUDE_TRACE:-0}"
 
 usage() {
   cat <<'EOF'
@@ -85,9 +86,14 @@ if [[ -z "$RUN_JSONL" ]]; then
 fi
 
 CLAUDE_STDOUT="$TOPIC_DIR/claude_raw.txt"
+CLAUDE_STREAM="$TOPIC_DIR/claude_stream.jsonl"
+CLAUDE_TRAJECTORY="$TOPIC_DIR/trajectory_summary.json"
 CLAUDE_STDERR="$TOPIC_DIR/claude_stderr.log"
 CLAUDE_EXIT_CODE="$TOPIC_DIR/claude_exit_code.txt"
 CLAUDE_DEBUG_FILE="$TOPIC_DIR/claude_debug.log"
+if [[ "$CLAUDE_TRACE" == "1" ]]; then
+  CLAUDE_STDOUT="$CLAUDE_STREAM"
+fi
 
 if [[ "$OVERWRITE_TOPIC" == "1" && -d "$TOPIC_DIR" ]]; then
   rm -rf "$TOPIC_DIR"
@@ -95,11 +101,23 @@ fi
 mkdir -p "$TOPIC_DIR"
 
 print_claude_diagnostics() {
-  echo "claude stdout tail: $CLAUDE_STDOUT" >&2
-  if [[ -s "$CLAUDE_STDOUT" ]]; then
-    tail -n 80 "$CLAUDE_STDOUT" >&2 || true
+  if [[ "$CLAUDE_TRACE" == "1" && -s "$TOPIC_DIR/claude_raw.txt" ]]; then
+    echo "claude chat tail: $TOPIC_DIR/claude_raw.txt" >&2
+    tail -n 80 "$TOPIC_DIR/claude_raw.txt" >&2 || true
   else
-    echo "(empty)" >&2
+    echo "claude stdout tail: $CLAUDE_STDOUT" >&2
+    if [[ -s "$CLAUDE_STDOUT" ]]; then
+      tail -n 80 "$CLAUDE_STDOUT" >&2 || true
+    else
+      echo "(empty)" >&2
+    fi
+  fi
+  if [[ "$CLAUDE_TRACE" == "1" && -s "$CLAUDE_STREAM" ]]; then
+    echo "claude stream tail: $CLAUDE_STREAM" >&2
+    tail -n 40 "$CLAUDE_STREAM" >&2 || true
+  fi
+  if [[ "$CLAUDE_TRACE" == "1" && -s "$CLAUDE_TRAJECTORY" ]]; then
+    echo "trajectory summary: $CLAUDE_TRAJECTORY" >&2
   fi
   echo "claude stderr tail: $CLAUDE_STDERR" >&2
   if [[ -s "$CLAUDE_STDERR" ]]; then
@@ -166,6 +184,9 @@ CLAUDE_ARGS=(
 )
 if [[ "${CLAUDE_DEBUG_LOG:-0}" == "1" ]]; then
   CLAUDE_ARGS+=(--debug-file "$SESSION_CLAUDE_DEBUG_FILE")
+fi
+if [[ "$CLAUDE_TRACE" == "1" ]]; then
+  CLAUDE_ARGS+=(--output-format stream-json --verbose)
 fi
 
 export CLAUDE_CODE_EFFORT_LEVEL="$CLAUDE_REASONING_EFFORT"
@@ -246,6 +267,12 @@ set -e
 
 if [[ -s "$SESSION_CLAUDE_DEBUG_FILE" ]]; then
   cp "$SESSION_CLAUDE_DEBUG_FILE" "$CLAUDE_DEBUG_FILE"
+fi
+if [[ "$CLAUDE_TRACE" == "1" && -s "$CLAUDE_STREAM" ]]; then
+  python3 "$ROOT_DIR/scripts/extract_claude_trajectory.py" \
+    --stream "$CLAUDE_STREAM" \
+    --summary-out "$CLAUDE_TRAJECTORY" \
+    --chat-out "$TOPIC_DIR/claude_raw.txt" || true
 fi
 printf '%s\n' "$CLAUDE_STATUS" > "$CLAUDE_EXIT_CODE"
 if [[ "$CLAUDE_STATUS" -ne 0 ]]; then
