@@ -22,6 +22,10 @@ FIELDS = [
     "date",
     "auto_supportive_score",
     "auto_contradictory_score",
+    "auto_normalized_supportive_score",
+    "auto_normalized_contradictory_score",
+    "mean_report_word_count",
+    "total_report_word_count",
     "valid_topics",
     "total_topics",
     "invalid_topics",
@@ -45,15 +49,15 @@ def load_manifest(run_dir: Path) -> dict[str, Any]:
     return {}
 
 
-def load_score(run_dir: Path, run_id: str) -> tuple[str, str]:
+def load_score(run_dir: Path, run_id: str) -> dict[str, str]:
     path = run_dir / "autojudge" / "auto_report_generation_per_run_results.csv"
     if not path.exists():
-        return "", ""
+        return {}
     with path.open(encoding="utf-8", newline="") as handle:
         for row in csv.DictReader(handle):
             if row.get("run_tag") == run_id:
-                return row.get("supportive_score", ""), row.get("contradictory_score", "")
-    return "", ""
+                return row
+    return {}
 
 
 def validation_stats(run_dir: Path) -> dict[str, Any]:
@@ -111,7 +115,7 @@ def main() -> int:
     run_safe = safe_name(args.run_id)
     run_dir = ROOT / "runs" / run_safe
     manifest = load_manifest(run_dir)
-    supportive, contradictory = load_score(run_dir, args.run_id)
+    scores = load_score(run_dir, args.run_id)
     stats = validation_stats(run_dir)
 
     row = {
@@ -122,8 +126,12 @@ def main() -> int:
         "skill": manifest.get("skill", ""),
         "skill_commit": manifest.get("skill_commit", ""),
         "date": datetime.now(timezone.utc).date().isoformat(),
-        "auto_supportive_score": supportive,
-        "auto_contradictory_score": contradictory,
+        "auto_supportive_score": scores.get("supportive_score", ""),
+        "auto_contradictory_score": scores.get("contradictory_score", ""),
+        "auto_normalized_supportive_score": scores.get("normalized_supportive_score", ""),
+        "auto_normalized_contradictory_score": scores.get("normalized_contradictory_score", ""),
+        "mean_report_word_count": scores.get("mean_report_word_count", ""),
+        "total_report_word_count": scores.get("total_report_word_count", ""),
         "reports_dir": manifest.get("reports_dir", str(ROOT / "reports" / run_safe)),
         **stats,
     }

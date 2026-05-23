@@ -81,6 +81,7 @@ python "$ROOT_DIR/autojudge/score.py" \
   --task report_generation_evaluation \
   --type auto \
   --assessment_input "$OUT_DIR/auto_report_assessments.csv" \
+  --reports-input "$INPUT_FOLDER/$RUN_ID" \
   --output "$OUT_DIR"
 
 python "$ROOT_DIR/scripts/build_leaderboard.py" --run-id "$RUN_ID"

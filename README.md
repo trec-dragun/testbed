@@ -260,6 +260,8 @@ runs/{run_id}/autojudge/
   auto_report_generation_per_run_results.csv
 ```
 
+The per-topic and per-run score CSVs keep the original `supportive_score` and `contradictory_score` columns. They also include `normalized_supportive_score` and `normalized_contradictory_score`, computed as the corresponding original score divided by the report word count, plus report word-count columns for context.
+
 `scripts/build_leaderboard.py` updates:
 
 ```text
