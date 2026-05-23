@@ -114,7 +114,7 @@ OpenRouter generation runs default to `OPENROUTER_SERVICE_TIER=auto`. In auto mo
 
 Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs. The debug file path given to Claude Code is inside the anonymous temporary session and copied back afterward, so hidden topic IDs are not exposed through debug CLI arguments. Set `OPENROUTER_PREFLIGHT=0` only if you need to skip the key check.
 
-Set `CLAUDE_TRACE=1` when you want to inspect a model's research trajectory. This switches Claude Code stdout to `--output-format stream-json --verbose` and saves `claude_stream.jsonl`, `trajectory_summary.json`, and a reconstructed visible `claude_raw.txt` under each topic artifact directory. The trajectory summary lists tool calls, WebSearch queries, WebFetch URLs, file reads/writes, and the final visible chat text length. It does not recover private chain-of-thought; any `thinking` blocks are only counted.
+Trajectory tracing is enabled by default. Claude Code stdout uses `--output-format stream-json --verbose`, and the runner saves `claude_stream.jsonl`, `trajectory_summary.json`, and a reconstructed visible `claude_raw.txt` under each topic artifact directory. The trajectory summary lists tool calls, WebSearch queries, WebFetch URLs, file reads/writes, and the final visible chat text length. It does not recover private chain-of-thought; any `thinking` blocks are only counted. Set `CLAUDE_TRACE=0` to disable tracing for smaller artifacts.
 
 ## Claude Code Tools
 
