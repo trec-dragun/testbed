@@ -38,6 +38,7 @@ OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-auto}"
 OPENROUTER_PROXY_PID=""
 CLAUDE_TRACE="${CLAUDE_TRACE:-1}"
 QUIET_FAILURE="${RUN_ONE_QUIET_FAILURE:-0}"
+RUNNER_ARTIFACT_NOTE="${RUNNER_ARTIFACT_NOTE:-1}"
 
 openrouter_web_search_enabled() {
   case "$OPENROUTER_WEB_SEARCH" in
@@ -224,6 +225,16 @@ cleanup() {
 }
 trap cleanup EXIT
 
+write_runner_artifact_note() {
+  cat <<'EOF'
+Automated artifact note:
+- Use the available Write tool to create reports/lateral-reading-YYYYMMDD-HHMMSS/target.txt and reports/lateral-reading-YYYYMMDD-HHMMSS/report.json.
+- If Bash, shell validation, or HTML rendering is unavailable, skip those steps; the runner renders report.html after the session.
+- Do not stop with a chat-only answer because validation or rendering tools are unavailable.
+
+EOF
+}
+
 mkdir -p "$SESSION_WORK_DIR/reports"
 python3 "$ROOT_DIR/scripts/make_article_input.py" \
   --topics "$TOPICS" \
@@ -241,6 +252,9 @@ RENDER_SCRIPT="$(find "$SESSION_WORK_DIR" -path "*/scripts/render_report_html.py
 
 {
   printf '%s\n\n' "$SKILL_COMMAND"
+  if [[ "$RUNNER_ARTIFACT_NOTE" == "1" ]]; then
+    write_runner_artifact_note
+  fi
   cat "$TOPIC_DIR/input.txt"
 } > "$SESSION_PROMPT"
 

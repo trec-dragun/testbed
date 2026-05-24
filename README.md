@@ -87,10 +87,15 @@ Setup output is intentionally concise. Routine `pip`, `git pull`, and download d
 
 The model is never launched from this repo. For each article, `scripts/run_one.sh` creates a fresh temporary workspace, copies the skill repo into it, and runs Claude Code from that temporary `work/` directory.
 
-The user prompt has exactly one skill invocation followed by the plaintext article:
+The user prompt starts with one skill invocation, then a short automated artifact note, then the plaintext article:
 
 ```text
 /lateral-reading-skill:lateral-reading
+
+Automated artifact note:
+- Use the available Write tool to create reports/lateral-reading-YYYYMMDD-HHMMSS/target.txt and reports/lateral-reading-YYYYMMDD-HHMMSS/report.json.
+- If Bash, shell validation, or HTML rendering is unavailable, skip those steps; the runner renders report.html after the session.
+- Do not stop with a chat-only answer because validation or rendering tools are unavailable.
 
 Title: ...
 URL: ...
@@ -99,7 +104,7 @@ Heading: ...
 Article body...
 ```
 
-The slash command is resolved from `.claude-plugin/plugin.json` plus `skills/*/SKILL.md`, or set explicitly with `--skill-command`. The article text itself contains no `docid`.
+The slash command is resolved from `.claude-plugin/plugin.json` plus `skills/*/SKILL.md`, or set explicitly with `--skill-command`. The article text itself contains no `docid`. Set `RUNNER_ARTIFACT_NOTE=0` only for a strict prompt-shape ablation; without it, some non-Anthropic backbones may stop after research when Bash or rendering is unavailable even though `Write` is available.
 
 The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. Claude-facing artifact paths and progress logs use anonymous aliases such as `article_001`; the private `runs/{run_id}/topic_map.jsonl` maps aliases back to topic IDs after generation. The wrapper adds `metadata.topic_id` only after collecting the skill's `report.json`.
 
