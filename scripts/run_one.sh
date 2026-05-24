@@ -14,7 +14,7 @@ PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-acceptEdits}"
 CLAUDE_TOOLS_FALLBACK="WebFetch,WebSearch,Read,Write"
-OPENROUTER_CLAUDE_TOOLS_FALLBACK="WebFetch,Read,Write"
+OPENROUTER_CLAUDE_TOOLS_FALLBACK="Read,Write"
 CLAUDE_TOOLS_DEFAULT="${CLAUDE_TOOLS:-}"
 OPENROUTER_WEB_SEARCH="${OPENROUTER_WEB_SEARCH:-1}"
 OPENROUTER_WEB_SEARCH_ENGINE="${OPENROUTER_WEB_SEARCH_ENGINE:-auto}"
@@ -23,6 +23,12 @@ OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS="${OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESUL
 OPENROUTER_WEB_SEARCH_CONTEXT_SIZE="${OPENROUTER_WEB_SEARCH_CONTEXT_SIZE:-}"
 OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS="${OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS:-}"
 OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS="${OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS:-}"
+OPENROUTER_WEB_FETCH="${OPENROUTER_WEB_FETCH:-1}"
+OPENROUTER_WEB_FETCH_ENGINE="${OPENROUTER_WEB_FETCH_ENGINE:-auto}"
+OPENROUTER_WEB_FETCH_MAX_USES="${OPENROUTER_WEB_FETCH_MAX_USES:-20}"
+OPENROUTER_WEB_FETCH_MAX_CONTENT_TOKENS="${OPENROUTER_WEB_FETCH_MAX_CONTENT_TOKENS:-100000}"
+OPENROUTER_WEB_FETCH_ALLOWED_DOMAINS="${OPENROUTER_WEB_FETCH_ALLOWED_DOMAINS:-}"
+OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS="${OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS:-}"
 RUN_ID="${RUN_ID:-}"
 RUN_JSONL=""
 MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
@@ -35,6 +41,13 @@ QUIET_FAILURE="${RUN_ONE_QUIET_FAILURE:-0}"
 
 openrouter_web_search_enabled() {
   case "$OPENROUTER_WEB_SEARCH" in
+    0|false|False|FALSE|off|Off|OFF|no|No|NO|none|None|NONE) return 1 ;;
+    *) return 0 ;;
+  esac
+}
+
+openrouter_web_fetch_enabled() {
+  case "$OPENROUTER_WEB_FETCH" in
     0|false|False|FALSE|off|Off|OFF|no|No|NO|none|None|NONE) return 1 ;;
     *) return 0 ;;
   esac
@@ -91,26 +104,40 @@ if [[ -z "$CLAUDE_TOOLS_DEFAULT" ]]; then
   fi
 fi
 CLAUDE_TOOLS_COMPACT="${CLAUDE_TOOLS_DEFAULT//[[:space:]]/}"
+OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS=""
 if [[ "$PROVIDER" == "openrouter" && ",$CLAUDE_TOOLS_COMPACT," == *",WebSearch,"* && "${OPENROUTER_ALLOW_WEBSEARCH:-0}" != "1" ]]; then
+  OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS="WebSearch"
+fi
+if [[ "$PROVIDER" == "openrouter" && ",$CLAUDE_TOOLS_COMPACT," == *",WebFetch,"* && "${OPENROUTER_ALLOW_WEBFETCH:-0}" != "1" ]]; then
+  OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS="${OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS:+$OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS,}WebFetch"
+fi
+if [[ -n "$OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS" ]]; then
   cat >&2 <<'EOF'
-error: OpenRouter generation with Claude Code WebSearch is disabled by default.
+error: OpenRouter generation with Claude Code native web tools is disabled by default.
 
-OpenRouter runs now use OpenRouter's server-side web search by default. Leave
-WebSearch out of CLAUDE_TOOLS so the runner can inject openrouter:web_search
-into OpenRouter requests instead of using Claude Code's native WebSearch.
+OpenRouter runs now use OpenRouter's server-side search and fetch tools by
+default. Leave WebSearch and WebFetch out of CLAUDE_TOOLS so the runner can
+inject OpenRouter server tools into OpenRouter requests instead of using Claude
+Code's native web tools.
 
 Default OpenRouter tools are:
 
-  WebFetch,Read,Write
+  Read,Write
 
-To disable OpenRouter search entirely, set:
+To disable OpenRouter search or fetch, set:
 
   OPENROUTER_WEB_SEARCH=0
+  OPENROUTER_WEB_FETCH=0
 
 To intentionally test Claude Code native WebSearch over OpenRouter, set:
 
   OPENROUTER_ALLOW_WEBSEARCH=1
+
+To intentionally test Claude Code native WebFetch over OpenRouter, set:
+
+  OPENROUTER_ALLOW_WEBFETCH=1
 EOF
+  echo "disallowed native tools in CLAUDE_TOOLS: $OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS" >&2
   exit 2
 fi
 if [[ -z "$SKILL_COMMAND" ]]; then
@@ -286,6 +313,25 @@ if [[ "$PROVIDER" == "openrouter" ]]; then
     fi
     if [[ -n "$OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS" ]]; then
       OPENROUTER_PROXY_ARGS+=(--web-search-excluded-domains "$OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS")
+    fi
+    OPENROUTER_PROXY_NEEDED=1
+  fi
+  if openrouter_web_fetch_enabled; then
+    OPENROUTER_PROXY_ARGS+=(--web-fetch)
+    if [[ -n "$OPENROUTER_WEB_FETCH_ENGINE" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-fetch-engine "$OPENROUTER_WEB_FETCH_ENGINE")
+    fi
+    if [[ -n "$OPENROUTER_WEB_FETCH_MAX_USES" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-fetch-max-uses "$OPENROUTER_WEB_FETCH_MAX_USES")
+    fi
+    if [[ -n "$OPENROUTER_WEB_FETCH_MAX_CONTENT_TOKENS" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-fetch-max-content-tokens "$OPENROUTER_WEB_FETCH_MAX_CONTENT_TOKENS")
+    fi
+    if [[ -n "$OPENROUTER_WEB_FETCH_ALLOWED_DOMAINS" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-fetch-allowed-domains "$OPENROUTER_WEB_FETCH_ALLOWED_DOMAINS")
+    fi
+    if [[ -n "$OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-fetch-blocked-domains "$OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS")
     fi
     OPENROUTER_PROXY_NEEDED=1
   fi

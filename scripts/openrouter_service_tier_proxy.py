@@ -31,7 +31,7 @@ class ProxyHandler(BaseHTTPRequestHandler):
     upstream_port: ClassVar[int | None]
     upstream_base_path: ClassVar[str]
     service_tier: ClassVar[str]
-    web_search_tool: ClassVar[dict[str, Any] | None]
+    server_tools: ClassVar[list[dict[str, Any]]]
 
     protocol_version = "HTTP/1.0"
 
@@ -80,17 +80,23 @@ class ProxyHandler(BaseHTTPRequestHandler):
             payload["service_tier"] = self.service_tier
             changed = True
 
-        if self.web_search_tool is not None:
+        if self.server_tools:
             tools = payload.get("tools")
             if tools is None:
-                payload["tools"] = [self.web_search_tool]
+                payload["tools"] = self.server_tools
                 changed = True
-            elif isinstance(tools, list) and not any(
-                isinstance(tool, dict) and tool.get("type") == "openrouter:web_search"
-                for tool in tools
-            ):
-                payload["tools"] = [*tools, self.web_search_tool]
-                changed = True
+            elif isinstance(tools, list):
+                existing_types = {
+                    tool.get("type")
+                    for tool in tools
+                    if isinstance(tool, dict) and isinstance(tool.get("type"), str)
+                }
+                missing_tools = [
+                    tool for tool in self.server_tools if str(tool.get("type", "")) not in existing_types
+                ]
+                if missing_tools:
+                    payload["tools"] = [*tools, *missing_tools]
+                    changed = True
 
         if not changed:
             return body
@@ -109,7 +115,11 @@ class ProxyHandler(BaseHTTPRequestHandler):
             headers.pop("Content-Length", None)
         headers["Host"] = self.upstream_host
 
-        connection_class = http.client.HTTPSConnection if self.upstream_scheme == "https" else http.client.HTTPConnection
+        connection_class = (
+            http.client.HTTPSConnection
+            if self.upstream_scheme == "https"
+            else http.client.HTTPConnection
+        )
         connection = connection_class(self.upstream_host, self.upstream_port, timeout=600)
         try:
             connection.request(self.command, self.forward_path(), body=body, headers=headers)
@@ -146,6 +156,12 @@ def main() -> int:
     parser.add_argument("--web-search-context-size", choices=["low", "medium", "high"])
     parser.add_argument("--web-search-allowed-domains", default="")
     parser.add_argument("--web-search-excluded-domains", default="")
+    parser.add_argument("--web-fetch", action="store_true")
+    parser.add_argument("--web-fetch-engine", default="")
+    parser.add_argument("--web-fetch-max-uses", type=int)
+    parser.add_argument("--web-fetch-max-content-tokens", type=int)
+    parser.add_argument("--web-fetch-allowed-domains", default="")
+    parser.add_argument("--web-fetch-blocked-domains", default="")
     args = parser.parse_args()
 
     parsed = urlparse(args.base_url)
@@ -154,6 +170,8 @@ def main() -> int:
     for name, value in (
         ("--web-search-max-results", args.web_search_max_results),
         ("--web-search-max-total-results", args.web_search_max_total_results),
+        ("--web-fetch-max-uses", args.web_fetch_max_uses),
+        ("--web-fetch-max-content-tokens", args.web_fetch_max_content_tokens),
     ):
         if value is not None and value < 1:
             raise SystemExit(f"{name} must be a positive integer")
@@ -163,7 +181,7 @@ def main() -> int:
     ProxyHandler.upstream_port = parsed.port
     ProxyHandler.upstream_base_path = parsed.path.rstrip("/")
     ProxyHandler.service_tier = args.service_tier
-    ProxyHandler.web_search_tool = build_web_search_tool(args) if args.web_search else None
+    ProxyHandler.server_tools = build_server_tools(args)
 
     server = ThreadingHTTPServer((args.host, args.port), ProxyHandler)
     args.port_file.parent.mkdir(parents=True, exist_ok=True)
@@ -171,7 +189,7 @@ def main() -> int:
     print(
         f"openrouter-proxy: listening on {args.host}:{server.server_port}, "
         f"upstream={args.base_url}, service_tier={args.service_tier or 'none'}, "
-        f"web_search={'enabled' if args.web_search else 'disabled'}",
+        f"server_tools={server_tool_names(ProxyHandler.server_tools)}",
         file=sys.stderr,
         flush=True,
     )
@@ -187,6 +205,10 @@ def main() -> int:
 def comma_list(value: str) -> list[str] | None:
     items = [item.strip() for item in value.split(",") if item.strip()]
     return items or None
+
+
+def server_tool_names(tools: list[dict[str, Any]]) -> str:
+    return ",".join(str(tool["type"]) for tool in tools) or "none"
 
 
 def build_web_search_tool(args: argparse.Namespace) -> dict[str, Any]:
@@ -210,6 +232,36 @@ def build_web_search_tool(args: argparse.Namespace) -> dict[str, Any]:
     if parameters:
         tool["parameters"] = parameters
     return tool
+
+
+def build_web_fetch_tool(args: argparse.Namespace) -> dict[str, Any]:
+    parameters: dict[str, Any] = {}
+    if args.web_fetch_engine:
+        parameters["engine"] = args.web_fetch_engine
+    if args.web_fetch_max_uses is not None:
+        parameters["max_uses"] = args.web_fetch_max_uses
+    if args.web_fetch_max_content_tokens is not None:
+        parameters["max_content_tokens"] = args.web_fetch_max_content_tokens
+    allowed_domains = comma_list(args.web_fetch_allowed_domains)
+    if allowed_domains:
+        parameters["allowed_domains"] = allowed_domains
+    blocked_domains = comma_list(args.web_fetch_blocked_domains)
+    if blocked_domains:
+        parameters["blocked_domains"] = blocked_domains
+
+    tool: dict[str, Any] = {"type": "openrouter:web_fetch"}
+    if parameters:
+        tool["parameters"] = parameters
+    return tool
+
+
+def build_server_tools(args: argparse.Namespace) -> list[dict[str, Any]]:
+    tools: list[dict[str, Any]] = []
+    if args.web_search:
+        tools.append(build_web_search_tool(args))
+    if args.web_fetch:
+        tools.append(build_web_fetch_tool(args))
+    return tools
 
 
 if __name__ == "__main__":

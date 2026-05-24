@@ -11,7 +11,7 @@ PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
 CLAUDE_TOOLS_FALLBACK="WebFetch,WebSearch,Read,Write"
-OPENROUTER_CLAUDE_TOOLS_FALLBACK="WebFetch,Read,Write"
+OPENROUTER_CLAUDE_TOOLS_FALLBACK="Read,Write"
 RUN_CLAUDE_TOOLS="${CLAUDE_TOOLS:-}"
 OPENROUTER_WEB_SEARCH="${OPENROUTER_WEB_SEARCH:-1}"
 OPENROUTER_WEB_SEARCH_ENGINE="${OPENROUTER_WEB_SEARCH_ENGINE:-auto}"
@@ -20,6 +20,12 @@ OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS="${OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESUL
 OPENROUTER_WEB_SEARCH_CONTEXT_SIZE="${OPENROUTER_WEB_SEARCH_CONTEXT_SIZE:-}"
 OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS="${OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS:-}"
 OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS="${OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS:-}"
+OPENROUTER_WEB_FETCH="${OPENROUTER_WEB_FETCH:-1}"
+OPENROUTER_WEB_FETCH_ENGINE="${OPENROUTER_WEB_FETCH_ENGINE:-auto}"
+OPENROUTER_WEB_FETCH_MAX_USES="${OPENROUTER_WEB_FETCH_MAX_USES:-20}"
+OPENROUTER_WEB_FETCH_MAX_CONTENT_TOKENS="${OPENROUTER_WEB_FETCH_MAX_CONTENT_TOKENS:-100000}"
+OPENROUTER_WEB_FETCH_ALLOWED_DOMAINS="${OPENROUTER_WEB_FETCH_ALLOWED_DOMAINS:-}"
+OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS="${OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS:-}"
 RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
@@ -91,26 +97,40 @@ if [[ -z "$RUN_CLAUDE_TOOLS" ]]; then
   fi
 fi
 RUN_CLAUDE_TOOLS_COMPACT="${RUN_CLAUDE_TOOLS//[[:space:]]/}"
+OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS=""
 if [[ "$PROVIDER" == "openrouter" && ",$RUN_CLAUDE_TOOLS_COMPACT," == *",WebSearch,"* && "${OPENROUTER_ALLOW_WEBSEARCH:-0}" != "1" ]]; then
+  OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS="WebSearch"
+fi
+if [[ "$PROVIDER" == "openrouter" && ",$RUN_CLAUDE_TOOLS_COMPACT," == *",WebFetch,"* && "${OPENROUTER_ALLOW_WEBFETCH:-0}" != "1" ]]; then
+  OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS="${OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS:+$OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS,}WebFetch"
+fi
+if [[ -n "$OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS" ]]; then
   cat >&2 <<'EOF'
-error: OpenRouter generation with Claude Code WebSearch is disabled by default.
+error: OpenRouter generation with Claude Code native web tools is disabled by default.
 
-OpenRouter runs now use OpenRouter's server-side web search by default. Leave
-WebSearch out of CLAUDE_TOOLS so the runner can inject openrouter:web_search
-into OpenRouter requests instead of using Claude Code's native WebSearch.
+OpenRouter runs now use OpenRouter's server-side search and fetch tools by
+default. Leave WebSearch and WebFetch out of CLAUDE_TOOLS so the runner can
+inject OpenRouter server tools into OpenRouter requests instead of using Claude
+Code's native web tools.
 
 Default OpenRouter tools are:
 
-  WebFetch,Read,Write
+  Read,Write
 
-To disable OpenRouter search entirely, set:
+To disable OpenRouter search or fetch, set:
 
   OPENROUTER_WEB_SEARCH=0
+  OPENROUTER_WEB_FETCH=0
 
 To intentionally test Claude Code native WebSearch over OpenRouter, set:
 
   OPENROUTER_ALLOW_WEBSEARCH=1
+
+To intentionally test Claude Code native WebFetch over OpenRouter, set:
+
+  OPENROUTER_ALLOW_WEBFETCH=1
 EOF
+  echo "disallowed native tools in CLAUDE_TOOLS: $OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS" >&2
   exit 2
 fi
 if [[ -z "$SKILL_COMMAND" ]]; then
@@ -264,6 +284,12 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "openrouter_web_search_context_size": "$OPENROUTER_WEB_SEARCH_CONTEXT_SIZE",
   "openrouter_web_search_allowed_domains": "$OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS",
   "openrouter_web_search_excluded_domains": "$OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS",
+  "openrouter_web_fetch": "$OPENROUTER_WEB_FETCH",
+  "openrouter_web_fetch_engine": "$OPENROUTER_WEB_FETCH_ENGINE",
+  "openrouter_web_fetch_max_uses": "$OPENROUTER_WEB_FETCH_MAX_USES",
+  "openrouter_web_fetch_max_content_tokens": "$OPENROUTER_WEB_FETCH_MAX_CONTENT_TOKENS",
+  "openrouter_web_fetch_allowed_domains": "$OPENROUTER_WEB_FETCH_ALLOWED_DOMAINS",
+  "openrouter_web_fetch_blocked_domains": "$OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS",
   "skill": "$SKILL",
   "skill_command": "$SKILL_COMMAND",
   "skill_commit": "$SKILL_COMMIT",
