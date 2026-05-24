@@ -114,7 +114,9 @@ class ProxyHandler(BaseHTTPRequestHandler):
             for key, value in self.headers.items()
             if key.lower() not in HOP_BY_HOP_HEADERS and key.lower() != "host"
             and key.lower() != "accept-encoding"
+            and key.lower() != "content-length"
         }
+        # The proxy may mutate JSON bodies, so always recalculate Content-Length.
         if body:
             headers["Content-Length"] = str(len(body))
         else:
