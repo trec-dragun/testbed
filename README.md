@@ -19,7 +19,7 @@ cd testbed
 ./scripts/bootstrap.sh
 ```
 
-Run the default lateral-reading skill with your normal Claude Code account:
+Run the default lateral-reading skill with your normal Claude Code account. This is the recommended path for lateral-reading generation because it keeps Claude Code's native `WebSearch` tool on the Anthropic-backed execution path:
 
 ```bash
 ./scripts/launch.sh \
@@ -29,26 +29,27 @@ Run the default lateral-reading skill with your normal Claude Code account:
   --overwrite
 ```
 
-Run through OpenRouter:
+Run through OpenRouter with OpenRouter's server-side web search. For OpenRouter generation, the runner removes Claude Code's native `WebSearch` tool from the default tool set and injects OpenRouter's `openrouter:web_search` server tool into the OpenRouter request:
 
 ```bash
 export OPENROUTER_API_KEY="sk-or-..."
 ./scripts/launch.sh \
   --provider openrouter \
-  --model openai/gpt-5.5 \
-  --run-id openrouter_openai_gpt_5_5_lateral_reading \
+  --model openai/gpt-5.2 \
+  --run-id openrouter_openai_gpt_5_2_lateral_reading \
   --overwrite
 ```
+
+Set `OPENROUTER_WEB_SEARCH=0` to run OpenRouter without search. To intentionally test whether OpenRouter can handle Claude Code's native `WebSearch`, set `CLAUDE_TOOLS="WebFetch,WebSearch,Read,Write"` and `OPENROUTER_ALLOW_WEBSEARCH=1`.
 
 Run another skill repo:
 
 ```bash
-export OPENROUTER_API_KEY="sk-or-..."
 ./scripts/launch.sh \
   --skill-repo https://github.com/trec-dragun/lateral-reading-skill.git \
-  --provider openrouter \
-  --model openai/gpt-5.5 \
-  --run-id openrouter_gpt_5_5_custom_skill \
+  --provider anthropic \
+  --model sonnet \
+  --run-id anthropic_sonnet_custom_skill \
   --overwrite
 ```
 
@@ -108,24 +109,43 @@ For every run, the harness uses a fresh temp workspace plus `--no-session-persis
 
 Claude Code sessions default to `--effort high` for consistent reasoning depth across tested backbones. Override with `--effort low`, `--effort medium`, `--effort xhigh`, or `--effort max` only when intentionally running an ablation.
 
-For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use tools, close streams early, or return no final output. The runner does not synthesize a report or silently recover from those failures.
+For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use client-side Claude Code tools, close streams early, or return no final output. For web search, the OpenRouter path now avoids Claude Code's native `WebSearch` by default and uses OpenRouter's `openrouter:web_search` server tool instead. The runner does not synthesize a report or silently recover from failures.
 
-OpenRouter generation runs default to `OPENROUTER_SERVICE_TIER=auto`. In auto mode, the runner requests `flex` only for `openai/*` and `google/*` model slugs, where OpenRouter advertises service-tier support, and sends Anthropic and other models directly without a service-tier proxy. Claude Code does not expose OpenRouter's top-level `service_tier` request field, so the runner starts a local per-session proxy only when a service tier is actually requested. Set `OPENROUTER_SERVICE_TIER=off` to disable, `OPENROUTER_SERVICE_TIER=flex` to force flex, or `OPENROUTER_SERVICE_TIER=priority` to request priority.
+OpenRouter generation runs default to `OPENROUTER_SERVICE_TIER=auto`. In auto mode, the runner requests `flex` only for `openai/*` and `google/*` model slugs, where OpenRouter advertises service-tier support, and sends Anthropic and other models without a service-tier field. Claude Code does not expose OpenRouter's top-level `service_tier` or server-tool request fields, so the runner starts a local per-session proxy whenever it needs to add `service_tier` or OpenRouter web search to the outbound request. Set `OPENROUTER_SERVICE_TIER=off` to disable service-tier injection, `OPENROUTER_SERVICE_TIER=flex` to force flex, or `OPENROUTER_SERVICE_TIER=priority` to request priority.
+
+OpenRouter web search defaults to:
+
+```bash
+OPENROUTER_WEB_SEARCH=1
+OPENROUTER_WEB_SEARCH_ENGINE=auto
+OPENROUTER_WEB_SEARCH_MAX_RESULTS=5
+OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS=20
+```
+
+Optional controls are `OPENROUTER_WEB_SEARCH_CONTEXT_SIZE`, `OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS`, and `OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS`. Domain lists are comma-separated.
 
 Failed topic runs keep the temporary session folder and write `claude_stderr.log` plus `claude_exit_code.txt` under the topic artifact directory; set `CLAUDE_DEBUG_LOG=1` to also save Claude Code debug logs. The debug file path given to Claude Code is inside the anonymous temporary session and copied back afterward, so hidden topic IDs are not exposed through debug CLI arguments. Set `OPENROUTER_PREFLIGHT=0` only if you need to skip the key check.
 
 Each article is attempted up to three times by default. A failed attempt is moved to `runs/{run_id}/failed_attempts/article_001/attempt_01/`, then the article is rerun in a new temporary session and clean topic artifact directory. Attempts 1 and 2 print only a compact failure/retry line; if the final attempt fails, the runner prints the normal diagnostics and points to the failed-attempt log directory. Override with `--max-attempts N` or `RUN_TOPIC_MAX_ATTEMPTS=N`.
 
-Trajectory tracing is enabled by default. Claude Code stdout uses `--output-format stream-json --verbose`, and the runner saves `claude_stream.jsonl`, `trajectory_summary.json`, and a reconstructed visible `claude_raw.txt` under each topic artifact directory. The trajectory summary lists tool calls, WebSearch queries, WebFetch URLs, file reads/writes, and the final visible chat text length. It does not recover private chain-of-thought; any `thinking` blocks are only counted. Set `CLAUDE_TRACE=0` to disable tracing for smaller artifacts.
+Trajectory tracing is enabled by default. Claude Code stdout uses `--output-format stream-json --verbose`, and the runner saves `claude_stream.jsonl`, `trajectory_summary.json`, and a reconstructed visible `claude_raw.txt` under each topic artifact directory. The trajectory summary lists Claude Code tool calls, native `WebSearch` queries, `WebFetch` URLs, file reads/writes, and the final visible chat text length. OpenRouter server-side searches are executed inside OpenRouter, so they do not appear as Claude Code `WebSearch` tool calls. The trace does not recover private chain-of-thought; any `thinking` blocks are only counted. Set `CLAUDE_TRACE=0` to disable tracing for smaller artifacts.
 
 ## Claude Code Tools
 
-The launch scripts expose a small Claude Code tool set:
+For Anthropic-provider runs, the launch scripts expose a small Claude Code tool set:
 
 - `WebFetch`
 - `WebSearch`
 - `Read`
 - `Write`
+
+For OpenRouter-provider runs, the default Claude Code tool set is:
+
+- `WebFetch`
+- `Read`
+- `Write`
+
+The OpenRouter request proxy adds `{ "type": "openrouter:web_search" }` to the request body so search is performed by OpenRouter's server tool rather than Claude Code's native `WebSearch`.
 
 Claude Code runs from a fresh temporary `work/` directory containing only the copied skill repo. The wrapper keeps topic IDs, rubrics, AutoJudge files, and official results outside that workspace and does not reference their paths in the prompt.
 
@@ -167,7 +187,7 @@ The wrapper copies the skill folder to anonymous public paths such as `reports/{
 ```json
 {
   "metadata": {
-    "run_id": "openrouter_openai_gpt_5_5_lateral_reading",
+    "run_id": "anthropic_sonnet_lateral_reading",
     "topic_id": "msmarco_v2.1_doc_04_420132660"
   },
   "responses": [
@@ -232,7 +252,7 @@ Score a completed run:
 ```bash
 export OPENROUTER_API_KEY="sk-or-..."
 ./scripts/score_with_autojudge.sh \
-  --run-id openrouter_openai_gpt_5_5_lateral_reading \
+  --run-id anthropic_sonnet_lateral_reading \
   --judge-base-url https://openrouter.ai/api/v1 \
   --judge-model openai/gpt-oss-120b
 ```
@@ -275,12 +295,12 @@ During generation, `scripts/run_batch.sh` prints per-article start and completio
 
 ## Testing Multiple Backbones
 
-Use explicit run IDs that encode provider, model, and skill:
+Use explicit run IDs that encode provider, model, and skill. Keep an Anthropic run as the native Claude Code baseline, then compare OpenRouter backbones with OpenRouter server-side search enabled:
 
 ```bash
-./scripts/launch.sh --provider openrouter --model anthropic/claude-opus-4.7 --run-id openrouter_claude_opus_4_7_lr --overwrite
-./scripts/launch.sh --provider openrouter --model openai/gpt-5.5 --run-id openrouter_gpt_5_5_lr --overwrite
-./scripts/launch.sh --provider openrouter --model google/gemini-3-pro --run-id openrouter_gemini_3_pro_lr --overwrite
+./scripts/launch.sh --provider anthropic --model sonnet --run-id anthropic_sonnet_lr --overwrite
+./scripts/launch.sh --provider openrouter --model openai/gpt-5.2 --run-id openrouter_gpt_5_2_lr_or_search --overwrite
+./scripts/launch.sh --provider openrouter --model google/gemini-3-pro --run-id openrouter_gemini_3_pro_lr_or_search --limit 1 --overwrite
 ```
 
 The leaderboard measures the full stack: Claude Code, the skill prompt and scripts, tool use, web retrieval behavior, provider compatibility, and the model backbone. It is not a pure base-model benchmark.
@@ -292,6 +312,7 @@ The leaderboard measures the full stack: Claude Code, the skill prompt and scrip
 - `scripts/run_one.sh`: one isolated Claude Code session for one article
 - `scripts/run_batch.sh`: all selected articles
 - `scripts/check_openrouter_key.sh`: fail-fast OpenRouter API key preflight
+- `scripts/openrouter_service_tier_proxy.py`: local OpenRouter request proxy for `service_tier` and `openrouter:web_search` injection
 - `scripts/audit_session_exposure.py`: checks session exposure strings and the default tool set
 - `scripts/audit_transcript.py`: scans Claude output for forbidden evaluation-artifact terms
 - `scripts/collect_skill_report.py`: copies the skill-produced `report.json` and `report.html`

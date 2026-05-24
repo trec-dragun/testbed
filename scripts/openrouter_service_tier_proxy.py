@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Forward Anthropic-compatible requests to OpenRouter with service_tier set."""
+"""Forward Anthropic-compatible requests with OpenRouter-specific body additions."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import json
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import ClassVar
+from typing import Any, ClassVar
 from urllib.parse import urlparse
 
 
@@ -31,6 +31,7 @@ class ProxyHandler(BaseHTTPRequestHandler):
     upstream_port: ClassVar[int | None]
     upstream_base_path: ClassVar[str]
     service_tier: ClassVar[str]
+    web_search_tool: ClassVar[dict[str, Any] | None]
 
     protocol_version = "HTTP/1.0"
 
@@ -51,10 +52,18 @@ class ProxyHandler(BaseHTTPRequestHandler):
             return base + self.path
         return self.path
 
+    def should_mutate_body(self) -> bool:
+        path = self.forward_path().split("?", 1)[0].rstrip("/")
+        return (
+            path.endswith("/v1/messages")
+            or path.endswith("/chat/completions")
+            or path.endswith("/responses")
+        )
+
     def request_body(self) -> bytes:
         length = int(self.headers.get("Content-Length", "0") or "0")
         body = self.rfile.read(length) if length else b""
-        if not body or self.command != "POST" or not self.service_tier:
+        if not body or self.command != "POST" or not self.should_mutate_body():
             return body
         content_type = self.headers.get("Content-Type", "")
         if "json" not in content_type.lower():
@@ -63,9 +72,28 @@ class ProxyHandler(BaseHTTPRequestHandler):
             payload = json.loads(body)
         except json.JSONDecodeError:
             return body
-        if not isinstance(payload, dict) or "service_tier" in payload:
+        if not isinstance(payload, dict):
             return body
-        payload["service_tier"] = self.service_tier
+
+        changed = False
+        if self.service_tier and "service_tier" not in payload:
+            payload["service_tier"] = self.service_tier
+            changed = True
+
+        if self.web_search_tool is not None:
+            tools = payload.get("tools")
+            if tools is None:
+                payload["tools"] = [self.web_search_tool]
+                changed = True
+            elif isinstance(tools, list) and not any(
+                isinstance(tool, dict) and tool.get("type") == "openrouter:web_search"
+                for tool in tools
+            ):
+                payload["tools"] = [*tools, self.web_search_tool]
+                changed = True
+
+        if not changed:
+            return body
         return json.dumps(payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
 
     def forward(self) -> None:
@@ -110,25 +138,40 @@ def main() -> int:
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=0)
     parser.add_argument("--port-file", type=Path, required=True)
-    parser.add_argument("--service-tier", default="flex")
+    parser.add_argument("--service-tier", default="")
+    parser.add_argument("--web-search", action="store_true")
+    parser.add_argument("--web-search-engine", default="")
+    parser.add_argument("--web-search-max-results", type=int)
+    parser.add_argument("--web-search-max-total-results", type=int)
+    parser.add_argument("--web-search-context-size", choices=["low", "medium", "high"])
+    parser.add_argument("--web-search-allowed-domains", default="")
+    parser.add_argument("--web-search-excluded-domains", default="")
     args = parser.parse_args()
 
     parsed = urlparse(args.base_url)
     if parsed.scheme not in {"http", "https"} or not parsed.hostname:
         raise SystemExit(f"invalid --base-url: {args.base_url}")
+    for name, value in (
+        ("--web-search-max-results", args.web_search_max_results),
+        ("--web-search-max-total-results", args.web_search_max_total_results),
+    ):
+        if value is not None and value < 1:
+            raise SystemExit(f"{name} must be a positive integer")
 
     ProxyHandler.upstream_scheme = parsed.scheme
     ProxyHandler.upstream_host = parsed.hostname
     ProxyHandler.upstream_port = parsed.port
     ProxyHandler.upstream_base_path = parsed.path.rstrip("/")
     ProxyHandler.service_tier = args.service_tier
+    ProxyHandler.web_search_tool = build_web_search_tool(args) if args.web_search else None
 
     server = ThreadingHTTPServer((args.host, args.port), ProxyHandler)
     args.port_file.parent.mkdir(parents=True, exist_ok=True)
     args.port_file.write_text(str(server.server_port) + "\n", encoding="utf-8")
     print(
         f"openrouter-proxy: listening on {args.host}:{server.server_port}, "
-        f"upstream={args.base_url}, service_tier={args.service_tier}",
+        f"upstream={args.base_url}, service_tier={args.service_tier or 'none'}, "
+        f"web_search={'enabled' if args.web_search else 'disabled'}",
         file=sys.stderr,
         flush=True,
     )
@@ -139,6 +182,34 @@ def main() -> int:
     finally:
         server.server_close()
     return 0
+
+
+def comma_list(value: str) -> list[str] | None:
+    items = [item.strip() for item in value.split(",") if item.strip()]
+    return items or None
+
+
+def build_web_search_tool(args: argparse.Namespace) -> dict[str, Any]:
+    parameters: dict[str, Any] = {}
+    if args.web_search_engine:
+        parameters["engine"] = args.web_search_engine
+    if args.web_search_max_results is not None:
+        parameters["max_results"] = args.web_search_max_results
+    if args.web_search_max_total_results is not None:
+        parameters["max_total_results"] = args.web_search_max_total_results
+    if args.web_search_context_size:
+        parameters["search_context_size"] = args.web_search_context_size
+    allowed_domains = comma_list(args.web_search_allowed_domains)
+    if allowed_domains:
+        parameters["allowed_domains"] = allowed_domains
+    excluded_domains = comma_list(args.web_search_excluded_domains)
+    if excluded_domains:
+        parameters["excluded_domains"] = excluded_domains
+
+    tool: dict[str, Any] = {"type": "openrouter:web_search"}
+    if parameters:
+        tool["parameters"] = parameters
+    return tool
 
 
 if __name__ == "__main__":

@@ -10,10 +10,27 @@ MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
+CLAUDE_TOOLS_FALLBACK="WebFetch,WebSearch,Read,Write"
+OPENROUTER_CLAUDE_TOOLS_FALLBACK="WebFetch,Read,Write"
+RUN_CLAUDE_TOOLS="${CLAUDE_TOOLS:-}"
+OPENROUTER_WEB_SEARCH="${OPENROUTER_WEB_SEARCH:-1}"
+OPENROUTER_WEB_SEARCH_ENGINE="${OPENROUTER_WEB_SEARCH_ENGINE:-auto}"
+OPENROUTER_WEB_SEARCH_MAX_RESULTS="${OPENROUTER_WEB_SEARCH_MAX_RESULTS:-5}"
+OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS="${OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS:-20}"
+OPENROUTER_WEB_SEARCH_CONTEXT_SIZE="${OPENROUTER_WEB_SEARCH_CONTEXT_SIZE:-}"
+OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS="${OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS:-}"
+OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS="${OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS:-}"
 RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
 MAX_ATTEMPTS="${RUN_TOPIC_MAX_ATTEMPTS:-3}"
+
+openrouter_web_search_enabled() {
+  case "$OPENROUTER_WEB_SEARCH" in
+    0|false|False|FALSE|off|Off|OFF|no|No|NO|none|None|NONE) return 1 ;;
+    *) return 0 ;;
+  esac
+}
 
 format_duration() {
   local seconds="$1"
@@ -66,6 +83,36 @@ if ! [[ "$MAX_ATTEMPTS" =~ ^[1-9][0-9]*$ ]]; then
   exit 2
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
+if [[ -z "$RUN_CLAUDE_TOOLS" ]]; then
+  if [[ "$PROVIDER" == "openrouter" ]]; then
+    RUN_CLAUDE_TOOLS="$OPENROUTER_CLAUDE_TOOLS_FALLBACK"
+  else
+    RUN_CLAUDE_TOOLS="$CLAUDE_TOOLS_FALLBACK"
+  fi
+fi
+RUN_CLAUDE_TOOLS_COMPACT="${RUN_CLAUDE_TOOLS//[[:space:]]/}"
+if [[ "$PROVIDER" == "openrouter" && ",$RUN_CLAUDE_TOOLS_COMPACT," == *",WebSearch,"* && "${OPENROUTER_ALLOW_WEBSEARCH:-0}" != "1" ]]; then
+  cat >&2 <<'EOF'
+error: OpenRouter generation with Claude Code WebSearch is disabled by default.
+
+OpenRouter runs now use OpenRouter's server-side web search by default. Leave
+WebSearch out of CLAUDE_TOOLS so the runner can inject openrouter:web_search
+into OpenRouter requests instead of using Claude Code's native WebSearch.
+
+Default OpenRouter tools are:
+
+  WebFetch,Read,Write
+
+To disable OpenRouter search entirely, set:
+
+  OPENROUTER_WEB_SEARCH=0
+
+To intentionally test Claude Code native WebSearch over OpenRouter, set:
+
+  OPENROUTER_ALLOW_WEBSEARCH=1
+EOF
+  exit 2
+fi
 if [[ -z "$SKILL_COMMAND" ]]; then
   SKILL_COMMAND="$(python3 "$ROOT_DIR/scripts/resolve_skill_command.py" --skill "$SKILL")"
 fi
@@ -73,6 +120,7 @@ if [[ -z "$RUN_PERMISSION_MODE" ]]; then
   RUN_PERMISSION_MODE="acceptEdits"
 fi
 export CLAUDE_PERMISSION_MODE="$RUN_PERMISSION_MODE"
+export CLAUDE_TOOLS="$RUN_CLAUDE_TOOLS"
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 RUN_DIR="$ROOT_DIR/runs/$RUN_SAFE"
 RUN_JSONL="$RUN_DIR/dragun_task2.jsonl"
@@ -208,6 +256,14 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "provider": "$PROVIDER",
   "claude_reasoning_effort": "$CLAUDE_REASONING_EFFORT",
   "claude_permission_mode": "$RUN_PERMISSION_MODE",
+  "claude_tools": "$RUN_CLAUDE_TOOLS",
+  "openrouter_web_search": "$OPENROUTER_WEB_SEARCH",
+  "openrouter_web_search_engine": "$OPENROUTER_WEB_SEARCH_ENGINE",
+  "openrouter_web_search_max_results": "$OPENROUTER_WEB_SEARCH_MAX_RESULTS",
+  "openrouter_web_search_max_total_results": "$OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS",
+  "openrouter_web_search_context_size": "$OPENROUTER_WEB_SEARCH_CONTEXT_SIZE",
+  "openrouter_web_search_allowed_domains": "$OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS",
+  "openrouter_web_search_excluded_domains": "$OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS",
   "skill": "$SKILL",
   "skill_command": "$SKILL_COMMAND",
   "skill_commit": "$SKILL_COMMIT",

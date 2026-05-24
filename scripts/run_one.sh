@@ -13,7 +13,16 @@ MODEL="${MODEL:-sonnet}"
 PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-acceptEdits}"
-CLAUDE_TOOLS_DEFAULT="${CLAUDE_TOOLS:-WebFetch,WebSearch,Read,Write}"
+CLAUDE_TOOLS_FALLBACK="WebFetch,WebSearch,Read,Write"
+OPENROUTER_CLAUDE_TOOLS_FALLBACK="WebFetch,Read,Write"
+CLAUDE_TOOLS_DEFAULT="${CLAUDE_TOOLS:-}"
+OPENROUTER_WEB_SEARCH="${OPENROUTER_WEB_SEARCH:-1}"
+OPENROUTER_WEB_SEARCH_ENGINE="${OPENROUTER_WEB_SEARCH_ENGINE:-auto}"
+OPENROUTER_WEB_SEARCH_MAX_RESULTS="${OPENROUTER_WEB_SEARCH_MAX_RESULTS:-5}"
+OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS="${OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS:-20}"
+OPENROUTER_WEB_SEARCH_CONTEXT_SIZE="${OPENROUTER_WEB_SEARCH_CONTEXT_SIZE:-}"
+OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS="${OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS:-}"
+OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS="${OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS:-}"
 RUN_ID="${RUN_ID:-}"
 RUN_JSONL=""
 MAX_BUDGET_USD="${MAX_BUDGET_USD:-5.00}"
@@ -23,6 +32,13 @@ OPENROUTER_SERVICE_TIER="${OPENROUTER_SERVICE_TIER:-auto}"
 OPENROUTER_PROXY_PID=""
 CLAUDE_TRACE="${CLAUDE_TRACE:-1}"
 QUIET_FAILURE="${RUN_ONE_QUIET_FAILURE:-0}"
+
+openrouter_web_search_enabled() {
+  case "$OPENROUTER_WEB_SEARCH" in
+    0|false|False|FALSE|off|Off|OFF|no|No|NO|none|None|NONE) return 1 ;;
+    *) return 0 ;;
+  esac
+}
 
 usage() {
   cat <<'EOF'
@@ -65,6 +81,36 @@ if [[ -z "$TOPIC_ID" && -n "$TOPIC_ID_FILE" ]]; then
 fi
 if [[ -z "$TOPIC_ID" ]]; then
   echo "error: --topic-id is required" >&2
+  exit 2
+fi
+if [[ -z "$CLAUDE_TOOLS_DEFAULT" ]]; then
+  if [[ "$PROVIDER" == "openrouter" ]]; then
+    CLAUDE_TOOLS_DEFAULT="$OPENROUTER_CLAUDE_TOOLS_FALLBACK"
+  else
+    CLAUDE_TOOLS_DEFAULT="$CLAUDE_TOOLS_FALLBACK"
+  fi
+fi
+CLAUDE_TOOLS_COMPACT="${CLAUDE_TOOLS_DEFAULT//[[:space:]]/}"
+if [[ "$PROVIDER" == "openrouter" && ",$CLAUDE_TOOLS_COMPACT," == *",WebSearch,"* && "${OPENROUTER_ALLOW_WEBSEARCH:-0}" != "1" ]]; then
+  cat >&2 <<'EOF'
+error: OpenRouter generation with Claude Code WebSearch is disabled by default.
+
+OpenRouter runs now use OpenRouter's server-side web search by default. Leave
+WebSearch out of CLAUDE_TOOLS so the runner can inject openrouter:web_search
+into OpenRouter requests instead of using Claude Code's native WebSearch.
+
+Default OpenRouter tools are:
+
+  WebFetch,Read,Write
+
+To disable OpenRouter search entirely, set:
+
+  OPENROUTER_WEB_SEARCH=0
+
+To intentionally test Claude Code native WebSearch over OpenRouter, set:
+
+  OPENROUTER_ALLOW_WEBSEARCH=1
+EOF
   exit 2
 fi
 if [[ -z "$SKILL_COMMAND" ]]; then
@@ -213,12 +259,41 @@ if [[ "$PROVIDER" == "openrouter" ]]; then
       *) OPENROUTER_EFFECTIVE_SERVICE_TIER="" ;;
     esac
   fi
+  OPENROUTER_PROXY_ARGS=(
+    --base-url "$OPENROUTER_UPSTREAM_BASE_URL"
+  )
+  OPENROUTER_PROXY_NEEDED=0
   if [[ "$OPENROUTER_EFFECTIVE_SERVICE_TIER" != "off" && "$OPENROUTER_EFFECTIVE_SERVICE_TIER" != "none" && -n "$OPENROUTER_EFFECTIVE_SERVICE_TIER" ]]; then
+    OPENROUTER_PROXY_ARGS+=(--service-tier "$OPENROUTER_EFFECTIVE_SERVICE_TIER")
+    OPENROUTER_PROXY_NEEDED=1
+  fi
+  if openrouter_web_search_enabled; then
+    OPENROUTER_PROXY_ARGS+=(--web-search)
+    if [[ -n "$OPENROUTER_WEB_SEARCH_ENGINE" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-search-engine "$OPENROUTER_WEB_SEARCH_ENGINE")
+    fi
+    if [[ -n "$OPENROUTER_WEB_SEARCH_MAX_RESULTS" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-search-max-results "$OPENROUTER_WEB_SEARCH_MAX_RESULTS")
+    fi
+    if [[ -n "$OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-search-max-total-results "$OPENROUTER_WEB_SEARCH_MAX_TOTAL_RESULTS")
+    fi
+    if [[ -n "$OPENROUTER_WEB_SEARCH_CONTEXT_SIZE" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-search-context-size "$OPENROUTER_WEB_SEARCH_CONTEXT_SIZE")
+    fi
+    if [[ -n "$OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-search-allowed-domains "$OPENROUTER_WEB_SEARCH_ALLOWED_DOMAINS")
+    fi
+    if [[ -n "$OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS" ]]; then
+      OPENROUTER_PROXY_ARGS+=(--web-search-excluded-domains "$OPENROUTER_WEB_SEARCH_EXCLUDED_DOMAINS")
+    fi
+    OPENROUTER_PROXY_NEEDED=1
+  fi
+  if [[ "$OPENROUTER_PROXY_NEEDED" == "1" ]]; then
     OPENROUTER_PROXY_PORT_FILE="$SESSION_DIR/openrouter_proxy.port"
     OPENROUTER_PROXY_LOG="$TOPIC_DIR/openrouter_proxy.log"
     python3 "$ROOT_DIR/scripts/openrouter_service_tier_proxy.py" \
-      --base-url "$OPENROUTER_UPSTREAM_BASE_URL" \
-      --service-tier "$OPENROUTER_EFFECTIVE_SERVICE_TIER" \
+      "${OPENROUTER_PROXY_ARGS[@]}" \
       --port-file "$OPENROUTER_PROXY_PORT_FILE" \
       >"$OPENROUTER_PROXY_LOG" 2>&1 &
     OPENROUTER_PROXY_PID=$!
@@ -229,7 +304,7 @@ if [[ "$PROVIDER" == "openrouter" ]]; then
       sleep 0.1
     done
     if [[ ! -s "$OPENROUTER_PROXY_PORT_FILE" ]]; then
-      echo "error: OpenRouter service-tier proxy did not start" >&2
+      echo "error: OpenRouter request proxy did not start" >&2
       cat "$OPENROUTER_PROXY_LOG" >&2 || true
       exit 1
     fi
