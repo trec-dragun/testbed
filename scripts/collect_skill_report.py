@@ -11,10 +11,8 @@ import subprocess
 from pathlib import Path
 
 
-REPORT_SENTINEL_RE = re.compile(
-    r"<report_json>\s*(.*?)\s*</report_json>",
-    re.IGNORECASE | re.DOTALL,
-)
+REPORT_OPEN_RE = re.compile(r"<report_json\s*>", re.IGNORECASE)
+REPORT_CLOSE_RE = re.compile(r"</report_json\s*>", re.IGNORECASE)
 
 
 def latest_report(search_dir: Path) -> Path | None:
@@ -44,8 +42,28 @@ def parse_report_json(raw: str) -> dict[str, object] | None:
     return value
 
 
+def sentinel_report_candidates(text: str) -> list[str]:
+    candidates: list[str] = []
+    open_matches = list(REPORT_OPEN_RE.finditer(text))
+    if not open_matches:
+        return candidates
+
+    open_index = 0
+    for close_match in REPORT_CLOSE_RE.finditer(text):
+        while (
+            open_index + 1 < len(open_matches)
+            and open_matches[open_index + 1].end() <= close_match.start()
+        ):
+            open_index += 1
+        open_match = open_matches[open_index]
+        if open_match.end() > close_match.start():
+            continue
+        candidates.append(text[open_match.end() : close_match.start()].strip())
+    return candidates
+
+
 def chat_report_candidates(text: str) -> list[str]:
-    candidates = [match.group(1).strip() for match in REPORT_SENTINEL_RE.finditer(text)]
+    candidates = sentinel_report_candidates(text)
 
     stripped = text.strip()
     if stripped.startswith("{") and stripped.endswith("}"):
