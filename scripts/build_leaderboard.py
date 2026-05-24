@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 FIELDS = [
     "rank",
     "run_id",
+    "agent",
     "model",
     "provider",
     "skill",
@@ -121,6 +122,7 @@ def main() -> int:
     row = {
         "rank": "",
         "run_id": args.run_id,
+        "agent": manifest.get("agent", ""),
         "model": manifest.get("model", ""),
         "provider": manifest.get("provider", ""),
         "skill": manifest.get("skill", ""),

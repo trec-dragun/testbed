@@ -6,12 +6,16 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TOPICS="$ROOT_DIR/data/trec-2025-dragun-topics.jsonl"
 SKILL="$ROOT_DIR/skills_under_test/lateral-reading-skill"
 SKILL_COMMAND="${SKILL_COMMAND:-}"
-MODEL="${MODEL:-sonnet}"
+MODEL="${MODEL:-}"
 PROVIDER="${PROVIDER:-anthropic}"
+AGENT="${AGENT:-}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
+CODEX_REASONING_EFFORT="${CODEX_REASONING_EFFORT:-$CLAUDE_REASONING_EFFORT}"
+CODEX_APPROVAL_POLICY="${CODEX_APPROVAL_POLICY:-never}"
+CODEX_SANDBOX="${CODEX_SANDBOX:-workspace-write}"
+CODEX_WEB_SEARCH="${CODEX_WEB_SEARCH:-1}"
 RUN_PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-}"
 CLAUDE_TOOLS_FALLBACK="WebFetch,WebSearch,Read,Write"
-OPENROUTER_CLAUDE_TOOLS_FALLBACK="Write"
 RUN_CLAUDE_TOOLS="${CLAUDE_TOOLS:-}"
 OPENROUTER_WEB_SEARCH="${OPENROUTER_WEB_SEARCH:-1}"
 OPENROUTER_WEB_SEARCH_ENGINE="${OPENROUTER_WEB_SEARCH_ENGINE:-auto}"
@@ -30,6 +34,11 @@ RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
 MAX_ATTEMPTS="${RUN_TOPIC_MAX_ATTEMPTS:-3}"
+
+case "$CODEX_SANDBOX" in
+  read-only|workspace-write|danger-full-access) ;;
+  *) CODEX_SANDBOX="workspace-write" ;;
+esac
 
 openrouter_web_search_enabled() {
   case "$OPENROUTER_WEB_SEARCH" in
@@ -54,9 +63,10 @@ Options:
   --topics PATH          topics JSONL
   --skill PATH           Skill repo to test
   --skill-command CMD    Slash command to invoke, e.g. /plugin:skill
-  --model MODEL          Claude Code model or OpenRouter model name
-  --provider NAME        anthropic or openrouter
-  --effort EFFORT        Claude Code reasoning effort (default: high)
+  --agent NAME           claude or codex; inferred from provider when omitted
+  --model MODEL          Agent model name (provider-specific default)
+  --provider NAME        anthropic, openai, or openrouter
+  --effort EFFORT        Agent reasoning effort (default: high)
   --run-id ID            Output run ID
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
@@ -69,9 +79,10 @@ while [[ $# -gt 0 ]]; do
     --topics) TOPICS="$2"; shift 2 ;;
     --skill) SKILL="$2"; shift 2 ;;
     --skill-command) SKILL_COMMAND="$2"; shift 2 ;;
+    --agent) AGENT="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
-    --effort) CLAUDE_REASONING_EFFORT="$2"; shift 2 ;;
+    --effort) CLAUDE_REASONING_EFFORT="$2"; CODEX_REASONING_EFFORT="$2"; shift 2 ;;
     --run-id) RUN_ID="$2"; shift 2 ;;
     --limit) LIMIT="$2"; shift 2 ;;
     --overwrite) OVERWRITE=1; shift ;;
@@ -81,66 +92,52 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [[ -z "$AGENT" ]]; then
+  case "$PROVIDER" in
+    anthropic) AGENT="claude" ;;
+    openai|openrouter) AGENT="codex" ;;
+    *) echo "error: unsupported provider: $PROVIDER" >&2; exit 2 ;;
+  esac
+fi
+if [[ -z "$MODEL" ]]; then
+  case "$PROVIDER" in
+    anthropic) MODEL="sonnet" ;;
+    openai) MODEL="gpt-5.5" ;;
+    openrouter) MODEL="openai/gpt-5.2" ;;
+  esac
+fi
+case "$AGENT:$PROVIDER" in
+  claude:anthropic|codex:openai|codex:openrouter) ;;
+  *)
+    echo "error: unsupported agent/provider combination: $AGENT/$PROVIDER" >&2
+    echo "supported: claude/anthropic, codex/openai, codex/openrouter" >&2
+    exit 2
+    ;;
+esac
 if [[ -z "$RUN_ID" ]]; then
-  RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
+  RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${AGENT}_${PROVIDER}_${MODEL}_$(basename "$SKILL")")"
 fi
 if ! [[ "$MAX_ATTEMPTS" =~ ^[1-9][0-9]*$ ]]; then
   echo "error: --max-attempts must be a positive integer" >&2
   exit 2
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
-if [[ -z "$RUN_CLAUDE_TOOLS" ]]; then
-  if [[ "$PROVIDER" == "openrouter" ]]; then
-    RUN_CLAUDE_TOOLS="$OPENROUTER_CLAUDE_TOOLS_FALLBACK"
-  else
+if [[ "$AGENT" == "claude" ]]; then
+  if [[ -z "$RUN_CLAUDE_TOOLS" ]]; then
     RUN_CLAUDE_TOOLS="$CLAUDE_TOOLS_FALLBACK"
   fi
+  if [[ -z "$SKILL_COMMAND" ]]; then
+    SKILL_COMMAND="$(python3 "$ROOT_DIR/scripts/resolve_skill_command.py" --skill "$SKILL")"
+  fi
+  if [[ -z "$RUN_PERMISSION_MODE" ]]; then
+    RUN_PERMISSION_MODE="acceptEdits"
+  fi
+  export CLAUDE_PERMISSION_MODE="$RUN_PERMISSION_MODE"
+  export CLAUDE_TOOLS="$RUN_CLAUDE_TOOLS"
+else
+  RUN_CLAUDE_TOOLS=""
+  RUN_PERMISSION_MODE=""
 fi
-RUN_CLAUDE_TOOLS_COMPACT="${RUN_CLAUDE_TOOLS//[[:space:]]/}"
-OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS=""
-if [[ "$PROVIDER" == "openrouter" && ",$RUN_CLAUDE_TOOLS_COMPACT," == *",WebSearch,"* && "${OPENROUTER_ALLOW_WEBSEARCH:-0}" != "1" ]]; then
-  OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS="WebSearch"
-fi
-if [[ "$PROVIDER" == "openrouter" && ",$RUN_CLAUDE_TOOLS_COMPACT," == *",WebFetch,"* && "${OPENROUTER_ALLOW_WEBFETCH:-0}" != "1" ]]; then
-  OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS="${OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS:+$OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS,}WebFetch"
-fi
-if [[ -n "$OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS" ]]; then
-  cat >&2 <<'EOF'
-error: OpenRouter generation with Claude Code native web tools is disabled by default.
-
-OpenRouter runs now use OpenRouter's server-side search and fetch tools by
-default. Leave WebSearch and WebFetch out of CLAUDE_TOOLS so the runner can
-inject OpenRouter server tools into OpenRouter requests instead of using Claude
-Code's native web tools.
-
-Default OpenRouter tools are:
-
-  Write
-
-To disable OpenRouter search or fetch, set:
-
-  OPENROUTER_WEB_SEARCH=0
-  OPENROUTER_WEB_FETCH=0
-
-To intentionally test Claude Code native WebSearch over OpenRouter, set:
-
-  OPENROUTER_ALLOW_WEBSEARCH=1
-
-To intentionally test Claude Code native WebFetch over OpenRouter, set:
-
-  OPENROUTER_ALLOW_WEBFETCH=1
-EOF
-  echo "disallowed native tools in CLAUDE_TOOLS: $OPENROUTER_DISALLOWED_NATIVE_WEB_TOOLS" >&2
-  exit 2
-fi
-if [[ -z "$SKILL_COMMAND" ]]; then
-  SKILL_COMMAND="$(python3 "$ROOT_DIR/scripts/resolve_skill_command.py" --skill "$SKILL")"
-fi
-if [[ -z "$RUN_PERMISSION_MODE" ]]; then
-  RUN_PERMISSION_MODE="acceptEdits"
-fi
-export CLAUDE_PERMISSION_MODE="$RUN_PERMISSION_MODE"
-export CLAUDE_TOOLS="$RUN_CLAUDE_TOOLS"
 RUN_SAFE="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
 RUN_DIR="$ROOT_DIR/runs/$RUN_SAFE"
 RUN_JSONL="$RUN_DIR/dragun_task2.jsonl"
@@ -207,6 +204,7 @@ while IFS= read -r TOPIC_ID; do
         --topic-alias "$TOPIC_ALIAS" \
         --skill "$SKILL" \
         --skill-command "$SKILL_COMMAND" \
+        --agent "$AGENT" \
         --model "$MODEL" \
         --provider "$PROVIDER" \
         --effort "$CLAUDE_REASONING_EFFORT" \
@@ -219,6 +217,7 @@ while IFS= read -r TOPIC_ID; do
         --topic-alias "$TOPIC_ALIAS" \
         --skill "$SKILL" \
         --skill-command "$SKILL_COMMAND" \
+        --agent "$AGENT" \
         --model "$MODEL" \
         --provider "$PROVIDER" \
         --effort "$CLAUDE_REASONING_EFFORT" \
@@ -272,11 +271,16 @@ cp "$RUN_JSONL" "$ROOT_DIR/data/runs/report_generation_runs/$RUN_ID"
 cat > "$RUN_DIR/manifest.json" <<EOF
 {
   "run_id": "$RUN_ID",
+  "agent": "$AGENT",
   "model": "$MODEL",
   "provider": "$PROVIDER",
   "claude_reasoning_effort": "$CLAUDE_REASONING_EFFORT",
   "claude_permission_mode": "$RUN_PERMISSION_MODE",
   "claude_tools": "$RUN_CLAUDE_TOOLS",
+  "codex_reasoning_effort": "$CODEX_REASONING_EFFORT",
+  "codex_approval_policy": "$CODEX_APPROVAL_POLICY",
+  "codex_sandbox": "$CODEX_SANDBOX",
+  "codex_web_search": "$CODEX_WEB_SEARCH",
   "openrouter_web_search": "$OPENROUTER_WEB_SEARCH",
   "openrouter_web_search_engine": "$OPENROUTER_WEB_SEARCH_ENGINE",
   "openrouter_web_search_max_results": "$OPENROUTER_WEB_SEARCH_MAX_RESULTS",
@@ -300,6 +304,7 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "reports_dir": "$ROOT_DIR/reports/$RUN_SAFE",
   "topic_id_hidden_from_model": true,
   "claude_no_session_persistence": true,
+  "codex_ephemeral": true,
   "generated_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 }
 EOF

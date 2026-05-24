@@ -32,7 +32,7 @@ def scan_run_one() -> list[str]:
     for snippet in FORBIDDEN_RUN_ONE_SNIPPETS:
         if snippet in text:
             issues.append(f"{path}: forbidden session exposure or broad tool permission: {snippet}")
-    matches = re.findall(r'(?:CLAUDE_TOOLS_FALLBACK|OPENROUTER_CLAUDE_TOOLS_FALLBACK)="(?P<body>[^"]*)"', text)
+    matches = re.findall(r'CLAUDE_TOOLS_FALLBACK="(?P<body>[^"]*)"', text)
     if not matches:
         issues.append(f"{path}: could not find Claude Code tool fallback assignments")
         return issues

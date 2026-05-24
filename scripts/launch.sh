@@ -6,8 +6,9 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SKILL_REPO="${SKILL_REPO:-https://github.com/trec-dragun/lateral-reading-skill.git}"
 SKILL_PATH=""
 SKILL_COMMAND="${SKILL_COMMAND:-}"
-MODEL="${MODEL:-sonnet}"
+MODEL="${MODEL:-}"
 PROVIDER="${PROVIDER:-anthropic}"
+AGENT="${AGENT:-}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_ID="${RUN_ID:-}"
 BOOTSTRAP=1
@@ -25,9 +26,10 @@ Options:
   --skill-repo URL       Git repo for the skill under test
   --skill PATH           Existing local skill repo
   --skill-command CMD    Slash command to invoke, e.g. /plugin:skill
-  --model MODEL          Claude Code model or OpenRouter model name
-  --provider NAME        anthropic or openrouter
-  --effort EFFORT        Claude Code reasoning effort (default: high)
+  --agent NAME           claude or codex; inferred from provider when omitted
+  --model MODEL          Agent model name (provider-specific default)
+  --provider NAME        anthropic, openai, or openrouter
+  --effort EFFORT        Agent reasoning effort (default: high)
   --run-id ID            Output run ID
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
@@ -41,6 +43,7 @@ while [[ $# -gt 0 ]]; do
     --skill-repo) SKILL_REPO="$2"; shift 2 ;;
     --skill) SKILL_PATH="$2"; shift 2 ;;
     --skill-command) SKILL_COMMAND="$2"; shift 2 ;;
+    --agent) AGENT="$2"; shift 2 ;;
     --model) MODEL="$2"; shift 2 ;;
     --provider) PROVIDER="$2"; shift 2 ;;
     --effort) CLAUDE_REASONING_EFFORT="$2"; shift 2 ;;
@@ -53,6 +56,15 @@ while [[ $# -gt 0 ]]; do
     *) echo "unknown option: $1" >&2; usage; exit 2 ;;
   esac
 done
+
+if [[ -z "$MODEL" ]]; then
+  case "$PROVIDER" in
+    anthropic) MODEL="sonnet" ;;
+    openai) MODEL="gpt-5.5" ;;
+    openrouter) MODEL="openai/gpt-5.2" ;;
+    *) MODEL="sonnet" ;;
+  esac
+fi
 
 if [[ "$BOOTSTRAP" == "1" ]]; then
   "$ROOT_DIR/scripts/bootstrap.sh"
@@ -69,6 +81,9 @@ BATCH_ARGS=(
   --effort "$CLAUDE_REASONING_EFFORT"
   --limit "$LIMIT"
 )
+if [[ -n "$AGENT" ]]; then
+  BATCH_ARGS+=(--agent "$AGENT")
+fi
 if [[ -n "$SKILL_COMMAND" ]]; then
   BATCH_ARGS+=(--skill-command "$SKILL_COMMAND")
 fi
@@ -83,7 +98,15 @@ fi
 
 if [[ "$SCORE" == "1" ]]; then
   if [[ -z "$RUN_ID" ]]; then
-    RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${PROVIDER}_${MODEL}_$(basename "$SKILL_PATH")")"
+    RUN_AGENT="$AGENT"
+    if [[ -z "$RUN_AGENT" ]]; then
+      case "$PROVIDER" in
+        anthropic) RUN_AGENT="claude" ;;
+        openai|openrouter) RUN_AGENT="codex" ;;
+        *) RUN_AGENT="agent" ;;
+      esac
+    fi
+    RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "${RUN_AGENT}_${PROVIDER}_${MODEL}_$(basename "$SKILL_PATH")")"
   fi
   RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
   "$ROOT_DIR/scripts/score_with_autojudge.sh" --run-id "$RUN_ID"

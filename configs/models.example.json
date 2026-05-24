@@ -1,20 +1,65 @@
 [
   {
-    "run_id": "anthropic_sonnet_lateral_reading",
+    "run_id": "claude_code_sonnet_lateral_reading",
+    "agent": "claude",
     "provider": "anthropic",
     "model": "sonnet",
     "skill": "skills_under_test/lateral-reading-skill"
   },
   {
-    "run_id": "openrouter_openai_gpt_5_2_lateral_reading",
+    "run_id": "claude_code_opus_lateral_reading",
+    "agent": "claude",
+    "provider": "anthropic",
+    "model": "opus",
+    "skill": "skills_under_test/lateral-reading-skill"
+  },
+  {
+    "run_id": "codex_openai_gpt_5_5_lateral_reading",
+    "agent": "codex",
+    "provider": "openai",
+    "model": "gpt-5.5",
+    "skill": "skills_under_test/lateral-reading-skill"
+  },
+  {
+    "run_id": "codex_openai_gpt_5_4_lateral_reading",
+    "agent": "codex",
+    "provider": "openai",
+    "model": "gpt-5.4",
+    "skill": "skills_under_test/lateral-reading-skill"
+  },
+  {
+    "run_id": "codex_openrouter_openai_gpt_5_2_lateral_reading",
+    "agent": "codex",
     "provider": "openrouter",
     "model": "openai/gpt-5.2",
     "skill": "skills_under_test/lateral-reading-skill"
   },
   {
-    "run_id": "openrouter_gemini_3_pro_lateral_reading",
+    "run_id": "codex_openrouter_google_gemini_3_5_flash_lateral_reading",
+    "agent": "codex",
     "provider": "openrouter",
-    "model": "google/gemini-3-pro",
+    "model": "google/gemini-3.5-flash",
+    "skill": "skills_under_test/lateral-reading-skill"
+  },
+  {
+    "run_id": "codex_openrouter_anthropic_claude_opus_4_7_lateral_reading",
+    "agent": "codex",
+    "provider": "openrouter",
+    "model": "anthropic/claude-opus-4.7",
+    "skill": "skills_under_test/lateral-reading-skill"
+  },
+  {
+    "run_id": "codex_openrouter_z_ai_glm_5_1_lateral_reading",
+    "agent": "codex",
+    "provider": "openrouter",
+    "model": "z-ai/glm-5.1",
+    "skill": "skills_under_test/lateral-reading-skill"
+  },
+  {
+    "run_id": "codex_openrouter_qwen_qwen3_7_max_lateral_reading",
+    "agent": "codex",
+    "provider": "openrouter",
+    "model": "qwen/qwen3.7-max",
     "skill": "skills_under_test/lateral-reading-skill"
   }
 ]
