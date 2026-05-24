@@ -228,9 +228,20 @@ trap cleanup EXIT
 write_runner_artifact_note() {
   cat <<'EOF'
 Automated artifact note:
-- Use the available Write tool to create reports/lateral-reading-YYYYMMDD-HHMMSS/target.txt and reports/lateral-reading-YYYYMMDD-HHMMSS/report.json.
+- For this automated run, override any timestamped-path examples in the skill instructions and use the exact paths below.
+- Use the available Write tool before your final answer.
+- Write the normalized target article to this exact path:
+  file_path: reports/lateral-reading/target.txt
+- Write the structured report JSON to this exact path:
+  file_path: reports/lateral-reading/report.json
+- The Write tool accepts exactly these required parameters: file_path and content.
+- The Write tool creates parent directories automatically; do not stop because the reports directory is missing.
+- The report.json content must be a JSON object exactly shaped as {"responses":[...]}.
+- If the Write tool is unavailable or repeatedly fails, return only the report JSON wrapped in:
+  <report_json>{"responses":[...]}</report_json>
 - If Bash, shell validation, or HTML rendering is unavailable, skip those steps; the runner renders report.html after the session.
-- Do not stop with a chat-only answer because validation or rendering tools are unavailable.
+- Do not stop with a prose-only chat answer because validation or rendering tools are unavailable.
+- When reading .md or .txt files with the Read tool, do not pass pages unless the tool explicitly requires it.
 
 EOF
 }
@@ -468,11 +479,12 @@ if ! REPORT_JSON="$(python3 "$ROOT_DIR/scripts/collect_skill_report.py" \
   --public-dir "$ROOT_DIR/reports/$RUN_SAFE/$TOPIC_ARTIFACT_SAFE" \
   --target-text "$TOPIC_DIR/input.txt" \
   --render-script "$RENDER_SCRIPT" \
+  --chat-output "$TOPIC_DIR/claude_raw.txt" \
   --summary-out "$TOPIC_DIR/skill_report_summary.json" \
   2>"$TOPIC_DIR/collect_report.stderr")"; then
   KEEP_SESSION_DIR=1
   if [[ "$QUIET_FAILURE" != "1" ]]; then
-    echo "error: skill did not create reports/**/report.json" >&2
+    echo "error: skill did not create or return a report JSON" >&2
     echo "kept failed session dir: $SESSION_DIR" >&2
     print_claude_diagnostics
     echo "session files:" >&2

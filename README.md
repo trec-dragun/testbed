@@ -7,7 +7,7 @@ The intended workflow is:
 1. Clone this testbed.
 2. Run one setup command to download dependencies, the DRAGUN evaluation assets, organizer example runs, and the default `trec-dragun/lateral-reading-skill`.
 3. Launch one Claude Code session per article.
-4. Collect each skill-produced `report.json` and `report.html`, then wrap `report.json` into evaluator JSONL.
+4. Collect each skill-produced `report.json`, or a sentinel-wrapped fallback JSON report, then render HTML and wrap `report.json` into evaluator JSONL.
 5. Score report coverage with an OpenRouter-compatible AutoJudge.
 6. Publish leaderboard rows from the generated run metadata and scores.
 
@@ -93,9 +93,20 @@ The user prompt starts with one skill invocation, then a short automated artifac
 /lateral-reading-skill:lateral-reading
 
 Automated artifact note:
-- Use the available Write tool to create reports/lateral-reading-YYYYMMDD-HHMMSS/target.txt and reports/lateral-reading-YYYYMMDD-HHMMSS/report.json.
+- For this automated run, override any timestamped-path examples in the skill instructions and use the exact paths below.
+- Use the available Write tool before your final answer.
+- Write the normalized target article to this exact path:
+  file_path: reports/lateral-reading/target.txt
+- Write the structured report JSON to this exact path:
+  file_path: reports/lateral-reading/report.json
+- The Write tool accepts exactly these required parameters: file_path and content.
+- The Write tool creates parent directories automatically; do not stop because the reports directory is missing.
+- The report.json content must be a JSON object exactly shaped as {"responses":[...]}.
+- If the Write tool is unavailable or repeatedly fails, return only the report JSON wrapped in:
+  <report_json>{"responses":[...]}</report_json>
 - If Bash, shell validation, or HTML rendering is unavailable, skip those steps; the runner renders report.html after the session.
-- Do not stop with a chat-only answer because validation or rendering tools are unavailable.
+- Do not stop with a prose-only chat answer because validation or rendering tools are unavailable.
+- When reading .md or .txt files with the Read tool, do not pass pages unless the tool explicitly requires it.
 
 Title: ...
 URL: ...
@@ -106,7 +117,7 @@ Article body...
 
 The slash command is resolved from `.claude-plugin/plugin.json` plus `skills/*/SKILL.md`, or set explicitly with `--skill-command`. The article text itself contains no `docid`. Set `RUNNER_ARTIFACT_NOTE=0` only for a strict prompt-shape ablation; without it, some non-Anthropic backbones may stop after research when Bash or rendering is unavailable even though `Write` is available.
 
-The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. Claude-facing artifact paths and progress logs use anonymous aliases such as `article_001`; the private `runs/{run_id}/topic_map.jsonl` maps aliases back to topic IDs after generation. The wrapper adds `metadata.topic_id` only after collecting the skill's `report.json`.
+The wrapper keeps rubrics, AutoJudge files, human assessments, official results, the full topics file, and topic IDs outside Claude Code's working directory. Claude-facing artifact paths and progress logs use anonymous aliases such as `article_001`; the private `runs/{run_id}/topic_map.jsonl` maps aliases back to topic IDs after generation. The wrapper adds `metadata.topic_id` only after collecting or materializing the skill's `report.json`.
 
 Before a batch starts, `scripts/run_batch.sh` runs `scripts/audit_session_exposure.py --skill ...`. This fails fast if the session launcher, default tool set, or selected skill repo contains explicit evaluation identifiers such as DRAGUN, TREC, AutoJudge, human rubric paths, MS MARCO topic IDs, or similar leakage terms.
 
@@ -114,7 +125,7 @@ For every run, the harness uses a fresh temp workspace plus `--no-session-persis
 
 Claude Code sessions default to `--effort high` for consistent reasoning depth across tested backbones. Override with `--effort low`, `--effort medium`, `--effort xhigh`, or `--effort max` only when intentionally running an ablation.
 
-For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use client-side Claude Code tools, close streams early, or return no final output. For web retrieval, the OpenRouter path now avoids Claude Code's native `WebSearch` and `WebFetch` by default and uses OpenRouter's `openrouter:web_search` and `openrouter:web_fetch` server tools instead. The runner does not synthesize a report or silently recover from failures.
+For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use client-side Claude Code tools, close streams early, or return no final output. For web retrieval, the OpenRouter path now avoids Claude Code's native `WebSearch` and `WebFetch` by default and uses OpenRouter's `openrouter:web_search` and `openrouter:web_fetch` server tools instead. If a model cannot write files but returns the sentinel-wrapped JSON report, the runner materializes it into `report.json`; provider errors and empty responses still fail.
 
 OpenRouter generation runs default to `OPENROUTER_SERVICE_TIER=auto`. In auto mode, the runner requests `flex` only for `openai/*` and `google/*` model slugs, where OpenRouter advertises service-tier support, and sends Anthropic and other models without a service-tier field. Claude Code does not expose OpenRouter's top-level `service_tier` or server-tool request fields, so the runner starts a local per-session proxy whenever it needs to add `service_tier` or OpenRouter web tools to the outbound request. Set `OPENROUTER_SERVICE_TIER=off` to disable service-tier injection, `OPENROUTER_SERVICE_TIER=flex` to force flex, or `OPENROUTER_SERVICE_TIER=priority` to request priority.
 
@@ -157,7 +168,7 @@ The OpenRouter request proxy adds `{ "type": "openrouter:web_search" }` and `{ "
 
 Claude Code runs from a fresh temporary `work/` directory containing only the copied skill repo. The wrapper keeps topic IDs, rubrics, AutoJudge files, and official results outside that workspace and does not reference their paths in the prompt.
 
-`Bash`, `Edit`, `Glob`, `Grep`, and `LS` are not in the default tool set. The same tool set is passed to both `--tools` and `--allowed-tools`, so noninteractive runs can fetch, read skill references, and write report files without stopping for approval. The tested model should write `reports/**/report.json`; the wrapper validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
+`Bash`, `Edit`, `Glob`, `Grep`, and `LS` are not in the default tool set. The same tool set is passed to both `--tools` and `--allowed-tools`, so noninteractive runs can fetch, read skill references, and write report files without stopping for approval. The tested model should write `reports/lateral-reading/report.json`; if it cannot, it may return `<report_json>{"responses":[...]}</report_json>` as the final visible output. The wrapper validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
 
 Runs default to permission mode `acceptEdits` so noninteractive sessions do not wait for approval prompts. Override only if you understand the leakage risk:
 
@@ -168,10 +179,10 @@ export CLAUDE_TOOLS="WebFetch,WebSearch,Read,Write"
 
 ## Output Contract
 
-The skill should write its normal output folder:
+For automated runs, the skill should write this output folder:
 
 ```text
-reports/lateral-reading-YYYYMMDD-HHMMSS/
+reports/lateral-reading/
   target.txt
   report.json
   report.html
@@ -190,7 +201,7 @@ reports/lateral-reading-YYYYMMDD-HHMMSS/
 }
 ```
 
-The wrapper copies the skill folder to anonymous public paths such as `reports/{run_id}/article_001/` and wraps `report.json` into evaluator JSONL. If the skill does not create `reports/**/report.json`, the topic fails. Claude stdout is saved for debugging, but it is never parsed into a replacement report.
+The wrapper copies the skill folder to anonymous public paths such as `reports/{run_id}/article_001/` and wraps `report.json` into evaluator JSONL. If the skill does not create `reports/**/report.json`, the collector scans the visible chat transcript for a `<report_json>...</report_json>` block and materializes that JSON into `reports/lateral-reading/report.json`. If neither path yields a valid report object, the topic fails.
 
 ```json
 {
@@ -323,7 +334,7 @@ The leaderboard measures the full stack: Claude Code, the skill prompt and scrip
 - `scripts/openrouter_service_tier_proxy.py`: local OpenRouter request proxy for `service_tier` and OpenRouter server-tool injection
 - `scripts/audit_session_exposure.py`: checks session exposure strings and the default tool set
 - `scripts/audit_transcript.py`: scans Claude output for forbidden evaluation-artifact terms
-- `scripts/collect_skill_report.py`: copies the skill-produced `report.json` and `report.html`
+- `scripts/collect_skill_report.py`: copies the skill-produced `report.json` and `report.html`, or materializes a sentinel-wrapped chat fallback
 - `scripts/resolve_skill_command.py`: resolves the slash command used to invoke the skill
 - `scripts/resolve_skill_file.py`: resolves the skill instruction file for non-interactive runs
 - `scripts/validate_report.py`: schema, citation, and leakage validation

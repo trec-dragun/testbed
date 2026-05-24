@@ -5,9 +5,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import subprocess
 from pathlib import Path
+
+
+REPORT_SENTINEL_RE = re.compile(
+    r"<report_json>\s*(.*?)\s*</report_json>",
+    re.IGNORECASE | re.DOTALL,
+)
 
 
 def latest_report(search_dir: Path) -> Path | None:
@@ -17,6 +24,57 @@ def latest_report(search_dir: Path) -> Path | None:
         reverse=True,
     )
     return candidates[0] if candidates else None
+
+
+def is_report_json(value: object) -> bool:
+    return (
+        isinstance(value, dict)
+        and isinstance(value.get("responses"), list)
+        and bool(value["responses"])
+    )
+
+
+def parse_report_json(raw: str) -> dict[str, object] | None:
+    try:
+        value = json.loads(raw)
+    except json.JSONDecodeError:
+        return None
+    if not is_report_json(value):
+        return None
+    return value
+
+
+def chat_report_candidates(text: str) -> list[str]:
+    candidates = [match.group(1).strip() for match in REPORT_SENTINEL_RE.finditer(text)]
+
+    stripped = text.strip()
+    if stripped.startswith("{") and stripped.endswith("}"):
+        candidates.append(stripped)
+
+    return candidates
+
+
+def extract_chat_report(chat_outputs: list[Path]) -> dict[str, object] | None:
+    for chat_output in chat_outputs:
+        if not chat_output.is_file():
+            continue
+        text = chat_output.read_text(encoding="utf-8", errors="replace")
+        for candidate in chat_report_candidates(text):
+            report = parse_report_json(candidate)
+            if report is not None:
+                return report
+    return None
+
+
+def write_fallback_report(search_dir: Path, report: dict[str, object]) -> Path:
+    report_dir = search_dir / "reports" / "lateral-reading"
+    report_dir.mkdir(parents=True, exist_ok=True)
+    report_json = report_dir / "report.json"
+    report_json.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return report_json
 
 
 def copy_report_dir(source: Path, destination: Path) -> None:
@@ -78,12 +136,24 @@ def main() -> int:
     parser.add_argument("--public-dir", type=Path)
     parser.add_argument("--target-text", type=Path)
     parser.add_argument("--render-script", type=Path)
+    parser.add_argument(
+        "--chat-output",
+        action="append",
+        default=[],
+        type=Path,
+        help="Claude chat transcript to scan for fallback <report_json>...</report_json> output",
+    )
     parser.add_argument("--summary-out", type=Path)
     args = parser.parse_args()
 
+    report_source = "file"
     report_json = latest_report(args.search_dir)
     if not report_json:
-        raise SystemExit(f"no reports/**/report.json found under {args.search_dir}")
+        fallback_report = extract_chat_report(args.chat_output)
+        if fallback_report is None:
+            raise SystemExit(f"no reports/**/report.json found under {args.search_dir}")
+        report_json = write_fallback_report(args.search_dir, fallback_report)
+        report_source = "chat_fallback"
 
     source_report_dir = report_json.parent
     topic_report_dir = args.topic_dir / "skill_report"
@@ -102,6 +172,7 @@ def main() -> int:
 
     summary = {
         "source_report_dir": str(source_report_dir),
+        "source": report_source,
         "topic_report_dir": str(topic_report_dir),
         "topic_report_json": str(topic_report_dir / "report.json"),
         "topic_report_html": str(topic_report_dir / "report.html"),
