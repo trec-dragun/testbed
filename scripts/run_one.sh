@@ -240,7 +240,9 @@ print_agent_diagnostics() {
   fi
 }
 
-SESSION_DIR="$(mktemp -d "${TMPDIR:-/tmp}/news-skill-session.XXXXXX")"
+SESSION_BASE_DIR="${RUNNER_SESSION_BASE_DIR:-$ROOT_DIR/tmp/sessions}"
+mkdir -p "$SESSION_BASE_DIR"
+SESSION_DIR="$(mktemp -d "${SESSION_BASE_DIR%/}/news-skill-session.XXXXXX")"
 SESSION_WORK_DIR="$SESSION_DIR/work"
 SESSION_PROMPT="$SESSION_DIR/prompt.txt"
 SESSION_CLAUDE_DEBUG_FILE="$SESSION_DIR/claude_debug.log"

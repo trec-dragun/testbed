@@ -7,6 +7,7 @@ import argparse
 import http.client
 import json
 import sys
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, ClassVar
@@ -60,6 +61,10 @@ class ProxyHandler(BaseHTTPRequestHandler):
             or path.endswith("/responses")
         )
 
+    def should_transform_models_response(self) -> bool:
+        path = self.forward_path().split("?", 1)[0].rstrip("/")
+        return self.command == "GET" and path.endswith("/models")
+
     def request_body(self) -> bytes:
         length = int(self.headers.get("Content-Length", "0") or "0")
         body = self.rfile.read(length) if length else b""
@@ -108,6 +113,7 @@ class ProxyHandler(BaseHTTPRequestHandler):
             key: value
             for key, value in self.headers.items()
             if key.lower() not in HOP_BY_HOP_HEADERS and key.lower() != "host"
+            and key.lower() != "accept-encoding"
         }
         if body:
             headers["Content-Length"] = str(len(body))
@@ -124,6 +130,28 @@ class ProxyHandler(BaseHTTPRequestHandler):
         try:
             connection.request(self.command, self.forward_path(), body=body, headers=headers)
             response = connection.getresponse()
+            if self.should_transform_models_response():
+                response_body = response.read()
+                transformed_body = transform_models_response(response_body)
+                if transformed_body is not None:
+                    response_body = transformed_body
+                self.send_response(response.status, response.reason)
+                for key, value in response.getheaders():
+                    lower = key.lower()
+                    if lower in HOP_BY_HOP_HEADERS or lower in {"content-length"}:
+                        continue
+                    if transformed_body is not None and lower in {"content-encoding", "content-type", "etag"}:
+                        continue
+                    self.send_header(key, value)
+                if transformed_body is not None:
+                    self.send_header("Content-Type", "application/json")
+                self.send_header("Content-Length", str(len(response_body)))
+                self.send_header("Connection", "close")
+                self.end_headers()
+                self.wfile.write(response_body)
+                self.wfile.flush()
+                return
+
             self.send_response(response.status, response.reason)
             for key, value in response.getheaders():
                 lower = key.lower()
@@ -140,6 +168,107 @@ class ProxyHandler(BaseHTTPRequestHandler):
                 self.wfile.flush()
         finally:
             connection.close()
+
+
+def transform_models_response(body: bytes) -> bytes | None:
+    try:
+        payload = json.loads(body)
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(payload, dict) or "models" in payload:
+        return None
+    data = payload.get("data")
+    if not isinstance(data, list):
+        return None
+
+    models = [openrouter_to_codex_model(item) for item in data if isinstance(item, dict)]
+    codex_payload = {
+        "fetched_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "etag": "",
+        "client_version": "openrouter-proxy",
+        "models": models,
+    }
+    return json.dumps(codex_payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+
+
+def openrouter_to_codex_model(model: dict[str, Any]) -> dict[str, Any]:
+    slug = str(model.get("id") or model.get("canonical_slug") or model.get("name") or "unknown")
+    display_name = str(model.get("name") or slug)
+    description = str(model.get("description") or "")
+    context_window = model_context_window(model)
+    supported_parameters = model.get("supported_parameters")
+    if not isinstance(supported_parameters, list):
+        supported_parameters = []
+
+    return {
+        "slug": slug,
+        "display_name": display_name,
+        "description": description,
+        "default_reasoning_level": "medium",
+        "supported_reasoning_levels": [
+            {"effort": "low", "description": "Fast responses with lighter reasoning"},
+            {"effort": "medium", "description": "Balances speed and reasoning depth"},
+            {"effort": "high", "description": "Greater reasoning depth for complex tasks"},
+            {"effort": "xhigh", "description": "Extra high reasoning depth for complex tasks"},
+        ],
+        "shell_type": "shell_command",
+        "visibility": "list",
+        "supported_in_api": True,
+        "priority": 0,
+        "additional_speed_tiers": [],
+        "service_tiers": [],
+        "availability_nux": {"message": ""},
+        "upgrade": None,
+        "base_instructions": "You are Codex, a coding agent. Follow the user request and use the available tools carefully.",
+        "context_window": context_window,
+        "max_context_window": context_window,
+        "effective_context_window_percent": 95,
+        "experimental_supported_tools": [],
+        "input_modalities": model_input_modalities(model),
+        "apply_patch_tool_type": "freeform",
+        "default_reasoning_summary": "none",
+        "default_verbosity": "low",
+        "support_verbosity": True,
+        "supports_image_detail_original": "image" in model_input_modalities(model),
+        "supports_parallel_tool_calls": any(
+            str(parameter) in {"tools", "tool_choice", "parallel_tool_calls"}
+            for parameter in supported_parameters
+        ),
+        "supports_reasoning_summaries": "reasoning" in supported_parameters,
+        "supports_search_tool": False,
+        "truncation_policy": {"mode": "tokens", "limit": 10000},
+        "web_search_tool_type": "text_and_image",
+    }
+
+
+def model_context_window(model: dict[str, Any]) -> int:
+    top_provider = model.get("top_provider")
+    if isinstance(top_provider, dict):
+        value = positive_int(top_provider.get("context_length"))
+        if value is not None:
+            return value
+    value = positive_int(model.get("context_length"))
+    if value is not None:
+        return value
+    return 128000
+
+
+def model_input_modalities(model: dict[str, Any]) -> list[str]:
+    modalities = ["text"]
+    architecture = model.get("architecture")
+    if isinstance(architecture, dict):
+        input_modalities = architecture.get("input_modalities")
+        if isinstance(input_modalities, list) and "image" in input_modalities:
+            modalities.append("image")
+    return modalities
+
+
+def positive_int(value: Any) -> int | None:
+    try:
+        number = int(value)
+    except (TypeError, ValueError):
+        return None
+    return number if number > 0 else None
 
 
 def main() -> int:

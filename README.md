@@ -200,7 +200,7 @@ Claude Code sessions default to `--effort high`. Override with `--effort low`, `
 
 ### Codex / OpenAI
 
-Codex runs with a fresh temporary `CODEX_HOME` and the selected skill installed under `CODEX_HOME/skills`. The runner copies `auth.json` from the source Codex home when it exists, so normal Codex login can be reused without loading the user's full Codex history, memories, plugins, or global skills.
+Codex runs with a fresh isolated `CODEX_HOME` under `tmp/sessions/` and the selected skill installed under `CODEX_HOME/skills`. The runner copies `auth.json` from the source Codex home when it exists, so normal Codex login can be reused without loading the user's full Codex history, memories, plugins, or global skills.
 
 Default Codex controls:
 
@@ -320,7 +320,7 @@ For public rankings, use Codex/OpenRouter rows only. Claude Code/Anthropic and C
 - `scripts/run_batch.sh`: all selected articles
 - `scripts/run_one.sh`: one isolated agent session for one article
 - `scripts/check_openrouter_key.sh`: OpenRouter API key preflight
-- `scripts/openrouter_service_tier_proxy.py`: OpenRouter request proxy for `service_tier` and server-tool injection
+- `scripts/openrouter_service_tier_proxy.py`: OpenRouter request proxy for `service_tier`, server-tool injection, and Codex-compatible model lists
 - `scripts/audit_session_exposure.py`: checks visible leakage risk before a batch
 - `scripts/audit_transcript.py`: scans agent output for forbidden evaluation-artifact terms
 - `scripts/collect_skill_report.py`: copies file output or materializes sentinel-wrapped JSON
