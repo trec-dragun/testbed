@@ -14,7 +14,7 @@ PROVIDER="${PROVIDER:-anthropic}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 PERMISSION_MODE="${CLAUDE_PERMISSION_MODE:-acceptEdits}"
 CLAUDE_TOOLS_FALLBACK="WebFetch,WebSearch,Read,Write"
-OPENROUTER_CLAUDE_TOOLS_FALLBACK="Read,Write"
+OPENROUTER_CLAUDE_TOOLS_FALLBACK="Write"
 CLAUDE_TOOLS_DEFAULT="${CLAUDE_TOOLS:-}"
 OPENROUTER_WEB_SEARCH="${OPENROUTER_WEB_SEARCH:-1}"
 OPENROUTER_WEB_SEARCH_ENGINE="${OPENROUTER_WEB_SEARCH_ENGINE:-auto}"
@@ -123,7 +123,7 @@ Code's native web tools.
 
 Default OpenRouter tools are:
 
-  Read,Write
+  Write
 
 To disable OpenRouter search or fetch, set:
 
@@ -235,12 +235,14 @@ Automated artifact note:
 - Write the structured report JSON to this exact path:
   file_path: reports/lateral-reading/report.json
 - The Write tool accepts exactly these required parameters: file_path and content.
+- Never call Write with empty input; include file_path and content in the same tool call.
 - The Write tool creates parent directories automatically; do not stop because the reports directory is missing.
 - The report.json content must be a JSON object exactly shaped as {"responses":[...]}.
 - If the Write tool is unavailable or repeatedly fails, return only the report JSON wrapped in:
   <report_json>{"responses":[...]}</report_json>
 - If Bash, shell validation, or HTML rendering is unavailable, skip those steps; the runner renders report.html after the session.
 - Do not stop with a prose-only chat answer because validation or rendering tools are unavailable.
+- The output contract in this note is sufficient; do not stop if local reference files cannot be read.
 - When reading .md or .txt files with the Read tool, do not pass pages unless the tool explicitly requires it.
 
 EOF

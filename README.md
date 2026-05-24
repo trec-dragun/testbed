@@ -100,12 +100,14 @@ Automated artifact note:
 - Write the structured report JSON to this exact path:
   file_path: reports/lateral-reading/report.json
 - The Write tool accepts exactly these required parameters: file_path and content.
+- Never call Write with empty input; include file_path and content in the same tool call.
 - The Write tool creates parent directories automatically; do not stop because the reports directory is missing.
 - The report.json content must be a JSON object exactly shaped as {"responses":[...]}.
 - If the Write tool is unavailable or repeatedly fails, return only the report JSON wrapped in:
   <report_json>{"responses":[...]}</report_json>
 - If Bash, shell validation, or HTML rendering is unavailable, skip those steps; the runner renders report.html after the session.
 - Do not stop with a prose-only chat answer because validation or rendering tools are unavailable.
+- The output contract in this note is sufficient; do not stop if local reference files cannot be read.
 - When reading .md or .txt files with the Read tool, do not pass pages unless the tool explicitly requires it.
 
 Title: ...
@@ -125,7 +127,7 @@ For every run, the harness uses a fresh temp workspace plus `--no-session-persis
 
 Claude Code sessions default to `--effort high` for consistent reasoning depth across tested backbones. Override with `--effort low`, `--effort medium`, `--effort xhigh`, or `--effort max` only when intentionally running an ablation.
 
-For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use client-side Claude Code tools, close streams early, or return no final output. For web retrieval, the OpenRouter path now avoids Claude Code's native `WebSearch` and `WebFetch` by default and uses OpenRouter's `openrouter:web_search` and `openrouter:web_fetch` server tools instead. If a model cannot write files but returns the sentinel-wrapped JSON report, the runner materializes it into `report.json`; provider errors and empty responses still fail.
+For OpenRouter runs, the wrapper first checks `OPENROUTER_API_KEY` against OpenRouter's `/api/v1/key` endpoint, then points Claude Code at OpenRouter's Anthropic-compatible endpoint with `ANTHROPIC_AUTH_TOKEN`, an explicitly empty `ANTHROPIC_API_KEY`, and an explicit `Authorization: Bearer ...` entry in `ANTHROPIC_CUSTOM_HEADERS`. It also sets Claude Code's model variables (`ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, and `CLAUDE_CODE_SUBAGENT_MODEL`) to the requested model, and sets `CLAUDE_CODE_EFFORT_LEVEL` to the requested effort. Claude Code over OpenRouter is still provider-sensitive: some non-Anthropic backbones may fail to use client-side Claude Code tools, close streams early, or return no final output. For web retrieval, the OpenRouter path avoids Claude Code's native `WebSearch` and `WebFetch` by default and uses OpenRouter's `openrouter:web_search` and `openrouter:web_fetch` server tools instead. For local file tooling, OpenRouter runs expose only `Write` by default because some non-Anthropic models repeatedly generate invalid optional `Read` parameters through the Claude Code adapter. If a model cannot write files but returns the sentinel-wrapped JSON report, the runner materializes it into `report.json`; provider errors and empty responses still fail.
 
 OpenRouter generation runs default to `OPENROUTER_SERVICE_TIER=auto`. In auto mode, the runner requests `flex` only for `openai/*` and `google/*` model slugs, where OpenRouter advertises service-tier support, and sends Anthropic and other models without a service-tier field. Claude Code does not expose OpenRouter's top-level `service_tier` or server-tool request fields, so the runner starts a local per-session proxy whenever it needs to add `service_tier` or OpenRouter web tools to the outbound request. Set `OPENROUTER_SERVICE_TIER=off` to disable service-tier injection, `OPENROUTER_SERVICE_TIER=flex` to force flex, or `OPENROUTER_SERVICE_TIER=priority` to request priority.
 
@@ -161,14 +163,13 @@ For Anthropic-provider runs, the launch scripts expose a small Claude Code tool 
 
 For OpenRouter-provider runs, the default Claude Code tool set is:
 
-- `Read`
 - `Write`
 
 The OpenRouter request proxy adds `{ "type": "openrouter:web_search" }` and `{ "type": "openrouter:web_fetch" }` to the request body so web retrieval is performed by OpenRouter server tools rather than Claude Code's native web tools.
 
 Claude Code runs from a fresh temporary `work/` directory containing only the copied skill repo. The wrapper keeps topic IDs, rubrics, AutoJudge files, and official results outside that workspace and does not reference their paths in the prompt.
 
-`Bash`, `Edit`, `Glob`, `Grep`, and `LS` are not in the default tool set. The same tool set is passed to both `--tools` and `--allowed-tools`, so noninteractive runs can fetch, read skill references, and write report files without stopping for approval. The tested model should write `reports/lateral-reading/report.json`; if it cannot, it may return `<report_json>{"responses":[...]}</report_json>` as the final visible output. The wrapper validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
+`Bash`, `Edit`, `Glob`, `Grep`, and `LS` are not in the default tool set. The same tool set is passed to both `--tools` and `--allowed-tools`, so noninteractive runs can fetch and write report files without stopping for approval. Anthropic runs can also read local skill references through Claude Code's native `Read` tool; OpenRouter runs omit `Read` by default to avoid adapter-specific optional-parameter failures. The tested model should write `reports/lateral-reading/report.json`; if it cannot, it may return `<report_json>{"responses":[...]}</report_json>` as the final visible output. The wrapper validates `report.json` and renders `report.html` with the skill's own render script after Claude exits.
 
 Runs default to permission mode `acceptEdits` so noninteractive sessions do not wait for approval prompts. Override only if you understand the leakage risk:
 
