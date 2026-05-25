@@ -1,0 +1,70 @@
+{
+  "responses": [
+    {
+      "text": "The article 'The Pros and Cons of Moving to a Cashless Society' was published by The Balance in May 2021 by Justin Pritchard and reviewed by Khadija Khartit.",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "The article asserts that the shift toward a cashless society brings benefits such as lower crime rates and reduced cash handling costs, while raising concerns about privacy and financial exclusion.",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "To support its claim about crime, the article cites a study showing that crime in Missouri dropped by 9.8% after the state adopted Electronic Benefit Transfer (EBT) cards instead of cash for welfare benefits.",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "A 2014 study originally published by the IZA Institute of Labor Economics and later peer-reviewed in the Journal of Law and Economics confirms this 9.8% reduction in overall crime rates due to the EBT transition, attributing the drop to less cash circulating in specific neighborhoods.",
+      "citations": [
+        "https://docs.iza.org/dp8402.pdf",
+        "https://www.journals.uchicago.edu/doi/10.1086/693745"
+      ]
+    },
+    {
+      "text": "The article raises concerns about access for vulnerable individuals, such as the homeless.",
+      "citations": []
+    },
+    {
+      "text": "While the target article notes that the UK is experimenting with contactless donations for the homeless, independent evidence shows that UK programs like Greater Change, TAP London, and Give Leicester actually do use contactless or wireless donations to circumvent the decline in physical cash.",
+      "citations": [
+        "https://www.greaterchange.co.uk/",
+        "https://www.giveleicester.org/"
+      ]
+    },
+    {
+      "text": "The article uses Sweden and India as case studies for different methods of moving to cashless societies.",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "It accurately claims that cash transactions accounted for roughly 1% of Sweden's GDP in 2019, a point corroborated by Sweden's central bank (Riksbank) reports showing a prolonged structural shift toward mobile and card payments.",
+      "citations": [
+        "https://www.riksbank.se/globalassets/media/rapporter/betalningsrapport/2019/engelska/payments-in-sweden-2019.pdf",
+        "https://www.weforum.org/stories/2018/11/sweden-cashless-society-is-no-longer-a-utopia/"
+      ]
+    },
+    {
+      "text": "In the case of India, the article notes that 500 and 1,000 rupee notes were banned in 2016, but that the policy was largely ineffective because roughly 99% of those banknotes were successfully deposited.",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "The Reserve Bank of India confirmed in 2018 that 99.3% of the demonetized notes were returned to the banking system, demonstrating that those hoarding untaxed cash mostly found ways to launder it rather than letting it be destroyed as the government intended.",
+      "citations": [
+        "https://indianexpress.com/article/business/economy/demonetisation-99-per-cent-banned-notes-back-rbi-report-5331825/",
+        "https://timesofindia.indiatimes.com/business/india-business/99-3-demonetised-notes-worth-rs-15-3-lakh-crore-returned-rbi/articleshow/65589633.cms"
+      ]
+    },
+    {
+      "text": "Overall, outside sources corroborate the target article's factual premises regarding the reduction in crime correlated with cashless welfare, the rate of cash reduction in Sweden, and the implementation challenges seen during India's 2016 demonetization.",
+      "citations": []
+    }
+  ]
+}

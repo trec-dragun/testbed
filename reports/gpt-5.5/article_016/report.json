@@ -1,0 +1,80 @@
+{
+  "responses": [
+    {
+      "text": "The Everyday Health article is a 2015 consumer-health piece by Karen Asp that argues recreational oxygen bars and canned oxygen are unlikely to deliver advertised benefits for healthy people and may carry risks for people with lung or heart conditions.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "This framing is broadly consistent with FDA Consumer guidance, which says oxygen-bar promoters claim benefits such as reduced stress, increased energy and hangover relief, but there are no long-term, well-controlled studies supporting these claims in healthy people.",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html"
+      ]
+    },
+    {
+      "text": "A small randomized study indexed by PubMed found no significant differences in self-reported energy, relaxation or stress when participants received oxygen-bar oxygen versus the control condition.",
+      "citations": [
+        "https://pubmed.ncbi.nlm.nih.gov/22754923/"
+      ]
+    },
+    {
+      "text": "The article’s statement that normal air is about 21 percent oxygen is supported by medical references describing room air FiO2 as 21 percent.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/",
+        "https://www.ncbi.nlm.nih.gov/sites/books/NBK560867/"
+      ]
+    },
+    {
+      "text": "The article’s caveat that oxygen-bar delivery may not equal 95 percent inhaled oxygen is supported by FDA Consumer, which explains that room air mixed with the oxygen and aroma delivery can reduce the concentration to less than 50 percent according to one supplier.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/",
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html"
+      ]
+    },
+    {
+      "text": "The article’s risk warnings for people with asthma, heart disease, pulmonary hypertension or COPD are supported by FDA Consumer, which says such people may need carefully regulated oxygen and should not go to oxygen bars.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/",
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html"
+      ]
+    },
+    {
+      "text": "The warning about scented oxygen is also supported by FDA Consumer, which says aroma oils can cause lipoid pneumonia and even oil-free aerosols may contain irritants, allergens or live contaminants.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/",
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html"
+      ]
+    },
+    {
+      "text": "There is a legal and regulatory dimension that the article underplays, because FDA Consumer says oxygen administered for breathing by another person is treated as a prescription drug, and Massachusetts explicitly states oxygen bars are illegal under its state policy.",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html",
+        "https://www.mass.gov/info-details/policy-on-oxygen-bars-in-massachusetts"
+      ]
+    },
+    {
+      "text": "The source quality is moderate to strong because Everyday Health identifies the author, date and fact-checking status, and the author separately describes professional experience covering health and fitness for national publications.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/",
+        "https://karenasp.com/bio/"
+      ]
+    },
+    {
+      "text": "The main limitation is age, because the article was last updated in 2015, but the key scientific and regulatory claims remain corroborated by FDA guidance, a PubMed-indexed randomized study and current medical references on FiO2.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/",
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html",
+        "https://pubmed.ncbi.nlm.nih.gov/22754923/",
+        "https://www.ncbi.nlm.nih.gov/sites/books/NBK560867/"
+      ]
+    },
+    {
+      "text": "Bottom line: the target’s skeptical conclusion is well supported for healthy adults, with the important nuance that brief low-flow oxygen is usually not shown to be dangerous for healthy people but is not a proven wellness treatment and can be risky for vulnerable users.",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html",
+        "https://pubmed.ncbi.nlm.nih.gov/22754923/"
+      ]
+    }
+  ]
+}

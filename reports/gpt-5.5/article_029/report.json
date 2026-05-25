@@ -1,0 +1,94 @@
+{
+  "responses": [
+    {
+      "text": "The WebMD target is a consumer health reference article, reviewed on June 19, 2019, that frames jackfruit as a nutritious fruit whose nutrients may lower risks for constipation, ulcers, diabetes, high blood pressure, skin problems, and cancer.",
+      "citations": [
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "WebMD says its core health content is created and reviewed by medical and expert contributors and that editorial content is separated from advertising, which supports moderate source quality, but the jackfruit article itself does not show inline citations for each disease-related claim.",
+      "citations": [
+        "https://www.webmd.com/about-webmd-policies/about-who-we-are",
+        "https://webmdnetwork.com/editorial-policy/",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The target's one-cup nutrition numbers broadly track USDA FoodData Central's raw-jackfruit record, although WebMD's 2 grams of fat is higher than the USDA value of 0.64 grams per 100 grams, which implies about 1.1 grams for a 165-gram cup.",
+      "citations": [
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit",
+        "https://api.nal.usda.gov/fdc/v1/foods/search?query=jackfruit%20raw&dataType=SR%20Legacy&api_key=DEMO_KEY"
+      ]
+    },
+    {
+      "text": "Peer-reviewed review evidence supports WebMD's statements that jackfruit contains vitamin C, B-complex vitamins, carotenoids, and antioxidant phytochemicals, but that evidence mostly documents composition and plausible mechanisms rather than direct prevention of chronic disease in people.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6339770/",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The constipation claim is biologically plausible because NIDDK recommends enough fiber and fluids to help prevent or treat constipation, but USDA lists raw jackfruit at only 1.5 grams of fiber per 100 grams, so jackfruit should not be treated as a stand-alone constipation remedy.",
+      "citations": [
+        "https://www.niddk.nih.gov/health-information/digestive-diseases/constipation/eating-diet-nutrition",
+        "https://api.nal.usda.gov/fdc/v1/foods/search?query=jackfruit%20raw&dataType=SR%20Legacy&api_key=DEMO_KEY",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The blood-pressure claim is plausible because NIH ODS says higher potassium intake may help lower blood pressure and reduce stroke risk, and USDA lists raw jackfruit as potassium-containing, but this does not prove that jackfruit alone prevents cardiovascular events.",
+      "citations": [
+        "https://ods.od.nih.gov/factsheets/potassium-healthprofessional/",
+        "https://api.nal.usda.gov/fdc/v1/foods/search?query=jackfruit%20raw&dataType=SR%20Legacy&api_key=DEMO_KEY",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The diabetes claim should be read cautiously because the strongest human evidence found here was a small 40-patient randomized trial of 30 grams per day of green jackfruit flour replacing rice or wheat flour, not ordinary ripe jackfruit pulp or an unspecified jackfruit extract.",
+      "citations": [
+        "https://www.nature.com/articles/s41387-021-00161-4.pdf",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The ulcer claim is weak for everyday consumers because the accessible evidence found here concerns Artocarpus heterophyllus leaf extract in rat ulcer models and traditional use rather than human trials showing that eating jackfruit flesh prevents stomach ulcers.",
+      "citations": [
+        "https://www.readkong.com/page/effect-of-artocarpus-heterophyllus-lam-jackfruit-on-2565519",
+        "https://pubmed.ncbi.nlm.nih.gov/35144492/",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The skin claim is partly supported at the nutrient level because NIH ODS says vitamin C is required for collagen biosynthesis and functions as an antioxidant, but the article would be overstated if read as proof that eating jackfruit prevents sun damage.",
+      "citations": [
+        "https://ods.od.nih.gov/factsheets/Vitaminc-HealthProfessional/",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The cancer claim is the article's weakest health-benefit claim because NCI says antioxidant mechanisms can look promising in laboratory and animal research while randomized trials of antioxidant supplements have not shown a primary cancer-prevention benefit.",
+      "citations": [
+        "https://www.cancer.gov/about-cancer/causes-prevention/risk/diet/antioxidants-fact-sheet",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The allergy warning is well supported because published allergy literature links jackfruit reactions to birch-pollen cross-reactivity and latex-associated anaphylaxis, while also describing jackfruit allergy as rare.",
+      "citations": [
+        "https://www.jacionline.org/article/S0091-6749(04)00310-0/fulltext",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8165822/",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "Bottom line: The article is reasonably trustworthy for basic nutrition and preparation guidance, but its disease-risk section should be treated as cautious, mostly nutrient-based or preclinical-evidence guidance rather than evidence that jackfruit treats or prevents ulcers, diabetes, cancer, or cardiovascular disease.",
+      "citations": [
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit",
+        "https://pubmed.ncbi.nlm.nih.gov/35144492/",
+        "https://www.cancer.gov/about-cancer/causes-prevention/risk/diet/antioxidants-fact-sheet",
+        "https://ods.od.nih.gov/factsheets/potassium-healthprofessional/"
+      ]
+    }
+  ]
+}

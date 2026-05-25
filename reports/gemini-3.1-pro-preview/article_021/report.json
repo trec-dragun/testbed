@@ -1,0 +1,50 @@
+{
+  "responses": [
+    {
+      "text": "The target article from news.com.au claims that NASA scientists have discovered evidence of a parallel universe where time runs backwards based on particle detections in Antarctica.",
+      "citations": [
+        "https://www.news.com.au/technology/science/space/nasa-reveals-existence-of-parallel-universe-where-time-runs-backwards/news-story/4ba8516b17d87bc5abd24d45c1aabcbc"
+      ]
+    },
+    {
+      "text": "This viral claim is false and fundamentally misrepresents the results of an actual scientific experiment.",
+      "citations": []
+    },
+    {
+      "text": "The Antarctic Impulsive Transient Antenna (ANITA) project, a high-altitude balloon experiment partially funded by NASA, did detect unusual radio signals that appeared to show high-energy particles moving upward out of the ice.",
+      "citations": [
+        "https://www.sciencealert.com/of-course-nasa-did-not-detect-a-parallel-universe-in-antarctica"
+      ]
+    },
+    {
+      "text": "While these upward-moving signals are difficult to explain using the standard model of physics, the researchers involved did not conclude they came from an alternate reality.",
+      "citations": [
+        "https://www.syfy.com/syfy-wire/no-nasa-did-not-discover-a-parallel-universe-where-time-runs-backwards"
+      ]
+    },
+    {
+      "text": "Peter Gorham, the principal investigator for ANITA, explicitly denied the viral narrative, stating that his team never wrote about or hypothesized parallel universes to explain their data.",
+      "citations": [
+        "https://www.sciencealert.com/of-course-nasa-did-not-detect-a-parallel-universe-in-antarctica"
+      ]
+    },
+    {
+      "text": "The parallel universe rumor actually originated from an April 2020 feature in New Scientist magazine, which speculated about a separate theoretical paper proposing a hypothetical \"CPT symmetric universe.\"",
+      "citations": [
+        "https://skeptical-science.com/media/did-nasa-really-detect-a-reverse-parallel-universe/"
+      ]
+    },
+    {
+      "text": "Tabloids and online news outlets distorted this theoretical discussion into a false assertion that NASA scientists had found definitive proof of a reverse-time universe.",
+      "citations": [
+        "https://www.truthorfiction.com/in-may-2020-did-scientists-find-evidence-of-a-parallel-universe-where-time-runs-backwards/"
+      ]
+    },
+    {
+      "text": "Other physicists have since proposed more mundane explanations for the anomaly, such as subsurface reflections of cosmic rays bouncing off unique layers of compacted snow known as firn.",
+      "citations": [
+        "https://skeptical-science.com/media/did-nasa-really-detect-a-reverse-parallel-universe/"
+      ]
+    }
+  ]
+}

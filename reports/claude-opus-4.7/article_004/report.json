@@ -1,0 +1,100 @@
+{
+  "responses": [
+    {
+      "text": "The target is a May 12, 2020 Decrypt feature by Robert Stevens headlined \"Quantum computers could crack Bitcoin by 2022,\" which argues that a sufficiently powerful quantum computer could derive Bitcoin private keys from public keys and that such a machine might be only about two years away.",
+      "citations": [
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022"
+      ]
+    },
+    {
+      "text": "Decrypt is a crypto-industry news site that has disclosed financial ties to ConsenSys and other crypto sponsors, so its coverage of Bitcoin existential risks should be read as industry-adjacent journalism rather than independent science reporting.",
+      "citations": [
+        "https://decrypt.co/about",
+        "https://en.wikipedia.org/wiki/Decrypt_(website)"
+      ]
+    },
+    {
+      "text": "The article's headline prediction that quantum computers could crack Bitcoin by 2022 did not come true, as the most powerful publicly known quantum processors in 2022 (such as IBM's 433-qubit Osprey) remained orders of magnitude short of what is needed to break ECDSA on secp256k1.",
+      "citations": [
+        "https://www.ibm.com/quantum/blog/next-wave-quantum-centric-supercomputing",
+        "https://newsroom.ibm.com/2022-11-09-IBM-Unveils-400-Qubit-Plus-Quantum-Processor-and-Next-Generation-IBM-Quantum-System-Two"
+      ]
+    },
+    {
+      "text": "The article's claim that \"a 4,000 qubit quantum computer could, theoretically, crack Bitcoin's encryption in a matter of seconds\" understates the resource requirement and conflates logical with physical qubits, because peer-reviewed estimates put the logical-qubit cost of breaking 256-bit elliptic-curve cryptography at roughly 2,330 logical qubits but require on the order of hundreds of millions to a billion noisy physical qubits once quantum error correction is included.",
+      "citations": [
+        "https://arxiv.org/abs/1706.06752",
+        "https://www.aviumlabs.com/blog/2024-06-25-Bitcoin-Quantum-Computing-Threats.html"
+      ]
+    },
+    {
+      "text": "A 2022 analysis by Webber et al. in AVS Quantum Science estimated that breaking the elliptic curve encryption protecting a single Bitcoin transaction within its ~10-minute confirmation window would require about 1.9 billion physical qubits, far beyond the 4,000-qubit figure cited by Decrypt.",
+      "citations": [
+        "https://pubs.aip.org/avs/aqs/article/4/1/013801/2835275/The-impact-of-hardware-specifications-on-reaching",
+        "https://www.sussex.ac.uk/broadcast/read/56625"
+      ]
+    },
+    {
+      "text": "The article states that \"the current generation of quantum computers max out at 54 qubits,\" referring to Google's October 2019 Sycamore announcement, but Sycamore was a 54-qubit chip on which only 53 qubits were operational, and within roughly two years IBM had already announced its 127-qubit Eagle (Nov 2021) and 433-qubit Osprey (Nov 2022) processors.",
+      "citations": [
+        "https://www.nature.com/articles/s41586-019-1666-5",
+        "https://research.google/blog/quantum-supremacy-using-a-programmable-superconducting-processor/",
+        "https://newsroom.ibm.com/2021-11-16-IBM-Unveils-Breakthrough-127-Qubit-Quantum-Processor"
+      ]
+    },
+    {
+      "text": "Andersen Cheng's claim in the article that intelligence agencies might already be \"around two years away\" from a Bitcoin-breaking quantum computer hidden in an underground bunker is presented without any cited evidence and is contradicted by the public state of the art, where no government has demonstrated anything close to the millions of high-quality qubits required.",
+      "citations": [
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022",
+        "https://pubs.aip.org/avs/aqs/article/4/1/013801/2835275/The-impact-of-hardware-specifications-on-reaching"
+      ]
+    },
+    {
+      "text": "The piece accurately notes that NIST was running a post-quantum cryptography competition, and NIST did select its first set of post-quantum standards (CRYSTALS-Kyber for key encapsulation and CRYSTALS-Dilithium, FALCON, and SPHINCS+ for signatures) on July 5, 2022, broadly consistent with Cheng's prediction of a 2022 decision.",
+      "citations": [
+        "https://www.nist.gov/news-events/news/2022/07/nist-announces-first-four-quantum-resistant-cryptographic-algorithms",
+        "https://csrc.nist.gov/projects/post-quantum-cryptography/selected-algorithms-2022"
+      ]
+    },
+    {
+      "text": "The article correctly identifies that Bitcoin uses ECDSA over the secp256k1 curve for signatures and SHA-256 for hashing, but it glosses over the fact that Bitcoin addresses are hashes of public keys, so coins held in unspent P2PKH or P2WPKH outputs whose public keys have never been revealed enjoy an additional layer of hash-based protection against Shor's algorithm.",
+      "citations": [
+        "https://en.bitcoin.it/wiki/Secp256k1",
+        "https://en.bitcoin.it/wiki/Address",
+        "https://blog.deloitte.ch/quantum-computing-and-bitcoin-attack-vectors"
+      ]
+    },
+    {
+      "text": "The article's description of Shor's and Grover's algorithms is roughly correct in that Shor's algorithm threatens ECDSA key recovery while Grover's algorithm only provides a quadratic speedup against SHA-256, meaning SHA-256 is widely regarded as remaining secure against quantum attack at sufficient bit lengths.",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Shor%27s_algorithm",
+        "https://en.wikipedia.org/wiki/Grover%27s_algorithm",
+        "https://www.nist.gov/news-events/news/2022/07/nist-announces-first-four-quantum-resistant-cryptographic-algorithms"
+      ]
+    },
+    {
+      "text": "The piece's framing that Bitcoin is racing against a near-term quantum threat is also undercut by Vitalik Buterin's quoted view that post-quantum replacements already exist and that there is a known upgrade path, a view that has become the mainstream developer position in the years since.",
+      "citations": [
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022",
+        "https://blog.deloitte.ch/quantum-computing-and-bitcoin-attack-vectors",
+        "https://www.nist.gov/news-events/news/2022/07/nist-announces-first-four-quantum-resistant-cryptographic-algorithms"
+      ]
+    },
+    {
+      "text": "Missing context: the article does not mention that even Sundar Pichai's quoted \"5 to 10 year\" timeline referred to breaking encryption in general (including widely deployed RSA-2048 in TLS), not specifically Bitcoin, and that as of 2026 mainstream expert surveys still place a cryptographically relevant quantum computer roughly a decade or more out.",
+      "citations": [
+        "https://globalriskinstitute.org/publication/2023-quantum-threat-timeline-report/",
+        "https://globalriskinstitute.org/publication/quantum-threat-timeline-report-2024/"
+      ]
+    },
+    {
+      "text": "Bottom line: the central headline prediction that quantum computers could crack Bitcoin by 2022 is falsified by subsequent events, the article's technical figures (4,000 qubits, 54 qubits) are simplified to the point of being misleading, and while the underlying long-term concern about ECDSA and Shor's algorithm is real, the piece overstates the imminence of the threat and relies heavily on a single commercial cryptography-vendor source for its most alarming claim.",
+      "citations": [
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022",
+        "https://pubs.aip.org/avs/aqs/article/4/1/013801/2835275/The-impact-of-hardware-specifications-on-reaching",
+        "https://arxiv.org/abs/1706.06752",
+        "https://globalriskinstitute.org/publication/quantum-threat-timeline-report-2024/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "responses": [
+    {
+      "text": "The target is a January 8, 2020 BBC News explainer that says Carlos Ghosn, while on bail and awaiting trial in Japan, appeared in Lebanon after a reported escape route from Tokyo to Osaka, then by private jet through Istanbul to Beirut.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040"
+      ]
+    },
+    {
+      "text": "The BBC article generally signals uncertainty by attributing operational details to NHK, The Wall Street Journal, the Financial Times, Reuters, and other reports rather than presenting every detail as independently confirmed by BBC.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040"
+      ]
+    },
+    {
+      "text": "A later U.S. District Court extradition order strongly corroborates the article's core route, finding probable cause that Ghosn left his Tokyo home, met the Taylors and George-Antoine Zayek, traveled to the Kansai airport area, disappeared from hotel surveillance, and departed on a private jet to Turkey.",
+      "citations": [
+        "https://static.reuters.com/resources/media/editorial/20200904/09042020taylors.pdf"
+      ]
+    },
+    {
+      "text": "The same court order also supports the article's container account because it says Michael Taylor and Zayek carried large black audio-equipment-style cases, left the hotel with those cases, and had their baggage loaded onto the private jet without being checked.",
+      "citations": [
+        "https://static.reuters.com/resources/media/editorial/20200904/09042020taylors.pdf"
+      ]
+    },
+    {
+      "text": "Subsequent Reuters reporting carried by NBC News further strengthened the factual basis because Michael and Peter Taylor pleaded guilty in Tokyo to helping Ghosn flee Japan hidden in a box aboard a private jet.",
+      "citations": [
+        "https://www.nbcnews.com/business/business-news/american-father-son-duo-pleads-guilty-helping-former-nissan-chief-n1270656"
+      ]
+    },
+    {
+      "text": "The article's account of the Turkey connection is also supported by MNG Jet's statement that two of its aircraft were used on Osaka-Istanbul and Istanbul-Beirut legs and that an employee falsified records so Ghosn's name did not appear in the official flight documentation.",
+      "citations": [
+        "https://www.nbcnews.com/news/world/turkish-jet-firm-says-employee-falsified-ghosn-records-n1109861"
+      ]
+    },
+    {
+      "text": "The article's discussion of passport uncertainty was reasonable at the time because Lebanese officials said Ghosn entered on a French passport while his Japanese lawyers said they still held his French, Lebanese, and Brazilian passports, and later reporting said he had a spare French passport in a locked case.",
+      "citations": [
+        "https://www.pbs.org/newshour/world/interpol-issues-wanted-notice-to-lebanon-for-ex-nissan-executive",
+        "https://www.cnbc.com/2020/01/02/ex-nissan-chairman-carlos-ghosn-had-a-spare-french-passport-report.html"
+      ]
+    },
+    {
+      "text": "The BBC appropriately treated the early MTV Lebanon claim about a paramilitary group disguised as musicians as doubtful, and later court records support a narrower audio-equipment-box escape rather than the more elaborate band story.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://static.reuters.com/resources/media/editorial/20200904/09042020taylors.pdf"
+      ]
+    },
+    {
+      "text": "The role of Carole Ghosn remains a point requiring careful wording because Ghosn denied family involvement, the BBC attributed claims of her major role to media reports, and later prosecutors alleged that she sought help from Michael Taylor.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.nbcnews.com/business/business-news/american-father-son-duo-pleads-guilty-helping-former-nissan-chief-n1270656"
+      ]
+    },
+    {
+      "text": "The article's statement that Lebanon received an Interpol red notice and had no extradition treaty with Japan is supported by Associated Press reporting published by PBS, which also explains that a red notice is not itself an arrest warrant.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.pbs.org/newshour/world/interpol-issues-wanted-notice-to-lebanon-for-ex-nissan-executive"
+      ]
+    },
+    {
+      "text": "Overall, the BBC explainer is highly credible on the main escape narrative, but its early claims about individual responsibility, Carole Ghosn's role, and passport mechanics should be read as provisional because later records clarified some details while leaving others contested.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://static.reuters.com/resources/media/editorial/20200904/09042020taylors.pdf",
+        "https://www.nbcnews.com/business/business-news/american-father-son-duo-pleads-guilty-helping-former-nissan-chief-n1270656"
+      ]
+    }
+  ]
+}

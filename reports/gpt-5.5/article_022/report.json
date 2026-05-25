@@ -1,0 +1,73 @@
+{
+  "responses": [
+    {
+      "text": "The target is an April 16, 2019 news.com.au article by Frank Chung that framed the Notre Dame fire as an unresolved cause question while saying officials were focusing on an involuntary or accidental cause rather than arson.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904"
+      ]
+    },
+    {
+      "text": "That central framing was reasonable for a next-day report because contemporaneous Australian public broadcaster ABC reported that Paris prosecutor Rémy Heitz said there was no evidence of arson at that stage and that investigators expected a long and complex inquiry.",
+      "citations": [
+        "https://www.abc.net.au/news/2019-04-16/notre-dame-fire-french-president-emmanuel-macron-pledges-rebuild/11020528"
+      ]
+    },
+    {
+      "text": "The article’s statement that the cause was not immediately clear but was potentially linked to restoration work matched early reporting that the cathedral was undergoing renovation and that investigators were interviewing renovation workers.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904",
+        "https://www.abc.net.au/news/2019-04-16/notre-dame-fire-french-president-emmanuel-macron-pledges-rebuild/11020528"
+      ]
+    },
+    {
+      "text": "Later prosecutorial reporting strengthened, rather than contradicted, the article’s anti-arson framing: in June 2019, French authorities said no evidence supported a criminal origin and that electrical malfunction or a badly extinguished cigarette were hypotheses.",
+      "citations": [
+        "https://www.bbc.com/news/world-europe-48776794",
+        "https://www.france24.com/en/20190626-france-paris-notre-dame-fire-no-sign-criminal-cause-prosecutors-probe-negligence"
+      ]
+    },
+    {
+      "text": "The same June 2019 prosecutor update also said investigators still could not determine the actual cause, so claims that the fire definitively started from renovation work, an electrical fault, a cigarette, or arson go beyond the evidence then available.",
+      "citations": [
+        "https://www.france24.com/en/20190626-france-paris-notre-dame-fire-no-sign-criminal-cause-prosecutors-probe-negligence",
+        "https://www.bbc.com/news/world-europe-48776794"
+      ]
+    },
+    {
+      "text": "As of late 2024, AFP-based reporting in The Local said five years of investigation and expert reports had still not identified the precise cause, no charges had been filed, and no new information had surfaced to suggest deliberate arson.",
+      "citations": [
+        "https://www.thelocal.fr/20241109/no-culprit-found-five-years-on-from-notre-dame-fire"
+      ]
+    },
+    {
+      "text": "The article’s timeline is less precise than later reconstructions because it says the blaze started at about 6:50 p.m., while later reports described a first alarm around 6:18 or 6:20, a second alarm at 6:43, and firefighters being called around 6:48.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904",
+        "https://www.the-independent.com/news/world/europe/notre-dame-collapse-fire-fighters-paris-cathedral-tower-bells-a9010131.html",
+        "https://www.abc.net.au/news/2019-04-17/notre-dame-cathedral-staff-took-23-minutes-to-discover-fire/11023332"
+      ]
+    },
+    {
+      "text": "The article included context about attacks on Catholic churches in France, but the best later evidence does not connect those incidents to the Notre Dame fire and instead points toward an accidental origin as the stronger working theory.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904",
+        "https://www.thelocal.fr/20241109/no-culprit-found-five-years-on-from-notre-dame-fire"
+      ]
+    },
+    {
+      "text": "News.com.au is a mainstream Australian commercial news site within the News Corp Australia network, but this article relied heavily on wire-style breaking updates and secondary quotations rather than original investigation from Paris.",
+      "citations": [
+        "https://www.news.com.au/help",
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904"
+      ]
+    },
+    {
+      "text": "Overall, the article is mostly trustworthy on its main claim that arson was unsupported and the cause was unresolved, but readers should treat its early timeline and renovation-link wording as provisional breaking-news information rather than a settled account of how the fire began.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904",
+        "https://www.france24.com/en/20190626-france-paris-notre-dame-fire-no-sign-criminal-cause-prosecutors-probe-negligence",
+        "https://www.thelocal.fr/20241109/no-culprit-found-five-years-on-from-notre-dame-fire"
+      ]
+    }
+  ]
+}

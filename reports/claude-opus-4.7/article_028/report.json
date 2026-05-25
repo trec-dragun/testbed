@@ -1,0 +1,80 @@
+{
+  "responses": [
+    {
+      "text": "The target is an August 13, 2020 news article in The Verge by Nick Statt reporting that Epic Games filed a civil antitrust lawsuit against Apple in the U.S. District Court for the Northern District of California after Apple removed Fortnite from the iOS App Store earlier that day.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief"
+      ]
+    },
+    {
+      "text": "The Verge is an established U.S. technology news outlet owned by Vox Media, and the byline Nick Statt was a Verge news editor in 2020 covering gaming, mobile apps and antitrust before moving to Protocol and later returning to The Verge as a Decoder senior producer, which supports treating the article as mainstream tech-news reporting rather than opinion or sponsored content.",
+      "citations": [
+        "https://www.theverge.com/authors/nick-statt",
+        "https://talkingbiznews.com/media-news/statt-hired-as-senior-producer-for-verges-decoder-podcast/",
+        "https://www.theverge.com/about-the-verge"
+      ]
+    },
+    {
+      "text": "The primary source — Epic's filed complaint, docketed as Epic Games, Inc. v. Apple Inc., Case No. 3:20-cv-05640 in the Northern District of California on August 13, 2020 — confirms the article's account of the filing date, venue, parties, and request for injunctive relief rather than damages.",
+      "citations": [
+        "https://www.courtlistener.com/docket/17442392/epic-games-inc-v-apple-inc/",
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf"
+      ]
+    },
+    {
+      "text": "The complaint itself alleges Apple unlawfully monopolizes two markets it defines as the iOS App Distribution Market and the iOS In-App Payment Processing Market and pleads counts under Sections 1 and 2 of the Sherman Act, the California Cartwright Act, and California's Unfair Competition Law, matching the legal framing The Verge attributes to Epic.",
+      "citations": [
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf",
+        "https://deadline.com/wp-content/uploads/2020/08/epic-games-apple-complaint-wm.pdf"
+      ]
+    },
+    {
+      "text": "Independent reporting from TechCrunch, BBC News, MacRumors, and ABC News on the same day corroborates The Verge's central facts: Epic added a direct payment option in Fortnite offering a roughly 20 percent discount on V-Bucks, Apple removed Fortnite for violating App Store guidelines on in-app purchases, and Epic promptly filed suit in the Northern District of California.",
+      "citations": [
+        "https://techcrunch.com/2020/08/13/fortnite-app-store-removed-apple/",
+        "https://www.bbc.com/news/technology-53773715",
+        "https://www.macrumors.com/2020/08/13/apple-removes-fortnite-from-app-store/",
+        "https://www.abc.net.au/news/2020-08-14/apple-removes-fortnite-from-the-app-store-prompting-a-lawsuit/12557530"
+      ]
+    },
+    {
+      "text": "The article's characterization of Epic's move as a deliberate provocation is consistent with same-day reporting, including Apple's own statement that Epic acted \"with the express intent of violating the App Store guidelines\" and analyst commentary in the BBC that the update \"was done to make Apple remove the app.\"",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21366438/apple-fortnite-ios-app-store-violations-epic-payments",
+        "https://techcrunch.com/2020/08/13/fortnite-app-store-removed-apple/",
+        "https://www.bbc.com/news/technology-53773715"
+      ]
+    },
+    {
+      "text": "The Verge's description of Apple's standard 30 percent commission and Epic's lowered V-Bucks pricing (for example 1,000 V-Bucks at $7.99 instead of $9.99 with Epic Direct Payment) is corroborated by independent coverage and by Epic's own announcement quoted by TechCrunch.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21366438/apple-fortnite-ios-app-store-violations-epic-payments",
+        "https://techcrunch.com/2020/8/13/fortnite-app-store-removed-apple/",
+        "https://www.macrumors.com/2020/08/13/apple-removes-fortnite-from-app-store/"
+      ]
+    },
+    {
+      "text": "One framing claim — that Epic accuses Apple of \"six separate accounts of the Sherman Antitrust Act\" — is slightly imprecise, since the complaint's table of contents shows three Sherman Act counts in the App Distribution Market (monopoly maintenance, denial of essential facility, restraint of trade) plus two in the In-App Payment Processing Market and one tying count, for six Sherman-based counts total, which matches the spirit but not the wording of The Verge's summary.",
+      "citations": [
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf",
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief"
+      ]
+    },
+    {
+      "text": "Important context not present in the August 13, 2020 article, because it post-dates publication, is that on September 10, 2021 Judge Yvonne Gonzalez Rogers ruled Apple was not an antitrust monopolist under federal or California law on nine of ten counts, found Apple liable only under California's Unfair Competition Law for its anti-steering rules, ordered an injunction against those rules, and ordered Epic to pay Apple 30 percent of the roughly $12.17 million in Epic Direct Payment revenue plus subsequent amounts.",
+      "citations": [
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.813.0.pdf",
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.814.0_2.pdf",
+        "https://www.theverge.com/2021/9/12/22667694/epic-v-apple-trial-fortnite-judge-yvonne-gonzalez-rogers-final-ruling-injunction-breakdown"
+      ]
+    },
+    {
+      "text": "Bottom line: the Verge article is a credible, accurately reported news story whose core factual claims about the August 13, 2020 lawsuit, court venue, parties, legal theories, and Apple's 30 percent fee are all confirmed by the underlying court filing and multiple independent outlets; readers should only note minor imprecision in the \"six Sherman Act counts\" phrasing and remember that the article captures the lawsuit's filing rather than its later outcome, which largely went against Epic's monopolization theory while striking down Apple's anti-steering rules.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief",
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf",
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.814.0_2.pdf"
+      ]
+    }
+  ]
+}

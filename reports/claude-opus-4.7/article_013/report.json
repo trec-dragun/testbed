@@ -1,0 +1,92 @@
+{
+  "responses": [
+    {
+      "text": "The target is a CBS News explainer dated February 13, 2021 titled \"Britney Spears' conservatorship, explained,\" co-bylined by Zoe Christen Jones and Justin Carissimo, framing Spears's long-running legal arrangement and the renewed #FreeBritney movement.",
+      "citations": [
+        "https://www.cbsnews.com/news/britney-spears-conservatorship-explained/"
+      ]
+    },
+    {
+      "text": "CBS News is an established mainstream U.S. broadcast newsroom with editorial standards and corrections processes, and this piece is a news explainer rather than opinion, lending it baseline credibility for descriptive claims.",
+      "citations": [
+        "https://www.cbsnews.com/news/britney-spears-conservatorship-explained/"
+      ]
+    },
+    {
+      "text": "The article's core claim that Jamie Spears was placed in control of Britney Spears's affairs in 2008 after a hospitalization is corroborated by independent reporting: a Los Angeles court named him temporary conservator on February 1, 2008, following two psychiatric holds, with attorney Andrew Wallet as co-conservator of the estate.",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Britney_Spears_conservatorship_dispute",
+        "http://usatoday30.usatoday.com/life/people/2008-02-01-spears-conservatorship_n.htm",
+        "https://www.hollywoodreporter.com/music/music-news/britney-spears-conservatorship-timeline-1234997291/"
+      ]
+    },
+    {
+      "text": "The piece's statement that the conservatorship was later made \"permanent\" is supported by reporting that on October 28, 2008, Commissioner Reva Goetz extended it indefinitely on grounds Spears was \"susceptible to undue influence.\"",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Britney_Spears_conservatorship_dispute",
+        "https://www.hollywoodreporter.com/music/music-news/britney-spears-conservatorship-timeline-1234997291/"
+      ]
+    },
+    {
+      "text": "The article's framing that the dispute returned to the spotlight after the New York Times documentary \"Framing Britney Spears\" matches independent coverage confirming the film aired February 5, 2021 on FX and Hulu as part of The New York Times Presents.",
+      "citations": [
+        "https://ew.com/music/framing-britney-spears-conservatorship-documentary/",
+        "https://variety.com/2021/tv/news/britney-spears-documentary-conservatory-free-britney-movement-1234902053/"
+      ]
+    },
+    {
+      "text": "CBS's reporting that Jodi Montgomery, a licensed professional, took over as temporary conservator of the person in 2019 when Jamie Spears stepped down for health reasons is consistent with BBC and Hollywood Reporter timelines.",
+      "citations": [
+        "https://www.bbc.co.uk/news/world-us-canada-53494405",
+        "https://www.hollywoodreporter.com/music/music-news/britney-spears-conservatorship-timeline-1234997291/"
+      ]
+    },
+    {
+      "text": "The article's account that in November 2020 a judge granted Spears's request to appoint Bessemer Trust as co-conservator while declining to remove her father is corroborated by CBS's own later reporting and by Variety, both citing Judge Brenda Penny's November 10, 2020 ruling.",
+      "citations": [
+        "https://www.cbsnews.com/news/britney-spears-request-remove-dad-jamie-conservatoriship-denied/",
+        "https://variety.com/2020/music/news/britney-spears-conservatorship-father-1234828947/",
+        "https://en.wikipedia.org/wiki/Britney_Spears_conservatorship_dispute"
+      ]
+    },
+    {
+      "text": "The reported $60 million estate valuation aligns with contemporaneous Associated Press reporting that referenced Spears's \"more than $60 million in assets\" at the time of the November 2020 hearing, though this figure originates from her father's legal team and should be read as their characterization rather than an audited public number.",
+      "citations": [
+        "https://www.ctvnews.ca/entertainment/in-court-moves-britney-spears-seeks-freedom-from-father-1.5182757",
+        "https://www.cbsnews.com/news/britney-spears-conservatorship-explained/"
+      ]
+    },
+    {
+      "text": "The quoted Instagram statement from boyfriend Sam Asghari calling Jamie Spears a \"total d**k\" is independently verified across multiple outlets, including Page Six, Us Weekly, ET, and The Daily Beast, all reporting his February 9, 2021 Instagram Story.",
+      "citations": [
+        "https://pagesix.com/2021/02/09/sam-asghari-calls-britney-spears-dad-a-total-d-k/",
+        "https://www.usmagazine.com/celebrity-news/news/britney-spears-boyfriend-sam-asghari-rebukes-her-dad-jamie/",
+        "https://www.thedailybeast.com/britney-spears-boyfriend-is-sick-of-her-total-dick-dad-jamie-butting-into-their-relationship/"
+      ]
+    },
+    {
+      "text": "The ACLU attorney quoted in the piece, Zoe Brennan-Krohn, is a real staff attorney with the ACLU Disability Rights Program who has publicly commented on conservatorship abuses, making her cited expertise appropriate for the article's framing.",
+      "citations": [
+        "https://www.aclu.org/bio/zoe-brennan-krohn",
+        "https://www.cbsnews.com/news/britney-spears-conservatorship-explained/"
+      ]
+    },
+    {
+      "text": "Key context the article omits: the original 2008 petition reportedly cited \"dementia\" without supporting medical documentation, a detail later reporting raised as a concern about how easily the conservatorship was approved.",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Britney_Spears_conservatorship_dispute"
+      ]
+    },
+    {
+      "text": "Additional context unavailable at publication: Spears delivered explosive court testimony on June 23, 2021 calling the conservatorship \"abusive,\" Jamie Spears was suspended on September 29, 2021, and Judge Brenda Penny terminated the conservatorship on November 12, 2021, after this CBS article was written.",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Britney_Spears_conservatorship_dispute",
+        "https://www.hollywoodreporter.com/music/music-news/britney-spears-conservatorship-timeline-1234997291/"
+      ]
+    },
+    {
+      "text": "Bottom line: this CBS News explainer is a credible, accurately sourced primer on the state of the Spears conservatorship as of mid-February 2021, with verifiable names, dates, court actions, and quoted statements, though readers should treat the $60 million figure as a partisan estimate from Jamie Spears's team and note that the article predates the case's most consequential developments later in 2021.",
+      "citations": []
+    }
+  ]
+}

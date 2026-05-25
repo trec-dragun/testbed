@@ -1,0 +1,63 @@
+{
+  "responses": [
+    {
+      "text": "The target article, published by news.com.au on May 22, 2020, frames ANITA detections as NASA scientists discovering evidence of a parallel universe where time moves backwards.",
+      "citations": [
+        "https://www.news.com.au/technology/science/space/nasa-reveals-existence-of-parallel-universe-where-time-runs-backwards/news-story/4ba8516b17d87bc5abd24d45c1aabcbc"
+      ]
+    },
+    {
+      "text": "That framing is inaccurate because the University of Hawaiʻi, home institution of ANITA principal investigator Peter Gorham, said the UH research and NASA sponsorship had nothing to do with the parallel-universe theory.",
+      "citations": [
+        "https://www.hawaii.edu/news/2020/05/21/media-incorrectly-connects-uh-research/"
+      ]
+    },
+    {
+      "text": "Gorham said the parallel-universe idea was not invented by his team and that a journalist wrongly tied it to their work.",
+      "citations": [
+        "https://www.hawaii.edu/news/2020/05/21/media-incorrectly-connects-uh-research/"
+      ]
+    },
+    {
+      "text": "The primary 2018 ANITA paper reported an upward-traveling, radio-detected, cosmic-ray-like event that was in tension with the standard model neutrino cross section, but it did not claim discovery of a parallel universe.",
+      "citations": [
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.121.161102"
+      ]
+    },
+    {
+      "text": "NASA’s role was mainly sponsorship and balloon-flight support for a University of Hawaiʻi ANITA payload rather than an agency announcement that a backward-time universe had been found.",
+      "citations": [
+        "https://www.nasa.gov/centers-and-facilities/wallops/balloons-on-ice-launch-2-takes-flight-in-antarctica/",
+        "https://www.hawaii.edu/news/2020/05/21/media-incorrectly-connects-uh-research/"
+      ]
+    },
+    {
+      "text": "ScienceAlert independently reported Gorham saying the team had found a small number of anomalies and was not at the point where parallel universes were necessary.",
+      "citations": [
+        "https://www.sciencealert.com/of-course-nasa-did-not-detect-a-parallel-universe-in-antarctica"
+      ]
+    },
+    {
+      "text": "The IceCube collaboration searched seven years of data for neutrino counterparts and found no significant detection, setting limits that severely constrain standard-model astrophysical explanations for the anomalous ANITA events.",
+      "citations": [
+        "https://iopscience.iop.org/article/10.3847/1538-4357/ab791d/pdf"
+      ]
+    },
+    {
+      "text": "The remaining uncertainty around the ANITA anomalies does not support the article’s stronger claim, because unexplained particle detections, possible new physics, and unresolved systematic explanations are not evidence that NASA revealed a parallel universe.",
+      "citations": [
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.121.161102",
+        "https://www.hawaii.edu/news/2020/05/21/media-incorrectly-connects-uh-research/",
+        "https://iopscience.iop.org/article/10.3847/1538-4357/ab791d/pdf"
+      ]
+    },
+    {
+      "text": "Bottom line: the article is based on real ANITA anomalies, but its headline and lead are sensational and materially misleading because the primary researchers and independent checks support an unresolved anomaly rather than a confirmed backward-time parallel universe.",
+      "citations": [
+        "https://www.news.com.au/technology/science/space/nasa-reveals-existence-of-parallel-universe-where-time-runs-backwards/news-story/4ba8516b17d87bc5abd24d45c1aabcbc",
+        "https://www.hawaii.edu/news/2020/05/21/media-incorrectly-connects-uh-research/",
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.121.161102"
+      ]
+    }
+  ]
+}

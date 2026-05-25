@@ -1,0 +1,59 @@
+{
+  "responses": [
+    {
+      "text": "In 2019, Yale University researchers developed a system called BrainEx that partially restored some cellular functions in pig brains hours after the animals were killed.",
+      "citations": [
+        "https://www.nature.com/articles/s41586-019-1099-1",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "The scientists obtained 32 pig heads from a food processing plant, meaning the animals were already slaughtered for meat, not killed for the experiment.",
+      "citations": [
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "Starting four hours after death, the researchers hooked the isolated brains to the BrainEx device, which pumped a synthetic, blood-like chemical solution through the neural tissue.",
+      "citations": [
+        "https://www.nature.com/articles/s41586-019-1099-1"
+      ]
+    },
+    {
+      "text": "This process successfully slowed cell death, preserved tissue structure, and restarted some metabolic capabilities such as the consumption of oxygen and glucose.",
+      "citations": [
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "However, the researchers stressed that the brains did not regain organized electrical activity normally associated with consciousness, awareness, or perception.",
+      "citations": [
+        "https://www.nature.com/articles/s41586-019-1099-1",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "The BrainEx solution intentionally included chemical compounds to block neuronal activity, both to give the cells a better chance at recovery and to prevent any possibility of the brains \"waking up.\"",
+      "citations": [
+        "https://www.nature.com/articles/s41586-019-1099-1",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "Despite a lack of large-scale, coordinated activity, tests on slices of hippocampal tissue confirmed that individual neurons remained capable of firing electrical signals.",
+      "citations": [
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "The results challenged the long-held assumption that oxygen deprivation leads to a rapid, irreversible cascade of total cell death in the mammalian brain.",
+      "citations": [
+        "https://www.nature.com/articles/s41586-019-1099-1"
+      ]
+    },
+    {
+      "text": "While the achievement sparked bioethical discussions about animal research protections and the clinical definition of brain death, scientists generally agree the study did not functionally resurrect or awaken the brains.",
+      "citations": []
+    }
+  ]
+}

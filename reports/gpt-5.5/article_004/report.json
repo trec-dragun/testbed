@@ -1,0 +1,71 @@
+{
+  "responses": [
+    {
+      "text": "The target is a May 12, 2020 Decrypt feature by Robert Stevens whose headline and summary framed a real long-term cryptographic risk as a near-term possibility, saying a quantum computer capable of cracking Bitcoin could be just two years away and citing an estimate of at least 4,000 qubits.",
+      "citations": [
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022?amp=1"
+      ]
+    },
+    {
+      "text": "The underlying mechanism is real: Bitcoin uses ECDSA over secp256k1, and Bitcoin documentation says P2PKH spending reveals the full public key and an ECDSA signature when coins are spent.",
+      "citations": [
+        "https://developer.bitcoin.org/devguide/transactions.html"
+      ]
+    },
+    {
+      "text": "A peer-reviewed 2018 Ledger paper found that Bitcoin proof-of-work was relatively resistant to quantum speedups in the next 10 years, while Bitcoin's elliptic-curve signature scheme was the more serious quantum risk and could be broken as early as 2027 only under its most optimistic estimates.",
+      "citations": [
+        "https://ledgerjournal.org/ojs/ledger/article/view/127",
+        "https://ar5iv.labs.arxiv.org/html/1710.10377"
+      ]
+    },
+    {
+      "text": "That same paper estimated that a realistic signature attack would require far more than a small near-term device, giving examples such as 1.7 million physical qubits for a 6.49-day attack under one set of assumptions and 485,550 physical qubits for a 30-minute attack under more advanced assumptions.",
+      "citations": [
+        "https://ar5iv.labs.arxiv.org/html/1710.10377"
+      ]
+    },
+    {
+      "text": "The Decrypt article's comparison to Google's 2019 device was directionally accurate for the time, because Google's Sycamore paper reported computations on 53 functioning qubits for a specialized quantum-supremacy task, not a cryptographic attack on Bitcoin.",
+      "citations": [
+        "https://research.google/pubs/quantum-supremacy-using-a-programmable-superconducting-processor/",
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022?amp=1"
+      ]
+    },
+    {
+      "text": "By 2022, independent estimates still placed a practical Bitcoin attack far away from existing hardware: researchers reported that breaking Bitcoin in a minutes-to-hours transaction window would require tens to hundreds of millions of physical qubits, and described Bitcoin as safe from quantum attack for now.",
+      "citations": [
+        "https://www.sciencedaily.com/releases/2022/01/220125112556.htm"
+      ]
+    },
+    {
+      "text": "The article's specific 2022 alarm was not borne out publicly, and Decrypt itself published a 2022 follow-up saying quantum computers could one day crack Bitcoin but that the ability to deploy machines with millions or billions of qubits still seemed many years away.",
+      "citations": [
+        "https://decrypt.co/101340/bitcoin-quantum-computing?amp=1"
+      ]
+    },
+    {
+      "text": "Public hardware milestones after the article also do not support a 2022 Bitcoin-breaking capability, as IBM in late 2023 described 127-qubit and 133-qubit utility-scale processors and a roadmap toward error-corrected systems rather than a cryptographically relevant machine.",
+      "citations": [
+        "https://newsroom.ibm.com/2023-12-04-IBM-Debuts-Next-Generation-Quantum-Processor-IBM-Quantum-System-Two,-Extends-Roadmap-to-Advance-Era-of-Quantum-Utility"
+      ]
+    },
+    {
+      "text": "NIST's post-quantum process supports the broader concern that large quantum computers threaten current public-key cryptography, but NIST selected algorithms for standardization in July 2022 and finalized its first three post-quantum standards in 2024, which is mitigation context rather than evidence that Bitcoin was crackable in 2022.",
+      "citations": [
+        "https://csrc.nist.gov/news/2022/pqc-candidates-to-be-standardized-and-round-4",
+        "https://csrc.nist.gov/projects/post-quantum-cryptography",
+        "https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards"
+      ]
+    },
+    {
+      "text": "Bottom line: the article identified a genuine theoretical vulnerability in Bitcoin's signature scheme, but its headline and two-year timeline were speculative, sensational, and stale, so the central 2022 framing should be treated as misleading rather than a reliable prediction.",
+      "citations": [
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022?amp=1",
+        "https://ledgerjournal.org/ojs/ledger/article/view/127",
+        "https://www.sciencedaily.com/releases/2022/01/220125112556.htm",
+        "https://csrc.nist.gov/projects/post-quantum-cryptography"
+      ]
+    }
+  ]
+}

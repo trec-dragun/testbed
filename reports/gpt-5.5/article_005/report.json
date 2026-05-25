@@ -1,0 +1,87 @@
+{
+  "responses": [
+    {
+      "text": "The supplied Heavy article by Stephanie Dube Dwilson, updated May 17, 2021, frames the story as MSCHF and Lil Nas X offering 666 modified Nike Air Max 97 “Satan Shoes” with red liquid, a drop of human blood, Satanic imagery, online outrage, and a Nike lawsuit.",
+      "citations": [
+        "https://heavy.com/news/nike-satan-shoes/"
+      ]
+    },
+    {
+      "text": "A primary court complaint filed on March 29, 2021 confirms that Nike alleged MSCHF was taking orders for customized Nike Air Max 97 shoes called Satan Shoes without Nike approval and had added red ink, human blood, Satanic-themed detailing, a bronze pentagram, and a new sock liner.",
+      "citations": [
+        "https://storage.courtlistener.com/recap/gov.uscourts.nyed.461880/gov.uscourts.nyed.461880.1.0.pdf"
+      ]
+    },
+    {
+      "text": "The same complaint lists claims for trademark infringement, false designation of origin and unfair competition, trademark dilution, and common law trademark infringement and unfair competition, so Heavy was right to describe the case as a trademark dispute rather than a copyright case.",
+      "citations": [
+        "https://storage.courtlistener.com/recap/gov.uscourts.nyed.461880/gov.uscourts.nyed.461880.1.0.pdf",
+        "https://heavy.com/news/nike-satan-shoes/"
+      ]
+    },
+    {
+      "text": "CNN independently reported that MSCHF confirmed a 666-pair drop that sold out in less than a minute, priced the shoes at $1,018, and said each air bubble sole contained 60 cubic centimeters of red ink and one drop of human blood.",
+      "citations": [
+        "https://www.cnn.com/style/article/lil-nas-x-mschf-satan-nike-shoes"
+      ]
+    },
+    {
+      "text": "Nike’s noninvolvement is strongly supported because Nike told CNN and PolitiFact it had no relationship with Lil Nas X or MSCHF and did not design, release, or endorse the shoes, while the complaint says the shoes were made without Nike approval or authorization.",
+      "citations": [
+        "https://www.cnn.com/style/article/lil-nas-x-mschf-satan-nike-shoes",
+        "https://www.politifact.com/factchecks/2021/mar/29/facebook-posts/did-devil-go-down-nike-no-nike-says-its-not-involv/",
+        "https://storage.courtlistener.com/recap/gov.uscourts.nyed.461880/gov.uscourts.nyed.461880.1.0.pdf"
+      ]
+    },
+    {
+      "text": "PolitiFact rated a viral claim that Nike and Lil Nas X were launching the shoes “Half True” because the shoe details were largely accurate but Nike was not involved in the project.",
+      "citations": [
+        "https://www.politifact.com/factchecks/2021/mar/29/facebook-posts/did-devil-go-down-nike-no-nike-says-its-not-involv/"
+      ]
+    },
+    {
+      "text": "Heavy’s statement that MSCHF had previously made Jesus Shoes is corroborated by CNN, which describes a 2019 limited-edition MSCHF release made from Nike Air Max 97 sneakers with a steel crucifix and holy water from the Jordan River.",
+      "citations": [
+        "https://www.cnn.com/style/article/lil-nas-x-mschf-satan-nike-shoes",
+        "https://heavy.com/news/nike-satan-shoes/"
+      ]
+    },
+    {
+      "text": "One pricing nuance is that reports distinguished the Jesus Shoes’ original retail price from later resale prices, with Highsnobiety describing an original $1,425 retail price and roughly $3,000 resale pricing.",
+      "citations": [
+        "https://www.highsnobiety.com/p/jesus-shoes-custom-nike-air-max-97/"
+      ]
+    },
+    {
+      "text": "The largest accuracy problem is stale legal context, because the supplied Heavy text still says “Nike is suing” even though a court notice dated April 9, 2021 dismissed Nike’s claims with prejudice and dissolved the temporary restraining order.",
+      "citations": [
+        "https://heavy.com/news/nike-satan-shoes/",
+        "https://storage.courtlistener.com/recap/gov.uscourts.nyed.461880/gov.uscourts.nyed.461880.21.0.pdf"
+      ]
+    },
+    {
+      "text": "BBC reported that the settlement included a voluntary recall with full refunds for customers and also covered MSCHF’s Jesus Shoes, which is important context missing from the supplied Heavy text.",
+      "citations": [
+        "https://www.bbc.co.uk/news/business-56684773",
+        "https://heavy.com/news/nike-satan-shoes/"
+      ]
+    },
+    {
+      "text": "Heavy publishes editorial guidelines promising timely updates and original sourcing, and Ad Fontes rates Heavy as middle in bias and reliable for analysis and fact reporting, but this article’s supplied version relies heavily on aggregation and social posts while omitting the final lawsuit resolution.",
+      "citations": [
+        "https://heavy.com/editorial-guidelines/",
+        "https://adfontesmedia.com/heavy-bias-and-reliability/",
+        "https://heavy.com/news/nike-satan-shoes/",
+        "https://storage.courtlistener.com/recap/gov.uscourts.nyed.461880/gov.uscourts.nyed.461880.21.0.pdf"
+      ]
+    },
+    {
+      "text": "Bottom line: the article’s core claims about the Satan Shoes, MSCHF, Lil Nas X, Nike’s lack of authorization, and the trademark lawsuit are well supported, but readers should not infer that Nike produced or endorsed the shoes or that the lawsuit remained active after April 9, 2021.",
+      "citations": [
+        "https://www.cnn.com/style/article/lil-nas-x-mschf-satan-nike-shoes",
+        "https://www.politifact.com/factchecks/2021/mar/29/facebook-posts/did-devil-go-down-nike-no-nike-says-its-not-involv/",
+        "https://storage.courtlistener.com/recap/gov.uscourts.nyed.461880/gov.uscourts.nyed.461880.21.0.pdf"
+      ]
+    }
+  ]
+}

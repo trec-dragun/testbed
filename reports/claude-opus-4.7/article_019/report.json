@@ -1,0 +1,93 @@
+{
+  "responses": [
+    {
+      "text": "The target article is a National Geographic science news story by Michael Greshko, published April 17, 2019, reporting on a Yale-led study that restored some cellular functions in pig brains hours after death using a system called BrainEx.",
+      "citations": [
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "National Geographic is an established science and general-interest outlet with professional editing and a published correction note appended to this very article, which are positive signals for source quality.",
+      "citations": [
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "The underlying peer-reviewed paper, \"Restoration of brain circulation and cellular functions hours post-mortem\" by Vrselja, Daniele, Sestan and colleagues, was published in Nature on April 17, 2019 and is the primary source for the article's central claims.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6844189/",
+        "https://www.nature.com/articles/s41586-019-1099-1/metrics"
+      ]
+    },
+    {
+      "text": "The Nature paper itself states the researchers used post-mortem brains from USDA-regulated food-production pigs and applied BrainEx perfusion starting four hours after death, which matches the article's account that no animals were killed for the experiment.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6844189/",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "Independent reporting from BBC News, CBS News, NBC News, Science (AAAS), and The Scientist corroborates the article's core facts that 32 pig brains were perfused, that circulation and some cellular and synaptic activity were restored, and that no organized, brain-wide electrical activity associated with consciousness was observed.",
+      "citations": [
+        "https://www.bbc.co.uk/news/health-47960874",
+        "https://www.cbsnews.com/news/scientists-partially-revived-a-pigs-brain-after-the-animal-died/",
+        "https://www.nbcnews.com/mach/science/radical-experiment-scientists-restore-activity-pigs-brains-hours-after-slaughter-ncna995551",
+        "https://www.science.org/content/article/scientists-restore-some-cellular-functions-dead-pig-brains",
+        "https://www.the-scientist.com/circulation-and-cell-function-revived-in-dead-pigs-brains-65751"
+      ]
+    },
+    {
+      "text": "The article's quotes from senior author Nenad Sestan describing the system as producing \"not a living brain\" but a \"cellularly active\" one are consistent with quotes he gave at the press conference reported by CBS News and NBC News.",
+      "citations": [
+        "https://www.cbsnews.com/news/scientists-partially-revived-a-pigs-brain-after-the-animal-died/",
+        "https://www.nbcnews.com/mach/science/radical-experiment-scientists-restore-activity-pigs-brains-hours-after-slaughter-ncna995551"
+      ]
+    },
+    {
+      "text": "The article correctly notes that bioethicist Nita Farahany of Duke co-wrote an accompanying Nature commentary on the study, an affiliation that is also reflected in independent coverage.",
+      "citations": [
+        "https://www.cbsnews.com/news/scientists-partially-revived-a-pigs-brain-after-the-animal-died/",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "The piece appropriately frames the result as preserving and partially restoring cellular function rather than reviving consciousness, matching Science's summary that BrainEx \"cannot resurrect the dead\" but slows deterioration of brain structure.",
+      "citations": [
+        "https://www.science.org/content/article/scientists-restore-some-cellular-functions-dead-pig-brains",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "One small caveat is wording: the article's headline and lead say circulation was restored \"hours after death\" and reference cellular functions \"for up to six hours,\" while the Nature paper and BBC specify that perfusion began four hours postmortem and lasted six hours, so the brains were studied up to roughly ten hours after death.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6844189/",
+        "https://www.bbc.co.uk/news/health-47960874",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "Missing context worth flagging is that the researchers deliberately added neural-activity blockers to the perfusate and had anesthesia ready, so the absence of consciousness does not by itself prove that such a system could never produce awareness under different conditions, a nuance the article does mention but that some readers may overlook.",
+      "citations": [
+        "https://www.bbc.co.uk/news/health-47960874",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/"
+      ]
+    },
+    {
+      "text": "The article's ethical framing—new questions about animal-research categories, brain death, and organ donation—is echoed by the accompanying Nature commentaries and by mainstream outlets such as BBC and NBC, so it represents genuine expert debate rather than sensationalism unique to this outlet.",
+      "citations": [
+        "https://www.bbc.co.uk/news/health-47960874",
+        "https://www.nbcnews.com/mach/science/radical-experiment-scientists-restore-activity-pigs-brains-hours-after-slaughter-ncna995551",
+        "https://www.nature.com/articles/s41586-019-1099-1/metrics"
+      ]
+    },
+    {
+      "text": "Bottom line: this National Geographic article is a credible, well-sourced science news report whose central factual claims are directly supported by the peer-reviewed Nature paper and independently corroborated by multiple reputable outlets, with only minor headline-level imprecision about the exact postmortem timing.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6844189/",
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/",
+        "https://www.bbc.co.uk/news/health-47960874",
+        "https://www.science.org/content/article/scientists-restore-some-cellular-functions-dead-pig-brains"
+      ]
+    }
+  ]
+}

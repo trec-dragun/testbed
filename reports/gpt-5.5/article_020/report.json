@@ -1,0 +1,65 @@
+{
+  "responses": [
+    {
+      "text": "The NDTV item is a Bloomberg-syndicated August 2020 report saying Citigroup accidentally wired about $900 million to Revlon lenders and that some lenders, including Brigade, Symphony, and HPS, were refusing to return the money at that time.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480"
+      ]
+    },
+    {
+      "text": "Court records later confirmed the core event: Citibank, acting as administrative agent for Revlon’s 2016 syndicated loan, intended to process about $7.8 million in interest but mistakenly sent $894 million in principal plus the interest from Citibank’s own funds.",
+      "citations": [
+        "https://law.justia.com/cases/federal/appellate-courts/ca2/21-487/21-487-2022-09-08.html",
+        "https://static.reuters.com/resources/media/editorial/20210216/02172021revlon.pdf"
+      ]
+    },
+    {
+      "text": "The target article’s statement that some lenders would not hand the money back was accurate for the moment reported because the later district-court record says managers representing roughly 200 debtholders returned about $385 million, while ten defendants representing 126 debtholders and about $500 million in debt refused.",
+      "citations": [
+        "https://law.justia.com/cases/federal/appellate-courts/ca2/21-487/21-487-2022-09-08.html"
+      ]
+    },
+    {
+      "text": "The target article’s background about a Revlon lender dispute over collateral is also broadly corroborated by the appellate opinion, which describes objections to Revlon’s May 2020 transaction and the UMB Bank lawsuit alleging that collateral had been siphoned away from 2016 term lenders.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480",
+        "https://law.justia.com/cases/federal/appellate-courts/ca2/21-487/21-487-2022-09-08.html"
+      ]
+    },
+    {
+      "text": "A missing-context update is that the first major court ruling in February 2021 temporarily favored the non-returning lenders, with the Southern District of New York holding after a bench trial that the discharge-for-value defense applied and that Citibank was not entitled to recover the money from those defendants.",
+      "citations": [
+        "https://static.reuters.com/resources/media/editorial/20210216/02172021revlon.pdf"
+      ]
+    },
+    {
+      "text": "A later and more important update is that the Second Circuit reversed that outcome in September 2022, holding that the lenders had notice of the mistake, were not entitled to repayment at the time, and could not use the discharge-for-value rule to defeat Citibank’s restitution claims.",
+      "citations": [
+        "https://law.justia.com/cases/federal/appellate-courts/ca2/21-487/21-487-2022-09-08.html",
+        "https://www.claimsjournal.com/news/national/2022/09/13/312677.htm"
+      ]
+    },
+    {
+      "text": "Bloomberg subsequently reported that the case was dismissed in December 2022 after the last holdout lenders agreed to return their share of the remaining $504 million, so the headline’s present-tense implication that they still would not hand the money back is stale today.",
+      "citations": [
+        "https://www.bloomberg.com/news/articles/2022-12-19/citigroup-saga-of-900-million-error-gets-legal-ring-of-finality"
+      ]
+    },
+    {
+      "text": "The article is credible as an initial news account because it was a Bloomberg report republished by NDTV and its central claims match later court findings, but it relied partly on unnamed people and naturally could not include the later litigation outcomes.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480",
+        "https://law.justia.com/cases/federal/appellate-courts/ca2/21-487/21-487-2022-09-08.html",
+        "https://www.bloomberg.com/news/articles/2022-12-19/citigroup-saga-of-900-million-error-gets-legal-ring-of-finality"
+      ]
+    },
+    {
+      "text": "Bottom line: the article’s central factual claim was well supported, but readers should treat it as a contemporaneous August 2020 snapshot rather than the current final status of the dispute.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480",
+        "https://law.justia.com/cases/federal/appellate-courts/ca2/21-487/21-487-2022-09-08.html",
+        "https://www.bloomberg.com/news/articles/2022-12-19/citigroup-saga-of-900-million-error-gets-legal-ring-of-finality"
+      ]
+    }
+  ]
+}

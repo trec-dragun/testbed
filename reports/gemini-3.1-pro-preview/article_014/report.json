@@ -1,0 +1,48 @@
+{
+  "responses": [
+    {
+      "text": "The article from Distractify covers recent instances of the \"Blackout Challenge,\" a dangerous viral trend on TikTok encouraging users to hold their breath or asphyxiate until passing out.",
+      "citations": []
+    },
+    {
+      "text": "The article focuses on two specific tragedies: the death of a 10-year-old girl in Italy on January 21, 2021, and the hospitalization of a 12-year-old boy in Colorado in March 2021.",
+      "citations": []
+    },
+    {
+      "text": "Both incidents align precisely with independent reporting.",
+      "citations": []
+    },
+    {
+      "text": "In January 2021, an Italian 10-year-old girl was found unconscious with her cellphone with a belt tied around her neck by her sibling in Palermo after trying a blackout challenge on TikTok.",
+      "citations": [
+        "https://www.ansa.it/english/news/general_news/2021/01/21/girl-10-brain-dead-after-taking-tiktok-blackout-challenge_4fd482a0-e3f3-47ed-b8ab-29e7a81dc33a.html",
+        "https://www.thejournal.ie/italy-tiktok-death-5333609-Jan2021/"
+      ]
+    },
+    {
+      "text": "Following her death, the Italian Data Protection Authority temporarily blocked access to TikTok for users who could not definitively prove their age was over 13.",
+      "citations": [
+        "https://www.thejournal.ie/italy-tiktok-death-5333609-Jan2021/",
+        "https://www.gadgets360.com/apps/news/tiktok-blackout-challenge-block-under-13-age-users-italy-death-girl-palermo-italy-bytedance-2362782"
+      ]
+    },
+    {
+      "text": "On March 22, 2021, 12-year-old Joshua Haileyesus from Aurora, Colorado, was found unconscious in his home, heavily injured after his family suspected he had attempted the challenge using a shoelace.",
+      "citations": [
+        "https://www.cbsnews.com/colorado/news/passout-challenge-joshua-haileyesus-blackout-choke-challenge-choking-aurora-warning/",
+        "https://people.com/human-interest/colorado-boy-dies-after-choking-himself-blackout-challenge-tiktok/"
+      ]
+    },
+    {
+      "text": "He spent 19 days on life support before passing away in April 2021.",
+      "citations": [
+        "https://www.cbsnews.com/colorado/news/joshua-haileyesus-dies-blackout-challenge-aurora/",
+        "https://people.com/human-interest/colorado-boy-dies-after-choking-himself-blackout-challenge-tiktok/"
+      ]
+    },
+    {
+      "text": "The claims made by Distractify accurately reflect these two events, which prompted widespread warnings to parents about the dangers of asphyxiation challenges on social media platforms.",
+      "citations": []
+    }
+  ]
+}

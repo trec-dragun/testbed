@@ -1,0 +1,112 @@
+{
+  "responses": [
+    {
+      "text": "The BBC explainer reports that former Nissan chairman Carlos Ghosn fled Japan while on bail awaiting trial on financial misconduct charges and reappeared in Lebanon on New Year's Eve 2019.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.bbc.co.uk/news/business-50952335"
+      ]
+    },
+    {
+      "text": "The BBC piece is a news explainer published on 8 January 2020 by the BBC News website, a long-established UK public-service broadcaster, and it explicitly attributes most operational details to other outlets such as NHK, the Wall Street Journal, the Financial Times, Reuters and Le Monde rather than to its own reporting.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040"
+      ]
+    },
+    {
+      "text": "The BBC's core claim that Ghosn flew on a private jet from Osaka to Istanbul and then on to Beirut, arriving in the early hours of 30 December 2019, is corroborated by independent reporting from CNN, CNBC and a separate BBC news story citing the Turkish charter firm MNG Jet.",
+      "citations": [
+        "https://www.cnn.com/2019/12/30/business/carlos-ghosn-lebanon",
+        "https://www.cnbc.com/2020/01/07/nissan-ex-chairman-carlos-ghosns-350000-getaway-flight.html",
+        "https://www.bbc.co.uk/news/world-asia-50987703"
+      ]
+    },
+    {
+      "text": "The BBC article identifies the aircraft as a Bombardier Challenger based on FlightRadar24 data, but CNBC, citing sources close to the investigation, and later U.S. court filings described the getaway aircraft as a Bombardier Global Express that lifted off from Kansai at about 23:09–23:10 on 29 December 2019.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.cnbc.com/2020/01/07/nissan-ex-chairman-carlos-ghosns-350000-getaway-flight.html",
+        "https://www.ctvnews.ca/autos/two-accused-of-smuggling-ex-nissan-boss-out-of-japan-in-a-box-1.4946551"
+      ]
+    },
+    {
+      "text": "The BBC piece treats the MTV Lebanon story that Ghosn hid in a large musical instrument case as likely inaccurate, but later U.S. court documents and CBS News reporting confirmed that he was in fact smuggled out of Kansai International Airport inside a black audio-equipment case with breathing holes drilled in the bottom.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.ctvnews.ca/autos/two-accused-of-smuggling-ex-nissan-boss-out-of-japan-in-a-box-1.4946551",
+        "https://www.cbsnews.com/news/carlos-ghosn-calls-himself-a-fugitive-of-injustice/",
+        "https://www.cnbc.com/2020/01/07/nissan-ex-chairman-carlos-ghosns-350000-getaway-flight.html"
+      ]
+    },
+    {
+      "text": "The BBC's description of the two men accompanying Ghosn as \"thought to be Americans\" was later substantiated when U.S. authorities arrested former Green Beret Michael Taylor and his son Peter Taylor in Massachusetts in May 2020 on charges of helping Ghosn escape, alongside Lebanese-born associate George-Antoine Zayek.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.euronews.com/2020/05/20/us-authorities-arrest-two-men-accused-of-helping-ex-nissan-boss-carlos-ghosn-flee-japan",
+        "https://www.ctvnews.ca/autos/two-accused-of-smuggling-ex-nissan-boss-out-of-japan-in-a-box-1.4946551"
+      ]
+    },
+    {
+      "text": "The BBC's note that Ghosn boarded a train from Tokyo toward Osaka and ended up at a hotel near Kansai airport matches the U.S. criminal complaint, which describes Ghosn taking a bullet train to Shin-Osaka with the Taylors and Zayek before being driven to Kansai International Airport.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.ctvnews.ca/autos/two-accused-of-smuggling-ex-nissan-boss-out-of-japan-in-a-box-1.4946551"
+      ]
+    },
+    {
+      "text": "The BBC's reporting that Turkey opened an investigation and arrested airline and airport personnel is consistent with a separate BBC report, in which Turkish charter operator MNG Jet said one of its employees, later identified as operations manager Okan Kosemen, falsified records to arrange Ghosn's flights without the company's knowledge.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.bbc.co.uk/news/world-asia-50987703",
+        "https://www.cnbc.com/2020/01/07/nissan-ex-chairman-carlos-ghosns-350000-getaway-flight.html"
+      ]
+    },
+    {
+      "text": "The article's account of Ghosn's three nationalities and disputed passport use is corroborated by other outlets, with Lebanese officials telling the BBC and CNN that Ghosn entered Beirut on a French passport in his name even though his Japanese lawyers said they still held all three of his passports.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.bbc.co.uk/news/world-asia-50987703",
+        "https://www.cnn.com/2019/12/30/business/carlos-ghosn-lebanon"
+      ]
+    },
+    {
+      "text": "The BBC's framing of the bail conditions — about 1 billion yen posted in April 2019, a 24-hour outdoor camera, restricted communications and a ban on overseas travel — is consistent with CNN's reporting that Ghosn posted roughly $9 million in bail and was required to remain in Japan and stay away from his wife.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.cnn.com/2019/12/30/business/carlos-ghosn-lebanon",
+        "https://www.bbc.co.uk/news/business-50952335"
+      ]
+    },
+    {
+      "text": "The BBC's contested claim that Ghosn's wife Carole was \"heavily involved in the operation,\" attributed to the Wall Street Journal, is presented alongside Ghosn's own denial that she was involved, and later CBS News interviews show Ghosn continuing to insist he planned the escape himself, so the role of Carole Ghosn remains disputed in public reporting.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.cbsnews.com/news/carlos-ghosn-calls-himself-a-fugitive-of-injustice/"
+      ]
+    },
+    {
+      "text": "The BBC accurately notes that Lebanon has no extradition treaty with Japan and that Interpol issued a red notice on 2 January 2020, a point also confirmed by CNN and by the later BBC report on MNG Jet.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.bbc.co.uk/news/world-asia-50987703",
+        "https://www.cnn.com/2019/12/30/business/carlos-ghosn-lebanon"
+      ]
+    },
+    {
+      "text": "A key piece of missing context in the BBC article is the approximate cost and scale of the operation: CNBC later reported a $350,000 charter contract signed by MNG Jet and a client calling himself \"Dr. Ross Allen,\" and CBS News reported the broader operation involved around 15 people and cost into the millions, details not present in the BBC piece because they emerged after publication.",
+      "citations": [
+        "https://www.cnbc.com/2020/01/07/nissan-ex-chairman-carlos-ghosns-350000-getaway-flight.html",
+        "https://www.cbsnews.com/news/carlos-ghosn-calls-himself-a-fugitive-of-injustice/"
+      ]
+    },
+    {
+      "text": "Overall, the BBC explainer is a credible, well-sourced contemporaneous summary that correctly identifies the broad outline of Ghosn's escape — bail jump, Tokyo-to-Osaka train, private jet via Istanbul to Beirut — but it understates the box-smuggling element, names the aircraft type imprecisely, and necessarily lacks later confirmed details such as the Taylors' role and the charter pricing that emerged from U.S. and Turkish investigations.",
+      "citations": [
+        "https://www.bbc.com/news/world-50964040",
+        "https://www.ctvnews.ca/autos/two-accused-of-smuggling-ex-nissan-boss-out-of-japan-in-a-box-1.4946551",
+        "https://www.cnbc.com/2020/01/07/nissan-ex-chairman-carlos-ghosns-350000-getaway-flight.html",
+        "https://www.cbsnews.com/news/carlos-ghosn-calls-himself-a-fugitive-of-injustice/"
+      ]
+    }
+  ]
+}

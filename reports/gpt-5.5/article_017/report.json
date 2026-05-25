@@ -1,0 +1,82 @@
+{
+  "responses": [
+    {
+      "text": "The target article asks whether cannabis can cure cancer and balances anecdotal recovery stories with cautions that clinical trials are lacking and that patients should not forgo traditional treatment options.",
+      "citations": [
+        "https://www.greenstate.com/health/explainer-does-marijuana-cure-cancer/"
+      ]
+    },
+    {
+      "text": "GreenState describes itself as a cannabis-culture lifestyle brand run separately from Hearst newsrooms, and the retrieved target page contains unrelated gambling-spam link text, so it is not the strongest standalone source for medical guidance.",
+      "citations": [
+        "https://www.greenstate.com/about-greenstate-mainstream-marijuana-news-and-culture/",
+        "https://www.greenstate.com/health/explainer-does-marijuana-cure-cancer/"
+      ]
+    },
+    {
+      "text": "The article is right that the strongest human evidence for cannabis in oncology is symptom management rather than a demonstrated cancer cure.",
+      "citations": [
+        "https://www.greenstate.com/health/explainer-does-marijuana-cure-cancer/",
+        "https://www.cancer.gov/about-cancer/treatment/cam/hp/cannabis-pdq",
+        "https://www.ncbi.nlm.nih.gov/sites/books/NBK425767/"
+      ]
+    },
+    {
+      "text": "NCI says the FDA has not approved botanical Cannabis as a treatment for cancer or any other medical condition, while approved cannabinoid drugs such as dronabinol and nabilone are used for cancer-related side effects such as chemotherapy-related nausea and vomiting.",
+      "citations": [
+        "https://www.cancer.gov/about-cancer/treatment/cam/hp/cannabis-pdq"
+      ]
+    },
+    {
+      "text": "The National Academies review concluded that there was insufficient evidence to support or refute cannabinoids as an effective treatment for cancers including glioma, although it found conclusive evidence that oral cannabinoids are effective antiemetics for chemotherapy-induced nausea and vomiting.",
+      "citations": [
+        "https://www.ncbi.nlm.nih.gov/sites/books/NBK425767/"
+      ]
+    },
+    {
+      "text": "NCI’s review supports the article’s narrower statement that cannabinoids can show antitumor effects in laboratory and animal studies, but it also notes conflicting preclinical findings such as THC-associated immunosuppression and enhanced tumor growth in some mouse models.",
+      "citations": [
+        "https://www.cancer.gov/about-cancer/treatment/cam/hp/cannabis-pdq"
+      ]
+    },
+    {
+      "text": "NCI specifically warns that highly concentrated THC or CBD oils promoted as cancer cures have not been evaluated in clinical trials for anticancer activity or safety.",
+      "citations": [
+        "https://www.cancer.gov/about-cancer/treatment/cam/hp/cannabis-pdq"
+      ]
+    },
+    {
+      "text": "Cancer Research UK says laboratory research on cannabinoids and cancer has had mixed results and that researchers do not yet know whether cannabinoids can treat cancer in people.",
+      "citations": [
+        "https://www.cancerresearchuk.org/about-cancer/treatment/complementary-alternative-therapies/individual-therapies/cannabis"
+      ]
+    },
+    {
+      "text": "Cancer Research UK describes a small phase 1 study of Sativex with temozolomide in recurrent glioblastoma that reported higher one-year survival but involved only 27 patients and was too small to establish benefit.",
+      "citations": [
+        "https://www.cancerresearchuk.org/about-cancer/treatment/complementary-alternative-therapies/individual-therapies/cannabis"
+      ]
+    },
+    {
+      "text": "A Cochrane review found cannabis-based medicines may help refractory chemotherapy-induced nausea and vomiting, but the trials were generally older, low to moderate quality, and associated with more side effects than placebo or some conventional anti-nausea medicines.",
+      "citations": [
+        "https://www.cochrane.org/CD009464/GYNAECA_cannabis-based-medicine-nausea-and-vomiting-people-treated-chemotherapy-cancer"
+      ]
+    },
+    {
+      "text": "NCCIH similarly says FDA-approved cannabinoid drugs have roles for chemotherapy-related nausea and vomiting, but it advises people not to use cannabis or cannabinoids to postpone seeing a health care provider.",
+      "citations": [
+        "https://www.nccih.nih.gov/health/cannabis-marijuana-and-cannabinoids-what-you-need-to-know"
+      ]
+    },
+    {
+      "text": "Bottom line: the article’s cautious conclusion is broadly consistent with current evidence, but its anecdotal cure stories and hopeful framing can overstate unproven anticancer claims unless read with the medical caveat that cannabis should not replace evidence-based cancer treatment outside a clinical trial.",
+      "citations": [
+        "https://www.greenstate.com/health/explainer-does-marijuana-cure-cancer/",
+        "https://www.cancer.gov/about-cancer/treatment/cam/hp/cannabis-pdq",
+        "https://www.cancerresearchuk.org/about-cancer/treatment/complementary-alternative-therapies/individual-therapies/cannabis",
+        "https://www.nccih.nih.gov/health/cannabis-marijuana-and-cannabinoids-what-you-need-to-know"
+      ]
+    }
+  ]
+}

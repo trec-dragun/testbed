@@ -1,0 +1,52 @@
+{
+  "responses": [
+    {
+      "text": "The Verge reported on August 13, 2020, that Epic Games filed a civil antitrust lawsuit against Apple following the removal of Fortnite from the App Store.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief"
+      ]
+    },
+    {
+      "text": "This reporting is accurate, as original court documents confirm Epic Games filed a complaint for injunctive relief in the U.S. District Court for the Northern District of California on that same day.",
+      "citations": [
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf"
+      ]
+    },
+    {
+      "text": "The lawsuit alleges that Apple maintains an unlawful monopoly in both the iOS App Distribution Market and the iOS In-App Payment Processing Market, in violation of the Sherman Act.",
+      "citations": [
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf"
+      ]
+    },
+    {
+      "text": "The conflict began when Epic implemented a direct payment system within the Fortnite app to circumvent Apple's 30 percent fee on in-app purchases.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief",
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf"
+      ]
+    },
+    {
+      "text": "Epic's own legal filings acknowledge that they intentionally introduced this direct payment option on the morning of August 13, 2020.",
+      "citations": [
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf"
+      ]
+    },
+    {
+      "text": "In response to what Apple viewed as a violation of its developer agreements, Apple immediately removed Fortnite from the App Store, prompting Epic's pre-planned lawsuit.",
+      "citations": [
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.48.0.pdf"
+      ]
+    },
+    {
+      "text": "The Verge correctly notes that Epic sought injunctive relief rather than monetary damages to force Apple to allow competing app stores and payment systems on iOS devices.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief",
+        "https://www.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_1.pdf"
+      ]
+    },
+    {
+      "text": "Overall, the target article is a factual and reliable summary of the initial antitrust complaint and the immediate precipitating events of the legal battle.",
+      "citations": []
+    }
+  ]
+}

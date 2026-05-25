@@ -1,0 +1,70 @@
+{
+  "responses": [
+    {
+      "text": "The target is a CBS News explainer, attributed to Zoe Christen Jones and Justin Carissimo and presented by the user as a February 13, 2021 article about Britney Spears' then-active conservatorship and the #FreeBritney movement.",
+      "citations": [
+        "https://www.cbsnews.com/news/britney-spears-conservatorship-explained/"
+      ]
+    },
+    {
+      "text": "Its basic definition of a California conservatorship is consistent with the California Courts self-help guide, which says a conservatorship is when a judge appoints another person to act or make decisions for someone who needs help and only when less restrictive options will not work.",
+      "citations": [
+        "https://selfhelp.courts.ca.gov/conservatorships"
+      ]
+    },
+    {
+      "text": "The article's central 2021 account is broadly corroborated by contemporaneous reporting: Spears had petitioned to limit or remove Jamie Spears's estate-control role, Bessemer Trust had been appointed co-conservator, and a February 2021 hearing left Jamie Spears and Bessemer expected to work together on her estate.",
+      "citations": [
+        "https://www.cbsnews.com/news/britney-spears-conservatorship-judge-ruling/",
+        "https://www.nbcnews.com/pop-culture/pop-culture-news/britney-spears-father-loses-bid-retain-control-delegating-her-investments-n1257502",
+        "https://www.npr.org/2021/02/11/967176455/judge-rules-against-britney-spears-father-in-conservatorship-dispute"
+      ]
+    },
+    {
+      "text": "The article accurately reflects attorney Samuel D. Ingham III's reported position that Spears opposed her father remaining in charge, preferred a professional fiduciary, and would not perform while her father controlled her career.",
+      "citations": [
+        "https://www.nbcnews.com/pop-culture/pop-culture-news/britney-spears-father-loses-bid-retain-control-delegating-her-investments-n1257502",
+        "https://www.npr.org/2021/02/11/967176455/judge-rules-against-britney-spears-father-in-conservatorship-dispute"
+      ]
+    },
+    {
+      "text": "The article's framing that conservatorships can restrict autonomy and carry abuse risks is supported by the ACLU's later public discussion of Spears's case and by California Courts' statement that conservatorships must be the least restrictive necessary assistance.",
+      "citations": [
+        "https://www.aclu.org/news/disability-rights/why-britney-cant-get-out-of-her-conservatorship",
+        "https://selfhelp.courts.ca.gov/conservatorships"
+      ]
+    },
+    {
+      "text": "One important limitation is time sensitivity, because Spears later spoke directly in court in June 2021, called the conservatorship abusive, requested that it end, and made allegations about medication, privacy, reproductive control, and forced work that were not yet part of the February 2021 target text.",
+      "citations": [
+        "https://www.npr.org/2021/06/24/1009858617/britney-spears-transcript-court-hearing-conservatorship"
+      ]
+    },
+    {
+      "text": "Another major update is that the conservatorship was terminated on November 12, 2021, when Judge Brenda Penny found the conservatorship of Spears's person and estate was no longer required effective immediately.",
+      "citations": [
+        "https://www.npr.org/2021/11/12/1054860726/britney-spears-conservatorship-ended"
+      ]
+    },
+    {
+      "text": "The target's claim that Jamie Spears had controlled Spears's career and finances since 2008 is directionally accurate for the long-running arrangement but compresses changes in roles, because Jodi Montgomery had been conservator of the person since 2019 and Bessemer Trust was added as co-conservator of the estate in late 2020.",
+      "citations": [
+        "https://www.nbcnews.com/pop-culture/pop-culture-news/britney-spears-father-loses-bid-retain-control-delegating-her-investments-n1257502",
+        "https://www.npr.org/2021/11/12/1054860726/britney-spears-conservatorship-ended"
+      ]
+    },
+    {
+      "text": "The current CBS URL appears to host a later-updated version that includes events after the pasted February 2021 text, so readers should distinguish the user's supplied snapshot from the live page when evaluating staleness.",
+      "citations": [
+        "https://www.cbsnews.com/news/britney-spears-conservatorship-explained/"
+      ]
+    },
+    {
+      "text": "Bottom line: the pasted CBS explainer was generally reliable for its February 2021 moment, but it is now materially outdated because Spears subsequently testified publicly, Jamie Spears was later suspended, and the conservatorship ended in November 2021.",
+      "citations": [
+        "https://www.npr.org/2021/06/24/1009858617/britney-spears-transcript-court-hearing-conservatorship",
+        "https://www.npr.org/2021/11/12/1054860726/britney-spears-conservatorship-ended"
+      ]
+    }
+  ]
+}

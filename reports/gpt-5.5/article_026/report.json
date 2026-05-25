@@ -1,0 +1,95 @@
+{
+  "responses": [
+    {
+      "text": "The target is a consumer personal-finance explainer from The Balance that frames a cashless society as convenient but risky, listing benefits such as lower cash-related crime and cheaper cash handling and disadvantages such as privacy loss, cyber risk, outages, exclusion, fees, overspending, and negative-rate pass-through.",
+      "citations": [
+        "https://www.thebalancemoney.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "The source is relatively transparent for an explainer because The Balance says it fact-checks articles, uses primary sources, and has a financial review board, but the article is not itself primary research.",
+      "citations": [
+        "https://www.thebalancemoney.com/about-us-5104704",
+        "https://www.thebalancemoney.com/the-balance-financial-review-board-4783604",
+        "https://www.thebalancemoney.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "The article's broad premise that payment behavior is moving digital is well supported because BIS 2025 payment statistics say cashless payments continued to increase in 2023 while cash in circulation declined in many jurisdictions.",
+      "citations": [
+        "https://www.bis.org/statistics/payment_stats/commentary2503.htm"
+      ]
+    },
+    {
+      "text": "The stronger idea that cash is about to disappear should be treated cautiously because the same BIS brief says cash withdrawals generally stabilized and cash still has an important role, while the ECB found cash was still used for 52% of euro-area point-of-sale transactions in 2024.",
+      "citations": [
+        "https://www.bis.org/statistics/payment_stats/commentary2503.htm",
+        "https://www.ecb.europa.eu/stats/ecb_surveys/space/html/ecb.space2024~19d46f0f17.en.html"
+      ]
+    },
+    {
+      "text": "The crime example is accurately grounded in a real study because the IZA paper on Missouri's shift from welfare checks to EBT found a 9.8% decrease in overall crime in its preferred specification.",
+      "citations": [
+        "https://www.iza.org/publications/dp/8402/less-cash-less-crime-evidence-from-the-electronic-benefit-transfer-program"
+      ]
+    },
+    {
+      "text": "That evidence supports a narrower claim about reducing street cash from welfare payments, not a general proof that every cashless society would produce lower overall crime.",
+      "citations": [
+        "https://www.iza.org/publications/dp/8402/less-cash-less-crime-evidence-from-the-electronic-benefit-transfer-program",
+        "https://www.thebalancemoney.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "The article's privacy concern is well founded because BIS materials distinguish anonymous cash payments from electronic payments that generally require trusted parties and raise data-protection trade-offs.",
+      "citations": [
+        "https://www.bis.org/publ/othp88_legal.pdf",
+        "https://www.bis.org/publ/othp80.pdf"
+      ]
+    },
+    {
+      "text": "The cyber and outage concerns are also well founded because BIS guidance treats cyber and operational resilience as core payment-system risks, and Sweden's Riksbank says digitalization has brought fraud, exclusion, and a need for stronger offline-payment resilience.",
+      "citations": [
+        "https://www.bis.org/cpmi/publ/d178.pdf",
+        "https://www.riksbank.se/en-gb/payments--cash/payments-in-sweden/payments-report--2024/safety-efficiency-and-accessibility/"
+      ]
+    },
+    {
+      "text": "The exclusion concern is strongly supported because the World Bank's Global Findex 2021 reported 1.4 billion unbanked adults and Sweden's Riksbank says older people and people with disabilities face unsatisfactory access to basic payment services as cash services decline.",
+      "citations": [
+        "https://www.worldbank.org/en/publication/globalfindex/brief/the-global-findex-database-2021-chapter-1-ownership-of-accounts",
+        "https://www.riksbank.se/en-gb/payments--cash/payments-in-sweden/payments-report--2024/safety-efficiency-and-accessibility/are-payments-in-sweden-accessible/access-to-basic-payment-services-is-unsatisfactory/"
+      ]
+    },
+    {
+      "text": "The Sweden section is directionally right but dated because the Riksbank's 2025 payments report says Sweden has very low cash use and about one in ten in-store purchases is made with cash, while the Riksbank is also taking measures to preserve cash rather than treating the country as fully cashless.",
+      "citations": [
+        "https://www.thebalancemoney.com/pros-and-cons-of-moving-to-a-cashless-society-4160702",
+        "https://www.riksbank.se/globalassets/media/rapporter/betalningsrapport/2025/engelsk/payments-report-2025.pdf",
+        "https://www.riksbank.se/en-gb/payments--cash/payments-in-sweden/payments-report--2024/the-riksbanks-work-and-policy/more-measures-needed-to-protect-cash/further-measures-are-required-to-preserve-cash-/"
+      ]
+    },
+    {
+      "text": "The India example is also directionally right because RBI reported that demonetization withdrew legal tender status from 500 and 1,000 rupee notes, affected nearly 86% of the value of notes in circulation, and had an estimated 15.28 trillion rupees of specified banknotes received back by June 30, 2017.",
+      "citations": [
+        "https://rbi.org.in/Scripts/AnnualReportPublications.aspx?Id=1208",
+        "https://rbi.org.in/Scripts/AnnualReportPublications.aspx?Id=1211"
+      ]
+    },
+    {
+      "text": "The negative-interest-rate discussion is plausible as theory but should be framed as speculative for consumers because IMF work says the existence of cash creates a lower bound by allowing deposit holders to switch from negative-rate deposits into cash.",
+      "citations": [
+        "https://www.imf.org/en/publications/wp/issues/2018/08/27/monetary-policy-with-negative-interest-rates-decoupling-cash-from-electronic-money-46076"
+      ]
+    },
+    {
+      "text": "Overall, the target is a generally credible, balanced explainer for ordinary readers, but its most future-looking or sweeping claims need updating with current central-bank and BIS evidence showing a mixed payments landscape rather than a near-term cash-free world.",
+      "citations": [
+        "https://www.thebalancemoney.com/pros-and-cons-of-moving-to-a-cashless-society-4160702",
+        "https://www.bis.org/statistics/payment_stats/commentary2503.htm",
+        "https://www.ecb.europa.eu/stats/ecb_surveys/space/html/ecb.space2024~19d46f0f17.en.html",
+        "https://www.riksbank.se/globalassets/media/rapporter/betalningsrapport/2025/engelsk/payments-report-2025.pdf"
+      ]
+    }
+  ]
+}

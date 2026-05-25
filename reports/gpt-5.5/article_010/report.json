@@ -1,0 +1,86 @@
+{
+  "responses": [
+    {
+      "text": "The BBC target article frames Blue Whale not as a proven 50-day suicide game but as a reported phenomenon whose original causal claims were weak, confused, and likely amplified by media coverage.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "BBC coverage from 2017 had already reported that Russian and international claims linking specific deaths to Blue Whale were unconfirmed and that there was no official data specifically tying any death to the challenge.",
+      "citations": [
+        "https://www.bbc.com/bbcthree/article/f4db7d77-3a2f-441e-9104-38513e43c295",
+        "https://www.bbc.com/news/world-39729819"
+      ]
+    },
+    {
+      "text": "The widely repeated figure of 130 youth suicides came from Galina Mursalieva's May 2016 Novaya Gazeta reporting, but Meduza criticized that article for lacking objective data showing the scale of the problem and for relying on the author's count rather than verified official evidence.",
+      "citations": [
+        "https://meduza.io/feature/2016/05/17/pyat-glavnyh-voprosov-k-materialu-novoy-gazety-o-podrostkovyh-suitsidah",
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "A contemporaneous BBC Russian report said no media outlet had been able to confirm the figure of 130 teen suicides, while noting that Russian investigators opened a case into alleged incitement through VKontakte groups.",
+      "citations": [
+        "https://www.bbc.com/russian/news/2016/05/160520_skr_case_groups_vkontakte"
+      ]
+    },
+    {
+      "text": "Radio Free Europe and Radio Liberty reported in 2017 that scores of cases had been provisionally linked to Blue Whale but that none had been found to have a conclusive tie on closer inspection.",
+      "citations": [
+        "https://www.rferl.org/a/iran-blue-whale-internet-game-blamed-teen-suicide/28811450.html"
+      ]
+    },
+    {
+      "text": "Philipp Budeikin's prosecution supports the narrower claim that Russian authorities convicted a person for online incitement, but later reporting said investigators linked him to two cases rather than proving responsibility for the large numbers reported in early panic coverage.",
+      "citations": [
+        "https://www.themoscowtimes.com/2017/07/19/founder-online-blue-whale-suicide-group-sentenced-a58446",
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "The BBC article's account of Alexandra Arkhipova's findings is corroborated by a Russian science interview in which she described alleged curators encountered by researchers as schoolchildren, including a 12-year-old girl, rather than an organized network of predatory adults.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722",
+        "https://www.trv-science.ru/2017/08/oxota-antropologov-na-sinego-kita/"
+      ]
+    },
+    {
+      "text": "The article's caution about moral panic is strengthened by later and contemporaneous reporting from India, where police had not confirmed Blue Whale links to deaths and experts described the public response as a moral panic that distracted from underlying youth mental-health problems.",
+      "citations": [
+        "https://www.bbc.com/news/world-asia-india-40960593"
+      ]
+    },
+    {
+      "text": "The target's broader context that Russia had a serious adolescent-suicide problem independent of Blue Whale is supported by reporting on a UNICEF-linked study that ranked Russia's teen suicide rate third highest in the world and about three times the world average.",
+      "citations": [
+        "https://www.themoscowtimes.com/2011/11/30/teen-suicide-rate-ranks-3rd-highest-a11127",
+        "https://www.bbc.co.uk/news/world-europe-36379815"
+      ]
+    },
+    {
+      "text": "The BBC article is not proving that no Blue Whale-related harm ever occurred, but its central skepticism is well supported because independent sources repeatedly found allegations, online subcultures, and individual prosecutions without verified evidence for the sweeping claim of a coordinated game causing hundreds of suicides.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722",
+        "https://www.rferl.org/a/iran-blue-whale-internet-game-blamed-teen-suicide/28811450.html",
+        "https://meduza.io/feature/2016/05/17/pyat-glavnyh-voprosov-k-materialu-novoy-gazety-o-podrostkovyh-suitsidah"
+      ]
+    },
+    {
+      "text": "WHO guidance also supports the article's critique of simplistic and sensational suicide narratives, because it warns media not to oversimplify suicide causes, sensationalize suicide, or present detailed narratives that can increase imitation risk.",
+      "citations": [
+        "https://www.who.int/publications/i/item/9789240076846",
+        "https://cdn.who.int/media/docs/default-source/mental-health/suicide/responsible-reporting-on-suicide.pdf"
+      ]
+    },
+    {
+      "text": "Overall, the article appears largely trustworthy as a corrective analysis: it accurately identifies a real rumor cycle and some real investigations while appropriately downgrading the strongest causal claims to unproven or unsupported.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722",
+        "https://www.bbc.com/bbcthree/article/f4db7d77-3a2f-441e-9104-38513e43c295",
+        "https://www.rferl.org/a/russia-duma-backs-blue-whale-legislation-teen-suicide/28507015.html"
+      ]
+    }
+  ]
+}

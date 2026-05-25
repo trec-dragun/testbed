@@ -1,0 +1,51 @@
+{
+  "responses": [
+    {
+      "text": "The provided BBC News article investigates the 'Blue Whale challenge', an alleged online suicide game that supposedly drove teenagers to complete escalating self-harm tasks over 50 days.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "The phenomenon gained international notoriety following a May 2016 article by Galina Mursalieva in the Russian newspaper Novaya Gazeta, which claimed 130 children died between November 2015 and April 2016 due to participation in these groups.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "However, independent investigations revealed the 130 figure was highly tenuous and originated from a grieving father who gathered media reports to link suicides to online groups, rather than an official epidemiological or police dataset.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "The BBC, alongside international fact-checking organizations, notes that despite widespread panic, not a single suicide has been definitively proven by journalists or police to be caused by the purported game.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722",
+        "https://www.snopes.com/fact-check/blue-whale-game-suicides/"
+      ]
+    },
+    {
+      "text": "Researchers found that the game as initially described likely did not exist before the sensational media coverage; instead, the coverage itself sparked moral panic and copycat behavior among teenagers.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "Mental health professionals emphasize that vulnerable teens were drawn to chat rooms discussing depression, where blue whale memes happened to be shared, rather than being manipulated by a coordinated game.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "Philipp Budeikin, who claimed to have invented the challenge and was convicted in Russia, may have simply exploited the panic by sharing shock content to gain followers and promote his music.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "Ultimately, the viral spread of the Blue Whale challenge is widely recognized as a hoax or urban legend amplified by uncritical reporting, masking complex underlying youth mental health issues.",
+      "citations": []
+    }
+  ]
+}

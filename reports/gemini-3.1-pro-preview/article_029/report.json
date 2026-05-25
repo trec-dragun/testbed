@@ -1,0 +1,55 @@
+{
+  "responses": [
+    {
+      "text": "The WebMD article outlines the nutritional profile and potential health benefits of jackfruit, claiming it can help lower the risk of constipation, ulcers, diabetes, high blood pressure, skin problems, and cancer.",
+      "citations": [
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "Jackfruit is nutritionally rich, containing dietary fiber, carbohydrates, vitamin C, B vitamins, and essential minerals like potassium and magnesium, which corresponds to established nutritional analyses.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10420861/",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The fruit is high in carotenoids, which are known antioxidants that help protect cells from damage and have been linked in scientific literature to the prevention of chronic degenerative diseases such as macular degeneration.",
+      "citations": [
+        "https://journals.lww.com/jehp/fulltext/2023/10310/efficacy_of_jackfruit_components_in_prevention_and.361.aspx",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "Regarding diabetes, multiple studies indicate that replacing typical carbohydrates with jackfruit flour can improve glycemic control in patients with Type 2 Diabetes Mellitus.",
+      "citations": [
+        "https://www.nature.com/articles/s41387-021-00161-4.pdf?origin=ppub",
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "The claim that jackfruit helps with constipation and ulcers is corroborated by its high fiber content and its widespread historical use in traditional medicine.",
+      "citations": [
+        "https://journals.lww.com/jehp/fulltext/2023/10310/efficacy_of_jackfruit_components_in_prevention_and.361.aspx",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10420861/"
+      ]
+    },
+    {
+      "text": "While preclinical studies suggest that jackfruit seed flour and other bioactive components have antioxidant and potential anticancer properties in cell lines, these findings primarily reflect in vitro results rather than definitive cancer prevention in human clinical trials.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8398192/",
+        "https://www.nature.com/articles/s41387-021-00161-4.pdf?origin=ppub"
+      ]
+    },
+    {
+      "text": "The article's assertion that phytonutrients in jackfruit have cancer-fighting benefits is accurately phrased as a potential ('might have') rather than a guaranteed clinical outcome.",
+      "citations": [
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "Overall, the article provides a well-founded summary of jackfruit's health benefits, correctly reflecting both its robust nutritional profile and the promising, yet often preliminary, state of research into its disease-fighting properties.",
+      "citations": []
+    }
+  ]
+}

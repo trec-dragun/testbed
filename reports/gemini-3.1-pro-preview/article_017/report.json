@@ -1,0 +1,52 @@
+{
+  "responses": [
+    {
+      "text": "The target article in GreenState explores whether cannabis can cure cancer by contrasting patient anecdotes with the cautious perspectives of leading medical researchers.",
+      "citations": [
+        "https://www.greenstate.com/health/explainer-does-marijuana-cure-cancer/"
+      ]
+    },
+    {
+      "text": "The piece highlights the cases of Dennis Hill and Kelly Hauf, who both claim to have achieved cancer remission by substituting traditional treatments with high-potency cannabis extracts.",
+      "citations": [
+        "https://www.greenstate.com/health/explainer-does-marijuana-cure-cancer/"
+      ]
+    },
+    {
+      "text": "Personal accounts and alternative medicine websites confirm that Hill, a biochemist diagnosed with advanced prostate cancer, and Hauf, who experienced a brain tumor recurrence, publicly attribute their survival to concentrated cannabis regimens.",
+      "citations": [
+        "http://medicalmarijuanacouncil.com/biochemist-cures-his-prostate-cancer-with-cannabis",
+        "https://www.cureyourowncancer.org/the-kelly-hauf-story-how-she-beat-brain-cancer-naturally-with-cannabis-oil.html"
+      ]
+    },
+    {
+      "text": "However, the target responsibly balances these stories with statements from Dr. Donald Abrams, a prominent integrative oncologist at UCSF.",
+      "citations": [
+        "https://www.ucsfhealth.org/donald.abrams"
+      ]
+    },
+    {
+      "text": "Abrams' peer-reviewed clinical summaries assert that while cannabis is highly effective for managing treatment side effects like nausea and pain, there is no definitive clinical evidence proving it cures cancer in humans.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4791148/"
+      ]
+    },
+    {
+      "text": "The article also quotes Dr. David Meiri of the Technion-Israel Institute of Technology, whose laboratory specializes in cancer biology and the therapeutic potential of cannabinoids.",
+      "citations": [
+        "https://biology.technion.ac.il/en/member/meiri/"
+      ]
+    },
+    {
+      "text": "Meiri's published research demonstrates that specific cannabis metabolites can successfully inhibit growth or induce apoptosis in various cancer cell lines within laboratory and animal models.",
+      "citations": [
+        "https://dmeiri.net.technion.ac.il/selected-publications/",
+        "https://dmeiri.net.technion.ac.il/cancer/"
+      ]
+    },
+    {
+      "text": "Ultimately, both the target article and the corresponding medical experts emphasize that despite promising preclinical data, cannabis should not replace conventional therapies without further widespread human clinical trials.",
+      "citations": []
+    }
+  ]
+}

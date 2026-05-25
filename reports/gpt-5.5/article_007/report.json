@@ -1,0 +1,79 @@
+{
+  "responses": [
+    {
+      "text": "The target article is an Intelligencer/New York Magazine commentary by Madison Malone Kircher arguing that the alleged Momo Challenge was not a substantiated online suicide game and that adult warnings, media reports, and official posts helped legitimize a hoax.",
+      "citations": [
+        "https://nymag.com/intelligencer/2019/03/momo-challenge-hoax.html"
+      ]
+    },
+    {
+      "text": "That central framing is strongly supported by contemporaneous fact checks and reporting: PolitiFact rated the claim that Momo was appearing in children's apps and programs to force harmful acts as \"Pants on Fire,\" saying it found no actual challenge online and no confirmed link to deaths.",
+      "citations": [
+        "https://www.politifact.com/factchecks/2019/mar/05/facebook-posts/no-momo-challenge-isnt-real-its-just-another-inter/"
+      ]
+    },
+    {
+      "text": "Full Fact likewise reported that it had seen no clear evidence, in the UK or abroad, that children were being contacted or threatened by a mysterious Momo figure in the way the viral warnings described.",
+      "citations": [
+        "https://fullfact.org/online/momo-challenge-hoax/"
+      ]
+    },
+    {
+      "text": "BBC coverage also described the scare as a hoax, citing charities that had received no reports of anyone being hacked or harming themselves because of Momo and noting that UK police had not reported instances of children harming themselves due to the meme.",
+      "citations": [
+        "https://www.bbc.co.uk/news/technology-47393510",
+        "https://www.bbc.com/news/uk-northern-ireland-47359623"
+      ]
+    },
+    {
+      "text": "The target article's narrower caveat that some real online child-safety problems existed is also supported: BBC and Full Fact both noted that distressing Momo imagery had appeared in some unofficial or derivative children’s-video uploads, while distinguishing that from proof of the alleged organized challenge.",
+      "citations": [
+        "https://www.bbc.co.uk/news/technology-47393510",
+        "https://fullfact.org/online/momo-challenge-hoax/"
+      ]
+    },
+    {
+      "text": "The article's claim that YouTube publicly denied recent evidence of videos promoting the Momo Challenge matches independent reporting by PolitiFact, Full Fact, Vox, Nieman Lab, and CBS News on YouTube's February 2019 statement.",
+      "citations": [
+        "https://www.politifact.com/factchecks/2019/mar/05/facebook-posts/no-momo-challenge-isnt-real-its-just-another-inter/",
+        "https://fullfact.org/online/momo-challenge-hoax/",
+        "https://www.vox.com/2019/3/3/18248783/momo-challenge-hoax-explained",
+        "https://www.niemanlab.org/2019/02/how-local-tv-news-stations-are-playing-a-major-and-enthusiastic-role-in-spreading-the-momo-hoax/",
+        "https://www.cbsnews.com/news/kim-kardashian-warns-parents-of-momo-challenge-youtube-take-action/"
+      ]
+    },
+    {
+      "text": "The article's explanation that the image came from a real Japanese special-effects sculpture is corroborated by PolitiFact, BBC, Vox, and Know Your Meme, which identify the figure as the \"Mother Bird\" sculpture associated with Link Factory and a 2016 gallery display.",
+      "citations": [
+        "https://www.politifact.com/factchecks/2019/mar/05/facebook-posts/no-momo-challenge-isnt-real-its-just-another-inter/",
+        "https://www.bbc.co.uk/news/technology-47393510",
+        "https://www.vox.com/2019/3/3/18248783/momo-challenge-hoax-explained",
+        "https://knowyourmeme.com/memes/momo"
+      ]
+    },
+    {
+      "text": "The article's media-literacy criticism is well supported because Nieman Lab documented numerous local TV and official-warning examples that treated Momo as a current danger even after YouTube said it had no recent evidence of Momo Challenge videos.",
+      "citations": [
+        "https://www.niemanlab.org/2019/02/how-local-tv-news-stations-are-playing-a-major-and-enthusiastic-role-in-spreading-the-momo-hoax/"
+      ]
+    },
+    {
+      "text": "The strongest limitation is that absence of confirmed evidence in early 2019 does not prove no copycat ever used the Momo image to frighten a child, and several sources explicitly allowed that scattered copycat or prank incidents could occur once the rumor spread.",
+      "citations": [
+        "https://www.politifact.com/factchecks/2019/mar/05/facebook-posts/no-momo-challenge-isnt-real-its-just-another-inter/",
+        "https://fullfact.org/online/momo-challenge-hoax/",
+        "https://www.cnn.com/2019/02/28/health/momo-challenge-youtube-trnd"
+      ]
+    },
+    {
+      "text": "Overall, the target article is credible on its main claim: the viral Momo Challenge was not verified as a real, organized child-suicide threat, and sharing vague warnings without evidence likely amplified the hoax while obscuring real but separate online-safety concerns.",
+      "citations": [
+        "https://nymag.com/intelligencer/2019/03/momo-challenge-hoax.html",
+        "https://www.politifact.com/factchecks/2019/mar/05/facebook-posts/no-momo-challenge-isnt-real-its-just-another-inter/",
+        "https://fullfact.org/online/momo-challenge-hoax/",
+        "https://www.bbc.co.uk/news/technology-47393510",
+        "https://www.niemanlab.org/2019/02/how-local-tv-news-stations-are-playing-a-major-and-enthusiastic-role-in-spreading-the-momo-hoax/"
+      ]
+    }
+  ]
+}

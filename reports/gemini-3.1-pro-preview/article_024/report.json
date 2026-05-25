@@ -1,0 +1,40 @@
+{
+  "responses": [
+    {
+      "text": "The target article, published by The New York Times on July 31, 2020, reports that authorities arrested a 17-year-old Florida high school graduate for orchestrating the mass takeover of prominent Twitter accounts.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html"
+      ]
+    },
+    {
+      "text": "The teenager, identified as Graham Ivan Clark, allegedly used social engineering and targeted Twitter employees to gain access to corporate systems, facilitating a fraudulent cryptocurrency scheme.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html"
+      ]
+    },
+    {
+      "text": "Subsequent court records confirm that Clark was prosecuted as an adult in Hillsborough County, Florida, where he eventually accepted a plea deal in March 2021.",
+      "citations": [
+        "https://www.tampabay.com/news/crime/2021/03/16/tampa-twitter-hacker-agrees-to-three-years-in-prison/",
+        "https://www.justice.gov/usao-ndca/pr/three-individuals-charged-alleged-roles-twitter-hack"
+      ]
+    },
+    {
+      "text": "Under the terms of his plea agreement as a youthful offender, Clark pled guilty to numerous state fraud charges and was sentenced to three years in a juvenile facility, followed by three years of probation.",
+      "citations": [
+        "https://www.tampabay.com/news/crime/2021/03/16/tampa-twitter-hacker-agrees-to-three-years-in-prison/",
+        "https://www.npr.org/2021/03/16/977934421/teen-mastermind-behind-twitter-hack-sentenced-to-3-years-in-juvenile-prison"
+      ]
+    },
+    {
+      "text": "The two named accomplices, Mason John Sheppard in the U.K. and Nima Fazeli in Florida, were charged federally by the U.S. Department of Justice for their roles in brokering the sale of hacked Twitter accounts.",
+      "citations": [
+        "https://www.justice.gov/usao-ndca/pr/three-individuals-charged-alleged-roles-twitter-hack"
+      ]
+    },
+    {
+      "text": "The original reporting accurately identified the key actors and the nature of the breach, which was later resolved through formal legal proceedings.",
+      "citations": []
+    }
+  ]
+}

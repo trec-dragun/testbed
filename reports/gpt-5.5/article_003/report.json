@@ -1,0 +1,88 @@
+{
+  "responses": [
+    {
+      "text": "The NaturalNews article claims that Coca-Cola benefits from a special U.S. legal arrangement under which Stepan imports coca leaves, removes cocaine for sale to Mallinckrodt, and sends cocaine-free coca ingredients onward for Coca-Cola flavoring.",
+      "citations": [
+        "https://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    },
+    {
+      "text": "The article also argues that the resulting cocaine volume is too large to be credibly explained by medical use and speculates, without evidence, about possible diversion or bribes to officials.",
+      "citations": [
+        "https://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    },
+    {
+      "text": "NaturalNews is a low-trust source for health and science claims because Ad Fontes Media rates it Hyper-Partisan Right and Unreliable/Misleading, while NewsGuard has cited a NaturalNews-related network among health-misinformation sites.",
+      "citations": [
+        "https://adfontesmedia.com/natural-news-bias-and-reliability/",
+        "https://www.newsguardtech.com/press/more-than-10-of-the-news-websites-americans-rely-on-spread-misinformation-about-health-issues-such-as-vaccines/"
+      ]
+    },
+    {
+      "text": "U.S. regulations list coca leaves and cocaine in Schedule II, while excluding decocainized coca leaves or coca-leaf extracts that do not contain cocaine or ecgonine.",
+      "citations": [
+        "https://www.ecfr.gov/current/title-21/chapter-II/part-1308/subject-group-ECFRf62f8e189108c4d/section-1308.12"
+      ]
+    },
+    {
+      "text": "DEA records show that Stepan Company received a 2023 importer registration for a Schedule II controlled substance after DEA reviewed public-interest factors and controls against diversion.",
+      "citations": [
+        "https://www.deadiversion.usdoj.gov/drugreg/nor/importers/2023/DRG-23-0042.html"
+      ]
+    },
+    {
+      "text": "A 2022 Federal Register notice says Stepan applied to import coca leaves in bulk for the manufacture of controlled substances for distribution to customers, supporting the basic claim that coca leaves enter a regulated U.S. manufacturing channel.",
+      "citations": [
+        "https://www.federalregister.gov/documents/2022/08/09/2022-16984/importer-of-controlled-substances-application-stepan-company"
+      ]
+    },
+    {
+      "text": "A 2024 Federal Register notice says Stepan applied to bulk manufacture cocaine and ecgonine for internal intermediates or sale to customers, which describes regulated manufacturing rather than an illicit exemption for Coca-Cola itself.",
+      "citations": [
+        "https://www.federalregister.gov/documents/2024/03/06/2024-04754/bulk-manufacturer-of-controlled-substances-application-stepan-company"
+      ]
+    },
+    {
+      "text": "Associated Press reporting published by The Washington Post said Stepan was then the only U.S. firm importing coca under DEA license and bought about 55 tons of Peruvian coca leaves per year, which differs from the article's 100-metric-ton figure.",
+      "citations": [
+        "https://www.washingtonpost.com/wp-dyn/content/article/2007/05/10/AR2007051000134_pf.html",
+        "https://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    },
+    {
+      "text": "A Cambridge University Press article describes Peruvian coca-leaf extract used in Coca-Cola since the early twentieth century and says Coca-Cola and Maywood Chemical had special roles in U.S. cocaine-control diplomacy with Peru.",
+      "citations": [
+        "https://cambridge.org/core/journals/journal-of-latin-american-studies/article/abs/secret-ingredients-the-politics-of-coca-in-usperuvian-relations-191565/1418ABE7E117362288DB40C33790E82E"
+      ]
+    },
+    {
+      "text": "Coca-Cola's current public FAQ says Coca-Cola does not contain cocaine or other harmful substances.",
+      "citations": [
+        "https://www.coca-colacompany.com/about-us/faq/rumors-and-misinformation"
+      ]
+    },
+    {
+      "text": "FDA-hosted DailyMed labeling for GOPRELTO says cocaine hydrochloride is an approved Schedule II nasal solution used to induce local anesthesia for diagnostic procedures and surgeries through the nasal cavities in adults.",
+      "citations": [
+        "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=689750b7-8e51-47d9-a428-078f3f6c9dec&type=display"
+      ]
+    },
+    {
+      "text": "The existence of FDA-approved medical cocaine products undercuts the article's claim that legal medical use is inherently implausible, although it does not by itself verify exactly how much cocaine Stepan or Mallinckrodt handled in 2011.",
+      "citations": [
+        "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=689750b7-8e51-47d9-a428-078f3f6c9dec&type=display",
+        "https://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    },
+    {
+      "text": "Bottom line: the headline is directionally true if read as Coca-Cola's flavor supply chain relying on DEA-authorized Stepan imports and decocainized coca extract, but the article is misleading because it presents a regulated supply chain as suspicious and adds unsupported corruption claims.",
+      "citations": [
+        "https://www.ecfr.gov/current/title-21/chapter-II/part-1308/subject-group-ECFRf62f8e189108c4d/section-1308.12",
+        "https://www.deadiversion.usdoj.gov/drugreg/nor/importers/2023/DRG-23-0042.html",
+        "https://www.federalregister.gov/documents/2024/03/06/2024-04754/bulk-manufacturer-of-controlled-substances-application-stepan-company",
+        "https://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    }
+  ]
+}

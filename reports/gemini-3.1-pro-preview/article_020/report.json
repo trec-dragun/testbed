@@ -1,0 +1,49 @@
+{
+  "responses": [
+    {
+      "text": "The 2020 NDTV article reports that Citigroup mistakenly wired $900 million of its own money to the lenders of the cosmetics company Revlon, leading to a legal battle when several investment funds refused to return the funds.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480"
+      ]
+    },
+    {
+      "text": "The transfer occurred in August 2020 when a Citibank contractor attempting to process a $7.8 million interest payment for Revlon accidentally checked the wrong boxes in the bank's software system, paying off the entire principal balance of the loan.",
+      "citations": [
+        "https://caselaw.findlaw.com/court/us-2nd-circuit/1912320.html",
+        "https://www.loeb.com/en/insights/publications/2022/10/second-circuit-reverses-ruling-500-million-wire-transfer-paying-off-revlon-loan-returned"
+      ]
+    },
+    {
+      "text": "While some lenders voluntarily returned the money, several hedge funds, including Brigade Capital Management, HPS Investment Partners, and Symphony Asset Management, refused to return over $500 million, arguing the payment satisfied a debt Revlon legally owed them.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480",
+        "https://caselaw.findlaw.com/court/us-2nd-circuit/1912320.html"
+      ]
+    },
+    {
+      "text": "In February 2021, a federal district court judge ruled in favor of the holdout creditors, deciding that under New York's 'discharge-for-value' defense, the lenders were allowed to keep the money because they had no reason to know the transfer was a mistake at the exact moment they received it.",
+      "citations": [
+        "https://caselaw.findlaw.com/court/us-2nd-circuit/1912320.html",
+        "https://www.claimsjournal.com/news/national/2022/09/13/312677.htm"
+      ]
+    },
+    {
+      "text": "However, the target article misses the ultimate legal resolution of the case because it was published shortly after the error occurred.",
+      "citations": []
+    },
+    {
+      "text": "In September 2022, the 2nd U.S. Circuit Court of Appeals unanimously reversed the lower court's decision, ruling that the lenders should not be allowed to benefit from the error and must return the $500 million.",
+      "citations": [
+        "https://www.claimsjournal.com/news/national/2022/09/13/312677.htm",
+        "https://caselaw.findlaw.com/court/us-2nd-circuit/1912320.html"
+      ]
+    },
+    {
+      "text": "The appellate court reasoned that the red flags surrounding the sudden, unannounced payoff should have put a reasonably prudent investor on notice that a mistake had been made, especially since the principal was not due for another three years.",
+      "citations": [
+        "https://www.claimsjournal.com/news/national/2022/09/13/312677.htm",
+        "https://caselaw.findlaw.com/court/us-2nd-circuit/1912320.html"
+      ]
+    }
+  ]
+}

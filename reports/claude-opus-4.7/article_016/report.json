@@ -1,0 +1,102 @@
+{
+  "responses": [
+    {
+      "text": "The target is a May 6, 2015 Everyday Health consumer health article by Karen Asp arguing that oxygen bars and canned recreational oxygen products are unlikely to deliver the stress, energy, sleep, hangover, and anti-aging benefits they advertise to healthy people.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "Everyday Health is a consumer health-information site that labels this piece \"Fact-Checked\" and sources it to named pulmonologists and emergency-medicine physicians rather than to oxygen-bar operators, which is the kind of independent-expert sourcing lateral readers look for in a wellness explainer.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "The article's central factual premise — that ambient air is about 21 percent oxygen — is corroborated by the StatPearls/NCBI medical reference, which states that room air has a fraction of inspired oxygen (FiO2) of 21 percent regardless of altitude.",
+      "citations": [
+        "https://www.ncbi.nlm.nih.gov/sites/books/NBK560867/",
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "The article's claim that healthy people gain little physiological benefit from extra oxygen is independently supported by the FDA consumer feature \"Oxygen Bars: Is a Breath of Fresh Air Worth It?\", in which CDER pulmonary specialist Mary Purucker says \"people with healthy lungs don't need additional oxygen\" because humans have evolved in roughly 21 percent oxygen.",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html",
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "Wikipedia's overview of oxygen bars adds the underlying physiology the article only sketches, noting that blood leaving the lungs is already about 97 percent saturated with oxygen so a higher inspired oxygen fraction \"serves no purpose, and may actually be detrimental,\" which matches Dr. Turowski's \"packed subway car\" analogy in the target.",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Oxygen_bar",
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "The article's specific numbers about delivered concentration are plausible but contested: the Quackwatch reprint of the FDA piece cites an oxygen-bar supplier saying customers get \"less than 50 percent pure oxygen\" once room air and aroma bubbling are factored in, which brackets Dr. LoVecchio's 35–40 percent figure, while current vendors such as O2genes still advertise 92–96 percent oxygen at the nozzle.",
+      "citations": [
+        "https://quackwatch.org/related/oxygenbars/",
+        "https://o2genes.com/oxygen-bar/",
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "The piece's warning about scented oxygen is reinforced by the FDA feature, which says inhaling oily aromatic substances can cause lipoid pneumonia and that even oil-free aroma media cannot guarantee sterility, exposing users to allergens, irritants, or bacterial contamination.",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html",
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "The article's caution that people with COPD, emphysema, asthma, and certain heart conditions should avoid oxygen bars aligns with the FDA's Mary Purucker, who warns that such patients need carefully regulated medical oxygen and that \"if they inhale too much oxygen, they can stop breathing.\"",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html",
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "One piece of regulatory context the Everyday Health article omits is that under the U.S. Federal Food, Drug, and Cosmetic Act, oxygen administered to humans for breathing is technically a prescription drug, although the FDA leaves enforcement to state licensing boards.",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html"
+      ]
+    },
+    {
+      "text": "State-level enforcement varies significantly: Massachusetts' Department of Public Health explicitly declares oxygen bars illegal because oxygen for human administration is a controlled prescription drug, a jurisdictional detail the target article does not mention.",
+      "citations": [
+        "https://www.mass.gov/info-details/policy-on-oxygen-bars-in-massachusetts"
+      ]
+    },
+    {
+      "text": "The article's experts — Frank LoVecchio of Banner Health/University of Arizona, Jason Turowski of the Cleveland Clinic Respiratory Institute, and Norman H. Edelman, then senior scientific advisor of the American Lung Association — are real, appropriately credentialed pulmonology and emergency-medicine voices, which strengthens its source quality.",
+      "citations": [
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/",
+        "https://en.wikipedia.org/wiki/Oxygen_bar"
+      ]
+    },
+    {
+      "text": "A limitation of the piece is that it relies entirely on expert opinion and the placebo framing without citing any specific clinical study, but the FDA feature reaches the same conclusion and notes that \"no long-term, well-controlled scientific studies\" support the touted benefits in healthy people.",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html",
+        "https://www.everydayhealth.com/news/getting-high-on-air-oxygen-energy-boost-health-risk/"
+      ]
+    },
+    {
+      "text": "Bottom line: the article's core claims — that ambient air is 21 percent oxygen, that healthy people cannot meaningfully boost blood oxygen by inhaling more, that touted benefits lack scientific support, and that hygiene and scented-oxygen risks are real — are well corroborated by FDA, NCBI/StatPearls, the American Lung Association via Wikipedia, and Quackwatch sources.",
+      "citations": [
+        "https://permanent.access.gpo.gov/lps1609/www.fda.gov/fdac/features/2002/602_air.html",
+        "https://www.ncbi.nlm.nih.gov/sites/books/NBK560867/",
+        "https://en.wikipedia.org/wiki/Oxygen_bar",
+        "https://quackwatch.org/related/oxygenbars/"
+      ]
+    },
+    {
+      "text": "Caveats for readers: the piece is from 2015 and does not capture later regulatory variation by state, current vendors still advertise 90–95 percent oxygen concentrations at the cannula, and the specific 35–40 percent \"delivered\" figure should be treated as a representative estimate rather than a measured industry standard.",
+      "citations": [
+        "https://www.mass.gov/info-details/policy-on-oxygen-bars-in-massachusetts",
+        "https://o2genes.com/oxygen-bar/",
+        "https://quackwatch.org/related/oxygenbars/"
+      ]
+    }
+  ]
+}

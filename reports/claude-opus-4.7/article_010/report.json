@@ -1,0 +1,106 @@
+{
+  "responses": [
+    {
+      "text": "The BBC Trending article by Ant Adeane, published 13 January 2019, argues that the Blue Whale 'suicide challenge' — said to set teens 50 tasks over 50 days ending in suicide — does not appear to have existed as initially reported, despite hundreds of suicides being blamed on it worldwide.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "The BBC is a long-established public-service broadcaster, and the piece is a 'BBC Trending' investigative feature with named on-the-record sources including Russian academic folklorists and Meduza journalist Evgeny Berg, which is consistent with standard sourcing practice for explanatory journalism.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "The article correctly traces the panic to Galina Mursalieva's May 2016 Novaya Gazeta investigation 'Groups of Death,' which alleged that around 130 teenage suicides between November 2015 and April 2016 were linked to VKontakte communities such as 'f57' and 'Ocean Whales.'",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722",
+        "https://en.wikipedia.org/wiki/Blue_Whale_(game)",
+        "https://www.bbc.co.uk/news/world-europe-36379815"
+      ]
+    },
+    {
+      "text": "Independent fact-checking and reporting support the BBC's claim that no suicide has been definitively linked to the alleged game: Snopes rated the Blue Whale suicide story 'unproven,' the UK Safer Internet Centre called it a 'sensationalised fake news story,' and Radio Free Europe and the Cyberbullying Research Center reported that not a single death has been confirmed to be tied to it.",
+      "citations": [
+        "https://www.safekids.com/2017/07/13/fake-news-about-blue-whale-suicides-is-dangerous/",
+        "https://www.bbc.com/news/world-asia-india-40960593"
+      ]
+    },
+    {
+      "text": "The BBC's account that the '130 deaths' figure originated with bereaved father Sergey Pestov's own tally is corroborated by Meduza's May 2016 critique of Novaya Gazeta, which noted that the number was the author's count, that no causal link between group membership and suicide was demonstrated, and that the article relied largely on one mother's account without seeking comment from VKontakte, investigators, or independent internet experts.",
+      "citations": [
+        "https://plugin-frontend.meduza.io/feature/2016/05/17/pyat-glavnyh-voprosov-k-materialu-novoy-gazety-o-podrostkovyh-suitsidah",
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "The article's reporting that Philipp Budeikin pleaded guilty in May 2017 and was sentenced to three years (the Moscow Times reports three years and four months) for inciting teenage girls to suicide is consistent with multiple outlets, though Russian prosecutors ultimately proved only two cases involving a 16-year-old and a 17-year-old, not the broader 130 deaths.",
+      "citations": [
+        "https://www.themoscowtimes.com/2017/07/19/founder-online-blue-whale-suicide-group-sentenced-a58446",
+        "https://www.euronews.com/2017/07/19/man-behind-blue-whale-suicide-game-is-jailed",
+        "https://metro.co.uk/2017/07/19/ringleader-of-blue-whale-suicide-game-encouraging-teens-to-kill-themselves-jailed-6791309/",
+        "https://www.bbc.com/russian/news-40647872"
+      ]
+    },
+    {
+      "text": "The piece's suggestion that Budeikin's online activity was partly a self-promotional stunt for his 'witch house' music is echoed by Lenta.ru reporting cited by the BBC's Russian service in 2016, which found that VK 'death group' administrators were often only a little older than their members and in some cases exploited the suicide subculture to boost their egos or earn ad money.",
+      "citations": [
+        "https://www.bbc.co.uk/news/world-europe-36379815",
+        "https://www.bbc.com/news/blogs-trending-46505722"
+      ]
+    },
+    {
+      "text": "The article's framing that the so-called 'curators' were copycats aged 12–14 rather than adult masterminds reflects the published research of folklorist Alexandra Arkhipova at the Russian State University for the Humanities, who has repeatedly argued that Blue Whale functions as a moral-panic-driven urban legend amplified after the Novaya Gazeta article appeared.",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Blue_Whale_(game)",
+        "https://rus.delfi.lv/47051273/interview/50101113/kuda-uplyl-siniy-kit-galina-mursalieva-v-rige-rasskazala-o-sudbe-grupp-smerti"
+      ]
+    },
+    {
+      "text": "The BBC's contextual claim that Russia has one of the world's highest adolescent suicide rates is well supported: a 2011 UNICEF-backed report found Russia had the third-highest teen suicide rate globally after Belarus and Kazakhstan, roughly three times the world average, with about 1,500 deaths a year among 15–19-year-olds.",
+      "citations": [
+        "https://www.themoscowtimes.com/2011/11/30/teen-suicide-rate-ranks-3rd-highest-a11127",
+        "https://www.washingtonpost.com/world/europe/teens-choosing-death-in-russia/2012/03/01/gIQADrhPwR_story.html"
+      ]
+    },
+    {
+      "text": "A peer-reviewed 2020 analysis by Cambridge researcher Maria Bada likewise concluded that 'despite these claims there is no evidence for large numbers of deaths linked to suicide games,' citing both the BBC Trending piece and Snopes, and warning that sensational coverage can itself drive vulnerable youngsters toward 'challenge culture.'",
+      "citations": [
+        "https://arxiv.org/pdf/2012.00530"
+      ]
+    },
+    {
+      "text": "Important missing context the BBC piece only touches on is that the moral panic had concrete political consequences in Russia: it fed a 2017 federal law, signed by President Putin and pushed by deputy Irina Yarovaya, criminalising online incitement to suicide, which critics argued gave authorities a pretext to extend internet control.",
+      "citations": [
+        "https://www.bbc.com/russian/news-40647872",
+        "https://www.bbc.co.uk/news/world-europe-36379815"
+      ]
+    },
+    {
+      "text": "The article appropriately resists a strong causal claim, noting that 'not a single suicide has so far been proved to be linked to these groups, neither by journalists nor police,' and that reverse causation — depressed teens seeking out suicide-themed forums — is at least as plausible as the forums causing the deaths, a point Meduza made explicitly in 2016.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722",
+        "https://plugin-frontend.meduza.io/feature/2016/05/17/pyat-glavnyh-voprosov-k-materialu-novoy-gazety-o-podrostkovyh-suitsidah"
+      ]
+    },
+    {
+      "text": "One residual uncertainty is that Mursalieva still defends her reporting and told the BBC the toll was actually higher than 130 based on contact with more than 200 bereaved parents, but she also concedes the causal link cannot be confirmed, which weakens rather than rescues the original claim.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722",
+        "https://en.wikipedia.org/wiki/Blue_Whale_(game)"
+      ]
+    },
+    {
+      "text": "Bottom line: the BBC Trending article is a credible, well-sourced piece of debunking journalism whose central thesis — that Blue Whale is largely a media-amplified moral panic built on a shaky 130-death statistic, real but unrelated teen suicides, and copycat online behaviour — is corroborated by Meduza, Lenta.ru, Snopes, Radio Free Europe, the UK Safer Internet Centre, and peer-reviewed academic work, while Russia's underlying adolescent suicide problem is real and serious.",
+      "citations": [
+        "https://www.bbc.com/news/blogs-trending-46505722",
+        "https://plugin-frontend.meduza.io/feature/2016/05/17/pyat-glavnyh-voprosov-k-materialu-novoy-gazety-o-podrostkovyh-suitsidah",
+        "https://www.safekids.com/2017/07/13/fake-news-about-blue-whale-suicides-is-dangerous/",
+        "https://www.bbc.com/news/world-asia-india-40960593",
+        "https://arxiv.org/pdf/2012.00530",
+        "https://www.themoscowtimes.com/2011/11/30/teen-suicide-rate-ranks-3rd-highest-a11127"
+      ]
+    }
+  ]
+}

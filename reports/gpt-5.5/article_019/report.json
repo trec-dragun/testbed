@@ -1,0 +1,66 @@
+{
+  "responses": [
+    {
+      "text": "The National Geographic article accurately reports that Yale researchers used the BrainEx perfusion system on 32 pig brains obtained after slaughter and restored circulation, metabolism, and some cellular functions hours after death while not restoring consciousness or global brain activity.",
+      "citations": [
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/",
+        "https://www.nature.com/articles/s41586-019-1099-1",
+        "https://news.yale.edu/2019/04/17/scientists-restore-some-functions-pigs-brain-hours-after-death"
+      ]
+    },
+    {
+      "text": "The primary Nature paper supports the central scientific claim, reporting restoration and maintenance of microcirculation, molecular and cellular functions, vascular and glial responses, spontaneous synaptic activity, and active cerebral metabolism in isolated pig brains up to four hours post-mortem, in the absence of global electrocorticographic activity.",
+      "citations": [
+        "https://www.nature.com/articles/s41586-019-1099-1"
+      ]
+    },
+    {
+      "text": "The article's statement that the brains were not living or aware is well supported because Yale said the treated brains lacked recognizable global electrical signals associated with normal brain function and quoted co-first author Zvonimir Vrselja saying no organized electrical activity associated with perception, awareness, or consciousness was observed.",
+      "citations": [
+        "https://news.yale.edu/2019/04/17/scientists-restore-some-functions-pigs-brain-hours-after-death"
+      ]
+    },
+    {
+      "text": "Independent reporting by BBC News corroborated the main facts, including that 32 pig brains from an abattoir were connected to the Yale system four hours after slaughter, perfused for six hours, showed restored vessels and working synapses, and had no EEG evidence of awareness or perception.",
+      "citations": [
+        "https://www.bbc.co.uk/news/health-47960874"
+      ]
+    },
+    {
+      "text": "The article handles the animal-use context accurately because Yale and BBC both state the pigs came from food production rather than being raised or killed for the experiment.",
+      "citations": [
+        "https://news.yale.edu/2019/04/17/scientists-restore-some-functions-pigs-brain-hours-after-death",
+        "https://www.bbc.co.uk/news/health-47960874"
+      ]
+    },
+    {
+      "text": "The article's ethical framing is supported by an accompanying Nature commentary by Nita Farahany, Henry Greely, and Charles Giattino, which said the study raised ethical questions, did not breach existing guidelines, and highlighted potential limits in current animal-research regulations for restored whole brains.",
+      "citations": [
+        "https://media.nature.com/original/magazine-assets/d41586-019-01168-9/d41586-019-01168-9.pdf"
+      ]
+    },
+    {
+      "text": "The claim that BrainEx might eventually help research into brain disorders or brain injury is plausible but should be read as prospective, because Yale described no immediate clinical application and said it was unclear whether the approach could be applied to recently deceased human brains.",
+      "citations": [
+        "https://news.yale.edu/2019/04/17/scientists-restore-some-functions-pigs-brain-hours-after-death"
+      ]
+    },
+    {
+      "text": "The headline phrase “partially revived” is defensible for cellular and circulatory activity but can be misleading if read as resurrection of a conscious animal, since the cited study and outside sources emphasize the absence of global brain activity and consciousness.",
+      "citations": [
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/",
+        "https://www.nature.com/articles/s41586-019-1099-1",
+        "https://www.bbc.co.uk/news/health-47960874"
+      ]
+    },
+    {
+      "text": "Overall, the article is trustworthy on the core science and ethics, with the main caveat that its dramatic discussion of death and future human implications is interpretive and appropriately bounded by expert cautions rather than established clinical relevance.",
+      "citations": [
+        "https://www.nationalgeographic.com/science/2019/04/pig-brains-partially-revived-what-it-means-for-medicine-death-ethics/",
+        "https://www.nature.com/articles/s41586-019-1099-1",
+        "https://news.yale.edu/2019/04/17/scientists-restore-some-functions-pigs-brain-hours-after-death",
+        "https://media.nature.com/original/magazine-assets/d41586-019-01168-9/d41586-019-01168-9.pdf"
+      ]
+    }
+  ]
+}

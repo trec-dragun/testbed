@@ -21,6 +21,13 @@ runs/*
 !runs/.gitkeep
 reports/*
 !reports/.gitkeep
+!reports/README.md
+!reports/claude-opus-4.7/
+!reports/claude-opus-4.7/**
+!reports/gpt-5.5/
+!reports/gpt-5.5/**
+!reports/gemini-3.1-pro-preview/
+!reports/gemini-3.1-pro-preview/**
 tmp/
 
 # Secrets.

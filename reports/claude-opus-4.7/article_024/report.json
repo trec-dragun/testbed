@@ -1,0 +1,75 @@
+{
+  "responses": [
+    {
+      "text": "The New York Times article, by Kate Conger and Nathaniel Popper and published July 31, 2020, reports that Florida authorities charged 17-year-old Graham Ivan Clark of Tampa as the 'mastermind' of the July 15, 2020 Twitter hack that hijacked accounts of figures including Barack Obama, Joe Biden, Elon Musk, Bill Gates and Kanye West, and that two others, Mason John Sheppard, 19, of the UK and Nima Fazeli, 22, of Orlando, were also charged with assisting him.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html"
+      ]
+    },
+    {
+      "text": "The U.S. Secret Service's own July 31, 2020 press release independently confirms that Mason Sheppard ('Chaewon'), 19, of Bognor Regis, UK, was charged in the Northern District of California with conspiracy to commit wire fraud, conspiracy to commit money laundering and intentional access of a protected computer, that Nima Fazeli ('Rolex'), 22, of Orlando, was charged with aiding and abetting computer intrusion, and that a juvenile third defendant was referred to the State Attorney for the 13th Judicial District in Tampa.",
+      "citations": [
+        "https://www.secretservice.gov/newsroom/releases/2020/07/three-individuals-charged-alleged-roles-twitter-hack"
+      ]
+    },
+    {
+      "text": "The federal criminal complaint against Fazeli, filed in the Northern District of California, corroborates the article's account that the hackers compromised approximately 130 Twitter accounts on July 15, 2020 by social-engineering a Twitter employee, and lists victim accounts including Bill Gates, Elon Musk, Kanye West, Joe Biden, Barack Obama, Jeff Bezos, Mike Bloomberg, Warren Buffett, Benjamin Netanyahu and Kim Kardashian, as well as crypto exchanges like Binance, Gemini, Coinbase and Bitfinex.",
+      "citations": [
+        "https://sanfrancisco.cbslocal.com/wp-content/uploads/sites/15116056/2020/07/comp1.pdf"
+      ]
+    },
+    {
+      "text": "Independent reporting from NPR, the BBC, Ars Technica and CBS News on the same day corroborates the article's core facts that Clark, 17, of Tampa was charged with 30 Florida felonies including organized fraud, communications fraud, fraudulent use of personal information and unauthorized computer access, and was charged as an adult under a Florida statute that permits this in financial-fraud cases involving minors.",
+      "citations": [
+        "https://www-s1.npr.org/2020/07/31/897815039/florida-teen-charged-as-mastermind-of-massive-twitter-hack",
+        "https://www.bbc.com/news/business-53617198",
+        "https://arstechnica.com/tech-policy/2020/07/florida-teen-arrested-charged-with-being-mastermind-of-twitter-hack/",
+        "https://www.cbsnews.com/news/graham-clark-massive-twitter-account-hack-mastermind-florida-teen/"
+      ]
+    },
+    {
+      "text": "The article's description of the social-engineering vector—Clark posing as a Twitter IT co-worker to obtain an employee's credentials and access an internal customer-service portal—matches Twitter's own public statement, quoted in the federal complaint, that it suffered 'a coordinated social engineering attack by people who successfully targeted some of our employees with access to internal systems and tools.'",
+      "citations": [
+        "https://sanfrancisco.cbslocal.com/wp-content/uploads/sites/15116056/2020/07/comp1.pdf",
+        "https://www-s1.npr.org/2020/07/31/897815039/florida-teen-charged-as-mastermind-of-massive-twitter-hack"
+      ]
+    },
+    {
+      "text": "One numeric claim in the article warrants caution: the Times says the scheme 'netted Bitcoin worth more than $180,000' based on its own estimate, whereas federal investigators and the Hillsborough State Attorney later said about 415 transfers totaling roughly $117,000–$120,000 were sent to the scam address, so readers should treat the $180,000 figure as a Times estimate rather than the prosecution's number.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html",
+        "https://www-s1.npr.org/2020/07/31/897815039/florida-teen-charged-as-mastermind-of-massive-twitter-hack",
+        "https://www.bleepingcomputer.com/news/security/teen-hacker-agrees-to-3-years-in-prison-for-twitter-bitcoin-scam/"
+      ]
+    },
+    {
+      "text": "The article's mention that the Secret Service had seized over $700,000 in Bitcoin from Clark in April 2020 is unusual and not extensively corroborated in same-day reporting, so it is best treated as Times-sourced reporting about sealed or limited public records rather than a fully independently verified figure.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html"
+      ]
+    },
+    {
+      "text": "Source-quality review supports the article: The New York Times is a major outlet with editorial standards and corrections policies, and the bylined reporters Kate Conger and Nathaniel Popper are established technology and cryptocurrency journalists, and the piece is news rather than opinion or sponsored content, with sourcing tied to a named state attorney, an FBI special agent, court filings and an outside security researcher.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html"
+      ]
+    },
+    {
+      "text": "Subsequent reporting confirms the prosecution's central thesis held up: in March 2021 Graham Ivan Clark pleaded guilty under a Florida youthful-offender plea agreement to multiple fraud and computer-intrusion counts and was sentenced to three years in a juvenile facility followed by three years of probation, with all bitcoin from the charged offenses returned to law enforcement.",
+      "citations": [
+        "https://www.bleepingcomputer.com/news/security/teen-hacker-agrees-to-3-years-in-prison-for-twitter-bitcoin-scam/",
+        "https://www.wusf.org/courts-law/2021-03-16/tampa-twitter-hacker-sentenced-to-three-years-in-prison-three-years-probation",
+        "https://www.bbc.co.uk/news/technology-56429204"
+      ]
+    },
+    {
+      "text": "Overall, the article is a credible, well-sourced news report whose central factual claims—the identities, ages and locations of the three charged individuals, the 130 accounts compromised, the social-engineering method, the bitcoin-doubling scam, and Clark being charged as an adult in Florida—are corroborated by the U.S. Secret Service, federal court filings and multiple independent outlets, with the main caveats being that the $180,000 haul is a Times estimate that differs from the ~$117,000 figure later cited by prosecutors and that some details about Clark are necessarily limited because of his juvenile status at the time.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html",
+        "https://www.secretservice.gov/newsroom/releases/2020/07/three-individuals-charged-alleged-roles-twitter-hack",
+        "https://sanfrancisco.cbslocal.com/wp-content/uploads/sites/15116056/2020/07/comp1.pdf",
+        "https://www-s1.npr.org/2020/07/31/897815039/florida-teen-charged-as-mastermind-of-massive-twitter-hack"
+      ]
+    }
+  ]
+}

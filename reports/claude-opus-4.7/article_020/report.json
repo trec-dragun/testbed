@@ -1,0 +1,72 @@
+{
+  "responses": [
+    {
+      "text": "The NDTV article, dated August 17, 2020, reports that Citigroup mistakenly wired about $900 million to lenders of Revlon and that hedge funds including Brigade Capital Management, Symphony Asset Management, and HPS Investment Partners were refusing to return the money.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480"
+      ]
+    },
+    {
+      "text": "NDTV explicitly notes that the story is a syndicated Bloomberg piece authored by Katherine Doherty and Jenny Surane and that it was not edited by NDTV staff, so the original reporting and editorial standards are Bloomberg's, not NDTV's.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480"
+      ]
+    },
+    {
+      "text": "The core facts in the article are corroborated by the U.S. District Court judgment itself, which confirms that on August 11, 2020 Citibank intended to wire roughly $7.8 million in interest on a Revlon syndicated term loan but instead transferred nearly $900 million of its own money, matching the principal and interest owed to the penny.",
+      "citations": [
+        "https://static.reuters.com/resources/media/editorial/20210216/02172021revlon.pdf",
+        "https://www.courtlistener.com/recap/gov.uscourts.nysd.542310/gov.uscourts.nysd.542310.243.0_2.pdf"
+      ]
+    },
+    {
+      "text": "CNN Business and Banking Dive independently reported the same $900 million error, with Banking Dive specifying that some asset managers returned about $385 million while 10 firms refused, leaving roughly $504 million in dispute.",
+      "citations": [
+        "https://www.cnn.com/2021/02/16/business/citibank-revlon-lawsuit-ruling",
+        "https://www.bankingdive.com/news/citi-revlon-lawsuit-payment-mistake-creditors/595154/"
+      ]
+    },
+    {
+      "text": "The article's framing of the dispute as tied to an existing battle over Revlon shifting intellectual-property collateral, with UMB Bank acting for lenders against Citi as outgoing administrative agent, is consistent with the court's later factual findings describing the same pre-existing litigation and roll-up transaction.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480",
+        "https://case-law.vlex.com/vid/in-re-citibank-21-910617278"
+      ]
+    },
+    {
+      "text": "Important context the August 2020 article could not yet include is that on February 16, 2021, U.S. District Judge Jesse Furman ruled in Citibank's favor's opponents, holding under New York's \"discharge-for-value\" defense from Banque Worms v. BankAmerica International that the non-returning lenders could keep roughly $504 million because they were not on constructive notice of the mistake.",
+      "citations": [
+        "https://www.cnn.com/2021/02/16/business/citibank-revlon-lawsuit-ruling",
+        "https://static.reuters.com/resources/media/editorial/20210216/02172021revlon.pdf",
+        "https://www.bankingdive.com/news/citi-revlon-lawsuit-payment-mistake-creditors/595154/"
+      ]
+    },
+    {
+      "text": "Further updating the story, the Second Circuit Court of Appeals reversed that decision in September 2022, holding that the discharge-for-value defense did not apply because the creditors were not yet entitled to payment, so Citibank was ultimately entitled to recover its mistakenly transferred funds.",
+      "citations": [
+        "https://caselaw.findlaw.com/court/us-2nd-circuit/1912320.html",
+        "https://case-law.vlex.com/vid/in-re-citibank-21-910617278"
+      ]
+    },
+    {
+      "text": "The court record also clarifies a mechanical detail the NDTV/Bloomberg piece does not spell out: the error originated when a contractor employee in India using Citi's Flexcube software checked only the \"PRINCIPAL\" box instead of also \"FRONT\" and \"FUND,\" and two supervisors failed to catch it, causing the wash-account routing to wire real money instead.",
+      "citations": [
+        "https://case-law.vlex.com/vid/in-re-citibank-21-910617278"
+      ]
+    },
+    {
+      "text": "NDTV (Bloomberg) is a generally reliable mainstream news source for this kind of financial reporting, and the article appropriately attributes sensitive details to unnamed \"people familiar with the matter\" and quotes named analysts and a Revlon statement, while clearly noting Citi declined to comment.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480"
+      ]
+    },
+    {
+      "text": "Overall, the article's central factual claims—a roughly $900 million mistaken wire by Citi as Revlon's loan agent, lenders including Brigade, Symphony, and HPS refusing to return funds, and an ongoing lender lawsuit over collateral—are well supported by court filings and independent reporting, with the main limitation being that the August 17, 2020 piece predates the eventual rulings that first allowed lenders to keep about $504 million and were later reversed on appeal in 2022.",
+      "citations": [
+        "https://www.ndtv.com/world-news/citi-wired-900-million-in-clerical-error-they-wont-hand-cash-back-2280480",
+        "https://www.cnn.com/2021/02/16/business/citibank-revlon-lawsuit-ruling",
+        "https://caselaw.findlaw.com/court/us-2nd-circuit/1912320.html"
+      ]
+    }
+  ]
+}

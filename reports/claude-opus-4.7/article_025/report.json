@@ -1,0 +1,93 @@
+{
+  "responses": [
+    {
+      "text": "The Sporting News article by Mike DeCourcy, dated April 20, 2021, explains the just-announced European Super League and the twelve founding clubs from England, Spain, and Italy.",
+      "citations": [
+        "https://www.sportingnews.com/us/soccer/news/super-league-soccer-explained-teams/j9pejdqyyo8p19mkbyaomiwvd"
+      ]
+    },
+    {
+      "text": "The official Super League press release and the founding clubs themselves confirm the same twelve teams the article lists: AC Milan, Arsenal, Atlético Madrid, Chelsea, Barcelona, Inter Milan, Juventus, Liverpool, Manchester City, Manchester United, Real Madrid, and Tottenham Hotspur.",
+      "citations": [
+        "https://thesuperleague.com/press.html",
+        "https://www.businesswire.com/news/home/20210418005053/en",
+        "https://www.fcbarcelona.com/en/news/2110622/fc-barcelona-one-of-the-founding-clubs-of-the-new-superleague",
+        "https://www.juventus.com/en/news/articles/12-european-top-clubs-announce-the-creation-of-the-super-league"
+      ]
+    },
+    {
+      "text": "The article's structural description — 15 founding members plus five annual qualifiers for a 20-club competition — matches the official press release verbatim.",
+      "citations": [
+        "https://thesuperleague.com/press.html",
+        "https://www.businesswire.com/news/home/20210418005053/en"
+      ]
+    },
+    {
+      "text": "The article's claim that JPMorgan agreed to underwrite about $4.2 billion is well-supported, with CNBC reporting a €3.5 billion (~$4.2 billion) infrastructure grant and the Financial Times citing a €3.25 billion grant amortised over 23 years, while Bloomberg and ESPN have reported the total package at roughly €4 billion ($4.8 billion) to $6 billion in loans.",
+      "citations": [
+        "https://www.cnbc.com/2021/04/23/jpmorgan-admits-it-misjudged-backing-european-super-league.html",
+        "https://www.ft.com/content/f00bb232-a150-4f7d-b26a-e1b62cd175c3",
+        "https://www.bloomberg.com/news/articles/2021-04-21/jpmorgan-gets-caught-up-in-europe-s-big-soccer-league-blunder",
+        "https://www.independent.co.uk/news/business/european-super-league-jp-morgan-b1833783.html"
+      ]
+    },
+    {
+      "text": "The Ceferin quote about Super League players being banned from the World Cup and Euros is accurately conveyed; UEFA's president made that threat on April 19, 2021, in multiple verbatim formulations reported by Sky Sports, NBC Sports, CBS Sports, and ESPN.",
+      "citations": [
+        "https://www.skysports.com/football/news/11095/12280379/european-super-league-uefa-president-aleksander-ceferin-condemns-disgraceful-proposals",
+        "https://www.nbcsports.com/soccer/news/uefa-super-league-ban-national-teams",
+        "https://www.cbssports.com/soccer/news/european-super-league-uefa-president-aleksander-ceferin-slams-breakaway-in-fiery-press-conference/",
+        "https://www.espn.com/soccer/story/_/id/37616324/uefa-president-ceferin-super-league-spit-face-football-lovers"
+      ]
+    },
+    {
+      "text": "The piece is labeled as analysis/explainer from a credentialed sportswriter (DeCourcy is a long-time U.S. college basketball and sports columnist at Sporting News), so readers should treat his framing — including the American Football League merger comparison — as informed commentary rather than neutral wire reporting.",
+      "citations": [
+        "https://www.sportingnews.com/us/soccer/news/super-league-soccer-explained-teams/j9pejdqyyo8p19mkbyaomiwvd"
+      ]
+    },
+    {
+      "text": "A significant piece of missing context is timing: the article was written on April 20, 2021, the same evening that all six English clubs began withdrawing, and within roughly 48 hours of the launch the Super League had collapsed, with JPMorgan publicly admitting it had \"misjudged\" the project.",
+      "citations": [
+        "https://www.bbc.co.uk/sport/football/56823501",
+        "https://www.cnbc.com/2021/04/20/english-clubs-abandon-breakaway-super-league-amid-escalating-backlash.html",
+        "https://www.cbssports.com/soccer/news/european-super-league-suspended-man-city-chelsea-trigger-collapse-inter-milan-premier-league-clubs-all-out/",
+        "https://www.cnbc.com/2021/04/23/jpmorgan-admits-it-misjudged-backing-european-super-league.html"
+      ]
+    },
+    {
+      "text": "The article's speculation that \"only a legal defeat\" could stop the league turned out to be incorrect: it was fan protests, player statements, government pressure, and Premier League sanctions threats — not a court ruling — that triggered the immediate collapse.",
+      "citations": [
+        "https://www.bbc.co.uk/sport/football/56823501",
+        "https://www.independent.co.uk/sport/football/super-league-plans-premier-league-teams-b1834811.html",
+        "https://www.cbc.ca/sports/soccer/soccer-super-league-collapse-1.5994313"
+      ]
+    },
+    {
+      "text": "The article correctly notes Bayern Munich and Borussia Dortmund's opposition and the absence of any Bundesliga or Ligue 1 clubs, and the Bundesliga/Serie A non-participation was separately acknowledged and thanked by UEFA in its statements.",
+      "citations": [
+        "https://www.nbcsports.com/soccer/news/uefa-super-league-ban-national-teams",
+        "https://eu.usatoday.com/story/sports/soccer/europe/2021/04/18/european-super-league-12-founding-clubs-announced-competition/7279767002/"
+      ]
+    },
+    {
+      "text": "Quotes attributed in the article to Florentino Pérez and Joel Glazer track the official Super League press release, which Pérez chaired and where Glazer was named vice-chairman, although the article contains a typographical error (\"brining\"/\"conserns\") that suggests light editing rather than fabrication.",
+      "citations": [
+        "https://thesuperleague.com/press.html",
+        "https://www.businesswire.com/news/home/20210418005053/en",
+        "https://www.sportingnews.com/us/soccer/news/super-league-soccer-explained-teams/j9pejdqyyo8p19mkbyaomiwvd"
+      ]
+    },
+    {
+      "text": "Bottom line: the Sporting News explainer is a generally accurate, well-sourced contemporaneous analysis whose factual claims about the founding clubs, format, JPMorgan financing, UEFA threats, and political backlash check out against primary and independent reporting.",
+      "citations": []
+    },
+    {
+      "text": "The main caveat for any present-day reader is that the article is a snapshot frozen at the moment of announcement and does not capture the project's near-immediate collapse, so its forward-looking passages about how the league \"will\" operate should be read as predictions that did not come to pass.",
+      "citations": [
+        "https://www.bbc.co.uk/sport/football/56823501",
+        "https://www.cnbc.com/2021/04/23/jpmorgan-admits-it-misjudged-backing-european-super-league.html"
+      ]
+    }
+  ]
+}

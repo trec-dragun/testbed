@@ -1,0 +1,91 @@
+{
+  "responses": [
+    {
+      "text": "The target is a personal-finance explainer from The Balance titled \"The Pros and Cons of Moving to a Cashless Society,\" authored by Justin Pritchard, reviewed by Khadija Khartit, and last updated May 20, 2021.",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "The Balance is a personal-finance site owned by IAC/People Inc. (formerly Dotdash Meredith) that publishes editorial standards requiring primary sourcing and review-board fact-checking, and Media Bias/Fact Check rates it \"Least Biased\" with \"High\" factual reporting.",
+      "citations": [
+        "https://www.thebalancemoney.com/about-us-5104704",
+        "https://www.thebalancemoney.com/the-balance-financial-review-board-4783604",
+        "https://mediabiasfactcheck.com/the-balance/"
+      ]
+    },
+    {
+      "text": "The article's central framing is balanced rather than advocacy: it lists benefits (lower crime, automatic paper trails, lower cash-handling costs, easier international payments) against disadvantages (privacy loss, hacking exposure, technology outages, inequality, fees, overspending, and negative interest rates).",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "The article's claim that \"crime in Missouri dropped by 9.8%\" after EBT replaced cash welfare benefits accurately reports the headline point estimate from Wright, Tekin, Topalli, McClellan, Dickinson, and Rosenfeld's NBER working paper (2014), later published in The Journal of Law and Economics in 2017.",
+      "citations": [
+        "https://www.nber.org/system/files/working_papers/w19996/w19996.pdf",
+        "https://www.journals.uchicago.edu/doi/10.1086/693745",
+        "https://www.iza.org/publications/dp/8402/less-cash-less-crime-evidence-from-the-electronic-benefit-transfer-program"
+      ]
+    },
+    {
+      "text": "Missing context on that study: the 9.8% figure refers to overall county-level crime and is driven by burglary, assault, and larceny, while estimates for robbery and motor vehicle theft were not statistically significant, so the result does not generalize to all crime categories.",
+      "citations": [
+        "https://www.nber.org/system/files/working_papers/w19996/w19996.pdf",
+        "https://www.journals.uchicago.edu/doi/10.1086/693745"
+      ]
+    },
+    {
+      "text": "The claim that cash transactions accounted for about 1% of Sweden's GDP is consistent with Riksbank and World Economic Forum data showing the value of cash in circulation in Sweden was roughly 1% of GDP in 2018–2019, versus about 10% for the euro area.",
+      "citations": [
+        "https://www.riksbank.se/en-gb/payments--cash/payments-in-sweden/payments-in-sweden-2019/the-payment-market-is-being-digitalised/cash-use-in-constant-decline/developments-in-sweden-differ-from-those-in-other-countries/",
+        "https://www.weforum.org/stories/2018/11/sweden-cashless-society-is-no-longer-a-utopia/",
+        "https://www.bankofcanada.ca/wp-content/uploads/2019/08/sdp2019-7.pdf"
+      ]
+    },
+    {
+      "text": "The article's prediction that Sweden would have \"an economy 100 percent digital by 2023\" has not come true and is now significantly out of date, as the Riksbank has urged stronger legal protection for cash, the government has moved to require grocery stores and pharmacies to accept banknotes, and the central bank in 2026 advised every adult to keep about SEK 1,000 in cash for preparedness.",
+      "citations": [
+        "https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2023/political-decisions-needed-urgently--so-that-everyone-can-pay/",
+        "https://waps.l3s.uni-hannover.de/live/https:/economictimes.indiatimes.com/news/international/world-news/sweden-urges-cash-resurgence-government-moves-to-reinstate-banknotes-amid-cashless-society-concerns/articleshow/129657774.cms",
+        "https://clearingpost.com/insights/sweden-riksbank-cash-preparedness-paradox-march-2026/"
+      ]
+    },
+    {
+      "text": "The article's description of India's 2016 demonetization — that the government banned 500 and 1,000 rupee notes in November 2016 and that roughly 99% of the banknotes were eventually deposited — is corroborated by the Reserve Bank of India's annual reports and contemporaneous coverage, which put the return rate at 98.96% (later revised to about 99.3%).",
+      "citations": [
+        "https://www.business-standard.com/article/economy-policy/people-returned-98-96-of-demonetised-rs-500-and-rs-1-000-notes-rbi-117083001197_1.html",
+        "https://indianexpress.com/article/business/economy/demonetisation-99-per-cent-banned-notes-back-rbi-report-5331825/",
+        "https://www.rbi.org.in/Scripts/AnnualReportPublications.aspx?Id=1208"
+      ]
+    },
+    {
+      "text": "The article's framing that India's demonetization failed to punish hoarders of untraceable cash and that electronic-transaction gains were largely transitory is supported by RBI data and reporting that the cost of new note printing more than doubled while the share of unreturned currency was minuscule, undercutting the stated black-money rationale.",
+      "citations": [
+        "https://indianexpress.com/article/business/banking-and-finance/demonetisation-99-per-cent-of-demonetised-notes-came-back-rbi-annual-report-4821558/",
+        "https://www.business-standard.com/article/economy-policy/people-returned-98-96-of-demonetised-rs-500-and-rs-1-000-notes-rbi-117083001197_1.html"
+      ]
+    },
+    {
+      "text": "The article's general points about privacy loss, exposure to hacking and outages, and digital-exclusion risks for the elderly and unbanked echo concerns later flagged by the Riksbank itself, which warns that going fully cashless creates resilience and inclusion risks, especially in crises affecting electricity or telecommunications.",
+      "citations": [
+        "https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2023/political-decisions-needed-urgently--so-that-everyone-can-pay/",
+        "https://nordictimes.com/the-nordics/sweden/a-cashless-society-less-and-less-cash-in-circulation-in-sweden/"
+      ]
+    },
+    {
+      "text": "One limitation is that the article does not quantify or cite peer-reviewed evidence for several causal claims it makes (for example, that cashless payments increase overspending or that negative interest rates would be passed to consumers), presenting them as plausible rather than empirically demonstrated.",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702"
+      ]
+    },
+    {
+      "text": "Bottom line: the article is a credible, balanced 2021 explainer from a reputable personal-finance outlet whose specific factual citations (the Wright et al. EBT study, Sweden's ~1% cash-to-GDP ratio, and India's ~99% note-return rate) check out, but its forward-looking claim that Sweden would be 100% digital by 2023 has been overtaken by events, so readers should treat the Sweden timeline and any policy implications as outdated.",
+      "citations": [
+        "https://www.thebalance.com/pros-and-cons-of-moving-to-a-cashless-society-4160702",
+        "https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2023/political-decisions-needed-urgently--so-that-everyone-can-pay/",
+        "https://waps.l3s.uni-hannover.de/live/https:/economictimes.indiatimes.com/news/international/world-news/sweden-urges-cash-resurgence-government-moves-to-reinstate-banknotes-amid-cashless-society-concerns/articleshow/129657774.cms"
+      ]
+    }
+  ]
+}

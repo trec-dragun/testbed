@@ -1,0 +1,44 @@
+{
+  "responses": [
+    {
+      "text": "The target text, published on the alternative health and conspiracy site Natural News by Mike Adams, accurately states that a Coca-Cola partner imports coca leaves but baselessly speculates that the refined cocaine byproduct is used for illicit bribes rather than medical purposes.",
+      "citations": [
+        "http://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    },
+    {
+      "text": "The core logistical premise of the article is factually correct: the New Jersey-based Stepan Company legally imports coca leaves from South America under special authorization from the Drug Enforcement Administration.",
+      "citations": [
+        "https://www.nytimes.com/1988/07/01/business/how-coca-cola-obtains-its-coca.html"
+      ]
+    },
+    {
+      "text": "Stepan processes these leaves to produce a decocainized flavor extract that is sold exclusively to the Coca-Cola Company, a legacy arrangement designed to preserve the traditional taste of the beverage without retaining any narcotics.",
+      "citations": [
+        "https://www.theatlantic.com/health/archive/2013/01/why-we-took-cocaine-out-of-soda/272694/"
+      ]
+    },
+    {
+      "text": "During this extraction process, the active narcotic component is isolated and sold as pure cocaine to Mallinckrodt Pharmaceuticals, the only U.S. company licensed to receive it.",
+      "citations": [
+        "https://www.nytimes.com/1988/07/01/business/how-coca-cola-obtains-its-coca.html"
+      ]
+    },
+    {
+      "text": "While the Natural News article strongly insinuates that the hundreds of kilos of this resulting cocaine cannot possibly be intended for legitimate medical use, refined cocaine actually has a long-standing, FDA-approved role in modern healthcare.",
+      "citations": [
+        "https://www.accessdata.fda.gov/drugsatfda_docs/label/2017/209963s000lbl.pdf"
+      ]
+    },
+    {
+      "text": "Because it acts simultaneously as a highly effective topical anesthetic and a potent vasoconstrictor, cocaine hydrochloride is routinely utilized in hospital settings to reduce bleeding and manage localized pain during ear, nose, and throat surgeries.",
+      "citations": [
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6410659/"
+      ]
+    },
+    {
+      "text": "Therefore, while the target piece builds its narrative upon an accurate and historically unique corporate supply chain, it misleadingly characterizes standard pharmaceutical manufacturing as a nefarious, systemic conspiracy.",
+      "citations": []
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "responses": [
+    {
+      "text": "The target is a Healthline health-explainer article titled \"The Mandela Effect: How False Memories Occur,\" written by Rachel Nall, MSN, CRNA, medically reviewed by Timothy J. Legg, Ph.D., CRNP, and dated March 13, 2020.",
+      "citations": [
+        "https://www.healthline.com/health/mental-health/mandela-effect"
+      ]
+    },
+    {
+      "text": "Healthline is a consumer health publisher that says every piece of clinical content is reviewed by its Medical Network of healthcare professionals before publication, which makes this kind of explainer a reasonable general-audience source on memory phenomena rather than a peer-reviewed scientific reference.",
+      "citations": [
+        "https://www.healthline.com/about/about-us",
+        "https://www.healthline.com/about/process",
+        "https://healthline.com/medical-team"
+      ]
+    },
+    {
+      "text": "The bylined author, Rachel Nall, is a Certified Registered Nurse Anesthetist and long-time freelance medical writer with a Master of Science in Nursing from the University of Tennessee, which gives her clinical background but not specialized expertise in memory research.",
+      "citations": [
+        "https://www.healthline.com/authors/rachel-nall-msn-crna",
+        "https://www.health.com/rachel-nall-6835390"
+      ]
+    },
+    {
+      "text": "The article's central claim is that the \"Mandela effect\" is a phenomenon in which a large group of people share a confidently held memory of an event that did not occur, and that mainstream science explains it through normal memory errors such as confabulation and false memories rather than parallel universes.",
+      "citations": [
+        "https://www.healthline.com/health/mental-health/mandela-effect"
+      ]
+    },
+    {
+      "text": "The article's origin story — that the term was coined by self-described \"paranormal consultant\" Fiona Broome after she found other people who, like her, falsely remembered Nelson Mandela dying in prison in the 1980s — matches Broome's own account on her original Mandela Effect site and independent write-ups by Snopes, Know Your Meme, and Verywell Mind.",
+      "citations": [
+        "https://mandelaeffectsite.wordpress.com/",
+        "https://www.snopes.com/news/2016/07/24/the-mandela-effect/",
+        "https://knowyourmeme.com/memes/the-mandela-effect",
+        "https://www.verywellmind.com/what-is-the-mandela-effect-4589394"
+      ]
+    },
+    {
+      "text": "The article's factual anchor — that Nelson Mandela actually lived until 2013 rather than dying in prison in the 1980s — is confirmed by the South African government's official obituary and contemporaneous reporting from the BBC, CNN, and The Washington Post, all of which place his death on December 5, 2013, at age 95.",
+      "citations": [
+        "http://www.mandela.gov.za/obituary.html",
+        "https://www.bbc.com/news/world-africa-25249520",
+        "https://www.cnn.com/2013/12/05/world/africa/nelson-mandela",
+        "https://www.washingtonpost.com/world/africa/2013/12/05/33558832-5df7-11e3-bc56-c6ca94801fac_story.html"
+      ]
+    },
+    {
+      "text": "The article's description of confabulation as \"honest lying,\" in which a person unintentionally fills gaps in memory without intending to deceive, aligns with peer-reviewed and clinical descriptions in StatPearls/NCBI and a Boston University cognitive-neuroscience review that explicitly use the \"honest lying\" framing, though those sources emphasize that classic confabulation is usually tied to brain injury or dementia rather than to healthy crowds misremembering pop culture.",
+      "citations": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK536961/",
+        "https://www.bu.edu/mdrc/files/2012/04/2010_Gilboa_JINS.pdf",
+        "https://en.wikipedia.org/wiki/Confabulation?wprov=sfti1",
+        "https://www.medicalnewstoday.com/articles/confabulation"
+      ]
+    },
+    {
+      "text": "The article's pop-culture example that the children's book series is actually spelled \"Berenstain Bears,\" not \"Berenstein Bears,\" is corroborated by the official Berenstain Bears site, a statement from Stan and Jan Berenstain's granddaughter Emily Berenstain, and a Yahoo News fact check, all of which document that the name has always been \"Berenstain.\"",
+      "citations": [
+        "https://berenstainbears.com/tree-house-trivia/",
+        "https://berenstainbears.wordpress.com/2016/10/06/guest-post-myth-busters-with-emily-berenstain/",
+        "https://uk.news.yahoo.com/fact-check-berenstain-vs-berenstein-230000311.html"
+      ]
+    },
+    {
+      "text": "The article's claim that Darth Vader's line in The Empire Strikes Back is \"I am your father\" rather than the widely misquoted \"Luke, I am your father\" is confirmed by Lucasfilm's own retrospective, the IMDb quotes page, and fact checks from Snopes and Mental Floss, which all give the exchange as \"No. I am your father.\"",
+      "citations": [
+        "https://www.lucasfilm.com/news/defining-moments-i-am-your-father/",
+        "https://www.imdb.com/title/tt0080684/quotes/",
+        "https://www.snopes.com/fact-check/star-wars-luke-i-am-your-father/",
+        "https://www.mentalfloss.com/entertainment/movies/darth-vader-doesnt-say-luke-i-am-your-father"
+      ]
+    },
+    {
+      "text": "The article's framing that \"conspiracy theorists believe the Mandela effect is an example of alternate universes\" reflects a real strand of online discourse that Broome herself entertained on her original site, but presenting it alongside the memory-science explanation as a comparable view risks giving false balance to a fringe, untestable claim.",
+      "citations": [
+        "https://mandelaeffectsite.wordpress.com/",
+        "https://www.snopes.com/news/2016/07/24/the-mandela-effect/",
+        "https://knowyourmeme.com/memes/the-mandela-effect"
+      ]
+    },
+    {
+      "text": "Missing context worth noting: the article does not mention that academic memory researchers attribute Mandela-effect-style errors to well-studied mechanisms like schema-driven reconstruction, source-monitoring errors, and the misinformation effect rather than to clinical confabulation, and a 2022 University of Chicago study by Prasad and Bainbridge formally documented the \"Visual Mandela Effect\" as a reproducible memory phenomenon.",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Confabulation?wprov=sfti1",
+        "https://www.bu.edu/mdrc/files/2012/04/2010_Gilboa_JINS.pdf"
+      ]
+    },
+    {
+      "text": "The article is also somewhat dated: it was last medically reviewed on March 13, 2020, so readers looking for the most current cognitive-science framing of shared false memories should supplement it with newer peer-reviewed work.",
+      "citations": [
+        "https://www.healthline.com/health/mental-health/mandela-effect"
+      ]
+    },
+    {
+      "text": "Bottom line: this Healthline piece is a generally trustworthy, accurately sourced consumer explainer — its key verifiable facts about Mandela's death, the origin of the term, the Berenstain Bears spelling, and the Darth Vader quote all check out — but it is a lay summary by a non-specialist author that simplifies the cognitive science and gives more rhetorical room to the \"alternate universes\" idea than the evidence warrants.",
+      "citations": [
+        "https://www.healthline.com/health/mental-health/mandela-effect",
+        "https://www.bbc.com/news/world-africa-25249520",
+        "https://www.snopes.com/news/2016/07/24/the-mandela-effect/",
+        "https://www.ncbi.nlm.nih.gov/books/NBK536961/"
+      ]
+    }
+  ]
+}

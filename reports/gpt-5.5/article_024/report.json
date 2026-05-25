@@ -1,0 +1,59 @@
+{
+  "responses": [
+    {
+      "text": "The target is a July 31, 2020 New York Times technology news article by Kate Conger and Nathaniel Popper about charges following the July 15, 2020 Twitter account-takeover and bitcoin scam.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html"
+      ]
+    },
+    {
+      "text": "Its main claim is that authorities arrested 17-year-old Graham Ivan Clark in Tampa, charged him as an adult with 30 felonies, and accused Mason Sheppard and Nima Fazeli of helping in the scheme.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html",
+        "https://www.npr.org/2020/07/31/897815039/florida-teen-charged-as-mastermind-of-massive-twitter-hack",
+        "https://www.secretservice.gov/newsroom/releases/2020/07/three-individuals-charged-alleged-roles-twitter-hack"
+      ]
+    },
+    {
+      "text": "A contemporaneous U.S. Attorney announcement published by the Secret Service confirms that three people were charged, identifies Sheppard and Fazeli by name and aliases, and says the juvenile case was referred to the State Attorney for the 13th Judicial District in Tampa.",
+      "citations": [
+        "https://www.secretservice.gov/newsroom/releases/2020/07/three-individuals-charged-alleged-roles-twitter-hack"
+      ]
+    },
+    {
+      "text": "Twitter's own incident update corroborates the technical outline that attackers used phone spear phishing and employee credentials to target 130 accounts, tweet from 45, access 36 direct-message inboxes, and download data from 7.",
+      "citations": [
+        "https://blog.x.com/en_us/topics/company/2020/an-update-on-our-security-incident"
+      ]
+    },
+    {
+      "text": "Official charging statements corroborate the article’s broad bitcoin-scam account but give a lower publicly stated floor of more than 400 transfers worth over $100,000, whereas the article labels its more than $180,000 figure as a New York Times estimate.",
+      "citations": [
+        "https://www.secretservice.gov/newsroom/releases/2020/07/three-individuals-charged-alleged-roles-twitter-hack",
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html"
+      ]
+    },
+    {
+      "text": "The article appropriately frames the case as charges and allegations rather than a conviction, matching the government release’s warning that complaint allegations were not proof and defendants were presumed innocent unless proved guilty.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html",
+        "https://www.secretservice.gov/newsroom/releases/2020/07/three-individuals-charged-alleged-roles-twitter-hack"
+      ]
+    },
+    {
+      "text": "Later reporting that Clark pleaded guilty and received a three-year sentence further supports the article’s identification of him as a central defendant, although that outcome occurred after the article was published.",
+      "citations": [
+        "https://www.bbc.co.uk/news/technology-56429204"
+      ]
+    },
+    {
+      "text": "Bottom line: the article is highly trustworthy on the arrests, identities, charges, attack method, and approximate scale, with the main caution that mastermind and dollar-total language should be read as prosecutor framing and the outlet’s own estimate.",
+      "citations": [
+        "https://www.nytimes.com/2020/07/31/technology/twitter-hack-arrest.html",
+        "https://www.secretservice.gov/newsroom/releases/2020/07/three-individuals-charged-alleged-roles-twitter-hack",
+        "https://blog.x.com/en_us/topics/company/2020/an-update-on-our-security-incident",
+        "https://www.bbc.co.uk/news/technology-56429204"
+      ]
+    }
+  ]
+}

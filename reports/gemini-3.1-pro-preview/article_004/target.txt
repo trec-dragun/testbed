@@ -1,0 +1,108 @@
+Title: Quantum computers could crack Bitcoin by 2022 - Decrypt
+URL: https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022
+Heading: Quantum computers could crack Bitcoin by 2022
+Quantum computers could crack Bitcoin by 2022
+Quantum computers could one day be used to crack the encryption of cryptocurrencies like Bitcoin. And that day could come sooner than anticipated.
+In brief
+Bitcoin’s race to outrun the quantum computer
+What are quantum computers?
+How could quantum computers crack Bitcoin’s code?
+“An adversary could insert its own blocks and undermine the entire blockchain.”
+When will quantum computers pose a threat to Bitcoin?
+What Google’s quantum computer means for Bitcoin
+Are quantum-secure blockchains possible?
+
+Quantum computers could crack Bitcoin by 2022 - Decrypt
+Features Long Reads
+Quantum computers could crack Bitcoin by 2022
+Quantum computers could one day be used to crack the encryption of cryptocurrencies like Bitcoin. And that day could come sooner than anticipated.
+By Robert Stevens
+6 min read May 12, 2020
+May 12, 2020
+In brief
+A 4,000 qubit quantum computer could, theoretically, crack Bitcoin's encryption in a matter of seconds.
+The current generation of quantum computers max out at 54 qubits.
+A quantum computer capable of cracking Bitcoin's encryption could be just two years away.
+If you had a powerful enough computer, you could, theoretically, take control of the Bitcoin blockchain. You could credit your account with free Bitcoin or prevent others from making transactions. Since the private key to each wallet can be derived from a public key, you could access the Bitcoin wallet of whomever you wished. The keys to the $163 billion castle would be yours—of course, in that scenario, Bitcoin’s price would surely plummet as soon as its claims of invulnerability were found to be baseless.
+Whereas even the most powerful supercomputer would take thousands of years to crack Bitcoin, there are machines that could, theoretically, do so in a matter of seconds. These ultra-fast devices are called quantum computers.
+And they’re real—currently in development by some of the finest minds on the planet.
+Bitcoin’s race to outrun the quantum computer
+Want to steal some Bitcoin? All you need to do is find your victim’s 16-character public key and calculate their private key by solving something called an “elliptic curve discrete logarithm p...
+News Coins
+Robert Stevens Aug 18, 2019
+Aug 18, 2019
+7 min read
+7 min read
+Some experts told Decrypt that it’s already too late for Bitcoin; quantum computers, developed in secrecy by governments, could corrupt the blockchain in just a few years' time.
+But others, including some developers of quantum computers, say that the anxiety is farfetched and distant; by the time quantum computers become reliable and powerful enough to attack Bitcoin, blockchain developers will have already patched this vulnerability.
+Want to know more? This comprehensive guide contains everything you need to know about quantum computers and Bitcoin.
+What are quantum computers?
+Quantum physics involves the investigation of structures smaller than atoms. When looking at sub-atomic structures, the laws of physics go out the window and crazy things begin to happen. Quantum computers exploit those properties to perform calculations far faster than even the most powerful supercomputer.
+Traditional computers, like the one you’re reading this article on, operate in terms of 1s and 0s. If something is “true”, then the transistor will register a 1. And if it’s “false,” the transistor will read 0. There are billions of transistors in each computer; an estimated 13 sectillion have been created since the first one was created in 1947, making it the most manufactured device, period.
+But due to something called “quantum superposition”, the transistors in quantum computers can register both 1 and 0 simultaneously, meaning that a quantum transistor is exponentially more powerful than a regular computer.
+How could quantum computers crack Bitcoin’s code?
+Bitcoin uses something called the Elliptical Curve Digital Signature Algorithm (ECDSA) to sign digital signatures, and uses a cryptography standard called SHA-256 to hash blocks on the chain.
+With Bitcoin, a private key, picked at random, is run through these algorithms to generate a public key. And the Bitcoin protocol uses the hash value of this to create a public Bitcoin address.
+Google's quantum computer (Image: Google)
+A quantum computer could reverse this process and derive the private key from a public one. And voila! Bitcoin’s claim of inviolability and unhackability is gone, and you have access to any Bitcoin wallet you want.
+Two major quantum algorithms that threaten the current state of cryptography have already been developed: Grover's and Shor's algorithms.
+“An adversary could insert its own blocks and undermine the entire blockchain.”
+Rob Campbell
+Rob Campbell, President at Baltimore, Maryland-based Med Cybersecurity, told Decrypt that quantum computers using both Grover’s and Shor’s algorithm could also “mine much faster than everyone else, and therefore an adversary could insert its own blocks and undermine the entire blockchain.”
+When will quantum computers pose a threat to Bitcoin?
+YouTube
+Google
+10M subscribers
+Subscribe
+Demonstrating Quantum Supremacy
+Info
+Shopping
+Tap to unmute
+If playback doesn't begin shortly, try restarting your device.
+You're signed out
+Videos you watch may be added to the TV's watch history and influence TV recommendations. To avoid this, cancel and sign in to YouTube on your computer.
+Cancel
+Confirm
+More videos
+More videos
+Switch camera
+Share
+Include playlist
+An error occurred while retrieving sharing information. Please try again later.
+Watch later
+Share
+Copy link
+Watch on
+0:00
+0:00
+0:00 / 4:43
+Live
+•
+It’s estimated that you’d need a quantum computer with at least 4,000 qubits—the unit that denotes the power of a quantum computer—to crack Bitcoin’s code. The thing is, the most powerful quantum computers today are… decidedly less powerful. In October 2019, Google announced a quantum computer with 54 qubits; it’s the most powerful quantum computer announced in the public domain.
+But Campbell said that major companies, such as Google, Amazon, Microsoft and IBM are making “rapid progress,” as are a host of smaller companies.
+So how long until the quantum computing threat becomes a problem for Bitcoin? It depends whom you ask. At the World Economic Forum in Davos, Sundar Pichai, CEO of Google’s parent company, Alphabet, was among the first major figures to put a deadline on it. He said: "In a five to 10 year time frame, quantum computing will break encryption as we know it today."
+Some blockchain leaders are not worried by this timeline. At Web Summit 2019, Hedera Hashgraph founder Dr. Leemon Baird compared the quantum computing threat to the Y2K problem—a date formatting issue that doomsdayers thought would break the world’s major computer systems come January 1, 2000. Said Baird: “Like Y2K; yes, we had to make some changes to software at Y2K. Was it the end of the world? Actually, no.”
+What Google’s quantum computer means for Bitcoin
+A document published—and later deleted—by NASA a few days ago revealed that we could soon be entering a new technological era: Google has achieved "quantum supremacy"—supposedly. According to ...
+News Technology
+Jose Antonio Lanz Sep 25, 2019
+Sep 28, 2019
+4 min read
+4 min read
+Vitalik Buterin, co-founder of Ethereum, is also unfazed. He told Forkast News in October 2019 that, “For every cryptographic algorithm that quantum computers can break, we know that we have a replacement […] that quantum computers cannot break." Though these may be less efficient, "We have an upgrade path and we know what the upgrade path is,” he said.
+But the threat could be far more imminent, Andersen Cheng, CEO of London-based cryptography company Post-Quantum, told Decrypt. In the intelligence world, which Cheng knows well—his company has worked with the counter-terrorism departments of organizations such as NATO, GCHQ, and NCSC—“there's been some evidence that it could well be around two years away.”
+The Sycamore processor at the heart of Google's quantum computer (Image: Google)
+Cheng said that Pichai’s prediction of five to ten years is based on commercially available quantum computers; no government is going to let on that they have a huge quantum computer “the size of a stadium” hidden away in an underground bunker, he said.
+For Pichai to sell Google's quantum computer to other companies, it would have to be stable and practical. But for a government computer, none of this matters “so long as you can start cracking encryption,” said Cheng.
+Cheng also dismissed concerns that a quantum computer would have to be purpose-built to crack Bitcoin’s code, and whether that could take even longer. Since Shor and Grover's algorithms already exist, “people know exactly what to do, but they just haven't got the power to do it.” Now, people are “just waiting for the power to arise.”
+Are quantum-secure blockchains possible?
+Right now, it’s up to the blockchain and cryptography community to build quantum-secure blockchains.
+One major milestone is a competition to create post-quantum cryptographic algorithms run by the National Institute for Standards and Technology (NIST), the cryptography world’s standard setter. NIST’s winner would determine the algorithm for a blockchain that’s resilient to quantum computers.
+I am extremely pleased to finally be able to bring a new, exciting project out of stealth: @praxxis_io https://t.co/CMcVZLtSxe
+— David Chaum (@chaumdotcom) August 20, 2019
+Then, blockchains could fork to a post-quantum-secure algorithm. Or, blockchains could start from the ground up. For instance, David Chaum, creator of digital cash, has begun work on Praxxis, a “quantum-resistant” blockchain that claims to use quantum-resistant digital signatures to sign transactions for the platform’s native currency, the xx coin.
+But it’s too early to call things until NIST makes its judgment, which Cheng predicts would be as late as 2022.
+Until then, Bitcoin holders will be living in a state of quantum uncertainty.
+https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022
+Read on the Decrypt App for the best experience.
+For the best experience, top crypto news at your fingertips and exclusive features download now.

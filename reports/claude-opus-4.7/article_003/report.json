@@ -1,0 +1,102 @@
+{
+  "responses": [
+    {
+      "text": "The target is a 2011 NaturalNews.com article by Mike Adams (the \"Health Ranger\") arguing that Coca-Cola's continued importation of coca leaves produces hundreds of kilos of cocaine annually that cannot plausibly all go to legitimate medical use, and insinuating possible diversion or DEA bribery.",
+      "citations": [
+        "http://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    },
+    {
+      "text": "NaturalNews and its founder Mike Adams are widely classified as low-credibility, conspiracy-promoting sources by independent media-literacy and fact-checking organizations, which is critical context for evaluating the article's editorial framing.",
+      "citations": [
+        "https://mediabiasfactcheck.com/the-health-ranger/",
+        "https://www.politifact.com/personalities/mike-adams/",
+        "https://sciencebasedmedicine.org/hacker-x-and-mike-adams/"
+      ]
+    },
+    {
+      "text": "The basic factual core—that Coca-Cola sources coca-leaf flavoring through the Stepan Company, the only U.S. firm DEA-licensed to import coca leaves, which extracts the cocaine and sells it to Mallinckrodt for medicinal use—is corroborated by a 1988 New York Times investigation and by Stepan/Mallinckrodt's own descriptions.",
+      "citations": [
+        "https://www.nytimes.com/1988/07/01/business/how-coca-cola-obtains-its-coca.html",
+        "https://en.m.wikipedia.org/wiki/Stepan_Company",
+        "https://www.businessinsider.in/see-the-new-jersey-factory-where-cocaine-is-removed-from-the-ingredients-of-coca-cola/articleshow/21291170.cms"
+      ]
+    },
+    {
+      "text": "Independent reporting confirms Stepan imports roughly 100 metric tons of dried coca leaves per year from Peru (and historically Bolivia), matching the figure used in the article.",
+      "citations": [
+        "https://en.m.wikipedia.org/wiki/Stepan_Company",
+        "https://coca-tea.nonstate.net/2012/03/how-coca-cola-obtains-its-coca.html"
+      ]
+    },
+    {
+      "text": "The article's claim that the 1922 \"Jones-Miller Act\" banned cocaine imports while exempting Coca-Cola is partly correct: the Narcotic Drugs Import and Export Act of 1922 (Jones-Miller Act) tightened import controls, and reporting on the law's history shows lobbying produced a carve-out for de-cocainized coca leaves that benefited Coca-Cola's supplier (then Maywood Chemical Works, later acquired by Stepan).",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Narcotic_Drugs_Import_and_Export_Act",
+        "https://www.law.cornell.edu/topn/jones-miller_act_narcotics_import_and_export",
+        "https://www.eater.com/23620802/cocaine-in-coca-cola-coke-recipe-gastropod",
+        "https://blog.oup.com/2014/03/coke-cocaine-coca-cola-capitalism-business-strategy/"
+      ]
+    },
+    {
+      "text": "The article's premise that coca leaves are \"completely safe and non-addictive\" and that cocaine appears only after \"intensive processing and toxic chemical ingredients\" is misleading, because cocaine is naturally present as the principal alkaloid in dried coca leaves at typical concentrations of roughly 0.1–1%, according to UNODC and peer-reviewed phytochemical analyses.",
+      "citations": [
+        "https://www.unodc.org/documents/scientific/Cocaine_Manual_Rev_1.pdf",
+        "https://journals.sagepub.com/doi/10.1177/156482650903000301",
+        "https://www.unodc.org/unodc/en/data-and-analysis/bulletin/bulletin_1985-01-01_1_page006.html"
+      ]
+    },
+    {
+      "text": "The article's central insinuation—that hundreds of kilos of cocaine cannot plausibly be used medically and may be diverted or used to bribe DEA officials—is unsupported speculation explicitly labeled by the author as \"pure conjecture,\" with no documentary evidence offered.",
+      "citations": [
+        "http://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    },
+    {
+      "text": "Cocaine hydrochloride remains an FDA-approved Schedule II prescription topical anesthetic used in ear, nose, throat, and ophthalmic procedures, with branded products such as Goprelto and Numbrino approved in 2017 and 2020 and large surveys finding it is routinely used by U.S. otolaryngologists, providing a documented legitimate medical channel for the cocaine extracted by Stepan and refined by Mallinckrodt.",
+      "citations": [
+        "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=689750b7-8e51-47d9-a428-078f3f6c9dec&type=display",
+        "https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=d724b5b4-6654-4bf5-9eed-e2c7943084ed",
+        "https://onlinelibrary.wiley.com/doi/10.1002/alr.22561",
+        "https://assets.cureus.com/uploads/review_article/pdf/170332/20240718-23291-16rkq1n.pdf"
+      ]
+    },
+    {
+      "text": "The 1988 New York Times article the author cites explicitly states that Mallinckrodt purifies the extract \"into one chemical form, cocaine hydrochloride U.S.P.\" sold to hospitals \"primarily as a local anesthetic used by eye and ear, nose and throat specialists,\" a sourced explanation the NaturalNews piece omits while presenting the medical-use rationale as implausible.",
+      "citations": [
+        "https://www.nytimes.com/1988/07/01/business/how-coca-cola-obtains-its-coca.html",
+        "https://coca-tea.nonstate.net/2012/03/how-coca-cola-obtains-its-coca.html"
+      ]
+    },
+    {
+      "text": "The author's arithmetic that 100 metric tons of leaves yields about 333 kg of cocaine assumes a 1:300 yield, which is in the right order of magnitude given typical 0.3–1% leaf alkaloid content but should be treated as a rough upper-bound estimate, not a precise figure.",
+      "citations": [
+        "https://www.unodc.org/documents/scientific/Cocaine_Manual_Rev_1.pdf",
+        "https://www.erowid.org/archive/rhodium/chemistry/cocaine.illicit.production.html"
+      ]
+    },
+    {
+      "text": "Historical scholarship confirms Coca-Cola's long, politically negotiated role in the U.S. coca trade, including FBN/DEA cooperation and a Hawaiian coca-farm pilot, supporting the article's broader point that Coca-Cola has unique legal access to coca even though the article frames this in conspiratorial rather than historical terms.",
+      "citations": [
+        "https://blog.oup.com/2014/03/coke-cocaine-coca-cola-capitalism-business-strategy/",
+        "https://www.cambridge.org/core/journals/journal-of-latin-american-studies/article/abs/secret-ingredients-the-politics-of-coca-in-usperuvian-relations-191565/1418ABE7E117362288DB40C33790E82E"
+      ]
+    },
+    {
+      "text": "The article's racially framed aside that \"young African American men are given ten-year prison sentences for pot possession\" is rhetorical and uncited; while racial disparities in U.S. drug enforcement are well documented, ten-year sentences for simple marijuana possession are not the typical outcome and the claim is unsupported in the article itself.",
+      "citations": [
+        "http://www.naturalnews.com/032658_Coca-Cola_cocaine.html"
+      ]
+    },
+    {
+      "text": "Bottom line: the article mixes verifiable historical and regulatory facts (Stepan, Mallinckrodt, ~100 tons/year, DEA exemption rooted in 1922 legislation) with speculative innuendo (cocaine bribery of DEA, implausibility of medical use) and one factual error (claim that coca leaves contain no cocaine), and it comes from a source with a documented record of pseudoscience and conspiracy content, so readers should accept only the documented sourcing-and-licensing claims and treat the diversion/bribery narrative as unverified opinion.",
+      "citations": [
+        "https://www.nytimes.com/1988/07/01/business/how-coca-cola-obtains-its-coca.html",
+        "https://en.m.wikipedia.org/wiki/Stepan_Company",
+        "https://mediabiasfactcheck.com/the-health-ranger/",
+        "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=689750b7-8e51-47d9-a428-078f3f6c9dec&type=display",
+        "https://www.unodc.org/documents/scientific/Cocaine_Manual_Rev_1.pdf"
+      ]
+    }
+  ]
+}

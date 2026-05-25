@@ -1,0 +1,94 @@
+{
+  "responses": [
+    {
+      "text": "The target is a 2020 Verge news article by Nick Statt reporting that Epic Games sued Apple after Apple removed Fortnite from the iOS App Store.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief"
+      ]
+    },
+    {
+      "text": "The Verge is a technology-news publication, and Statt’s author profile says he had covered large technology companies, Silicon Valley startups, and the gaming industry for more than a decade.",
+      "citations": [
+        "https://www.theverge.com/authors/nick-statt"
+      ]
+    },
+    {
+      "text": "Primary court records corroborate that Epic filed a complaint for injunctive relief against Apple in the Northern District of California on August 13, 2020.",
+      "citations": [
+        "https://docs.justia.com/cases/federal/district-courts/california/candce/4:2020cv05640/364265/1"
+      ]
+    },
+    {
+      "text": "The complaint alleged that Apple unlawfully maintained monopolies in the iOS app distribution market and the iOS in-app payment processing market, and it said Epic sought injunctive relief rather than monetary damages.",
+      "citations": [
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_2.pdf"
+      ]
+    },
+    {
+      "text": "The Verge’s account that the dispute followed Epic adding its own payment option is corroborated by the complaint, which says Epic added a direct payment option for Fortnite on iOS and offered users a 20 percent in-app price reduction.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief",
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_2.pdf"
+      ]
+    },
+    {
+      "text": "Apple’s contemporaneous public statement said it removed Fortnite because Epic enabled an unreviewed payment feature with the express intent of violating App Store in-app payment guidelines.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21366438/apple-fortnite-ios-app-store-violations-epic-payments"
+      ]
+    },
+    {
+      "text": "The article accurately treated Epic’s monopoly and tying arguments as allegations in a newly filed complaint rather than as adjudicated legal findings.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief",
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_2.pdf"
+      ]
+    },
+    {
+      "text": "One sentence in the target needs nuance because it says Epic did not take issue with Apple requiring developers to use the App Store, while the complaint also challenged Apple’s technical and contractual restrictions that prevented alternative iOS app distribution and competing app stores.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief",
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1.0_2.pdf"
+      ]
+    },
+    {
+      "text": "The later district court judgment rejected Epic’s Sherman Act claims, entered judgment for Epic only on its California Unfair Competition Law claim, and entered judgment for Apple on Apple’s breach-of-contract counterclaim.",
+      "citations": [
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.814.0_2.pdf"
+      ]
+    },
+    {
+      "text": "The later permanent injunction barred Apple from prohibiting developers from including buttons, external links, or other calls to action that direct customers to purchasing mechanisms in addition to Apple’s in-app purchasing.",
+      "citations": [
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.813.0.pdf"
+      ]
+    },
+    {
+      "text": "The Ninth Circuit mostly affirmed in 2023 by rejecting Epic’s Sherman Act challenges, affirming Epic’s California UCL anti-steering relief, and reversing only on Apple’s attorney-fee issue.",
+      "citations": [
+        "https://cdn.ca9.uscourts.gov/datastore/opinions/2023/04/24/21-16506.pdf"
+      ]
+    },
+    {
+      "text": "The Supreme Court declined review in January 2024, leaving the appellate outcome and the anti-steering injunction in place.",
+      "citations": [
+        "https://www.supremecourt.gov/orders/courtorders/011624zor_e1pf.pdf"
+      ]
+    },
+    {
+      "text": "Subsequent enforcement proceedings added context because in 2025 the district court found Apple in willful violation of the 2021 injunction, although that did not turn Epic’s mostly unsuccessful federal antitrust claims into wins.",
+      "citations": [
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.1508.0%5F2.pdf",
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.814.0_2.pdf"
+      ]
+    },
+    {
+      "text": "Bottom line: the target article is trustworthy for the contemporaneous facts that Epic sued Apple after Fortnite’s removal and accurately summarized Epic’s filed allegations, but readers should not treat Epic’s monopoly theory as a fact established by later courts.",
+      "citations": [
+        "https://www.theverge.com/2020/8/13/21367963/epic-fortnite-legal-complaint-apple-ios-app-store-removal-injunctive-relief",
+        "https://storage.courtlistener.com/recap/gov.uscourts.cand.364265/gov.uscourts.cand.364265.812.0_3.pdf",
+        "https://cdn.ca9.uscourts.gov/datastore/opinions/2023/04/24/21-16506.pdf"
+      ]
+    }
+  ]
+}

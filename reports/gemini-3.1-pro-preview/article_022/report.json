@@ -1,0 +1,46 @@
+{
+  "responses": [
+    {
+      "text": "The provided target is an April 2019 article from Australia's news.com.au covering the immediate aftermath of the fire at Notre Dame Cathedral in Paris.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904"
+      ]
+    },
+    {
+      "text": "The article accurately reports that early statements from French officials and firefighters assessed the fire as an accident potentially linked to ongoing renovations, rather than an act of arson.",
+      "citations": [
+        "https://www.reuters.com/article/us-france-notredame-investigation-idUSKCN1R11R6/"
+      ]
+    },
+    {
+      "text": "It also accurately describes a live Fox News segment where anchor Shepard Smith abruptly ended an interview with French commentator Philippe Karsenty after Karsenty suggested without evidence that the fire was deliberately lit.",
+      "citations": [
+        "https://apnews.com/article/entertainment-tv-religion-fox-corp-paris-aa87ce2ec0cf4769a68a1d77a9446908"
+      ]
+    },
+    {
+      "text": "Independent and official sources corroborate that prosecutors and investigators have consistently found no indication of criminal intent in the incident.",
+      "citations": [
+        "https://www.bbc.com/news/world-europe-48776794"
+      ]
+    },
+    {
+      "text": "In June 2019, following a preliminary investigation that involved over 100 witness interviews, the Paris prosecutor's office concluded there was no evidence of deliberate arson.",
+      "citations": [
+        "https://www.upi.com/Top_News/World-News/2019/06/27/Paris-investigators-No-evidence-of-arson-in-Notre-Dame-Cathedral-fire/4661561638302/"
+      ]
+    },
+    {
+      "text": "Instead, investigators identified two main hypotheses for the fire: an electrical short-circuit or a poorly extinguished cigarette left by a worker.",
+      "citations": [
+        "https://www.france24.com/en/20190626-notre-dame-fire-likely-caused-cigarette-electrical-fault"
+      ]
+    },
+    {
+      "text": "Subsequent inquiries years later reaffirmed the theory that the blaze was a tragic accident, and the case remains open in the hands of investigating magistrates with no suspects charged for arson.",
+      "citations": [
+        "https://www.lemonde.fr/en/france/article/2024/04/15/five-years-after-notre-dame-fire-the-investigation-is-still-ongoing_6668480_7.html"
+      ]
+    }
+  ]
+}

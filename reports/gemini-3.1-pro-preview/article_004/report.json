@@ -1,0 +1,51 @@
+{
+  "responses": [
+    {
+      "text": "A May 2020 article in Decrypt claimed that quantum computers, supposedly developed in secrecy by governments, could crack Bitcoin's encryption \"in just a few years' time.\"",
+      "citations": [
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022"
+      ]
+    },
+    {
+      "text": "The core of the prediction came from Andersen Cheng, CEO of Post-Quantum, who asserted there was evidence in the intelligence world that such decryption capabilities \"could well be around two years away.\"",
+      "citations": [
+        "https://decrypt.co/28560/quantum-computers-could-crack-bitcoins-encryption-by-2022"
+      ]
+    },
+    {
+      "text": "Post-Quantum is a commercial cybersecurity firm that actively builds, patents, and sells quantum-resistant security products.",
+      "citations": [
+        "https://www.post-quantum.com/about-us/",
+        "https://techcrunch.com/2016/07/07/quantum-encryption-startup-pq-bags-10-3m-series-a/"
+      ]
+    },
+    {
+      "text": "As a vendor in the post-quantum cryptography market, the company and its CEO have a direct financial incentive to emphasize imminent quantum threats to drive adoption of their paid enterprise products.",
+      "citations": [
+        "https://techcrunch.com/2016/07/07/quantum-encryption-startup-pq-bags-10-3m-series-a/"
+      ]
+    },
+    {
+      "text": "Independent quantum researchers heavily dispute timelines of 2 to 5 years, explaining that overriding Bitcoin's elliptic curve cryptography with Shor's algorithm requires a fault-tolerant, large-scale \"Cryptographically Relevant Quantum Computer\" (CRQC).",
+      "citations": [
+        "https://quantumobserver.substack.com/p/quantum-computing-vs-bitcoin",
+        "https://www.rand.org/pubs/research_reports/RRA869-1.html"
+      ]
+    },
+    {
+      "text": "Because of massive error-correction overhead, such a machine would currently require millions of physical qubits—orders of magnitude beyond the 54-qubit Google Sycamore processor cited in the article.",
+      "citations": [
+        "https://www.scientificamerican.com/article/how-close-are-we-to-a-quantum-computer/",
+        "https://www.rand.org/pubs/research_reports/RRA869-1.html"
+      ]
+    },
+    {
+      "text": "The 2022 deadline suggested by Cheng's 2020 prediction quietly passed without any quantum computer breaking Bitcoin's encryption, effectively invalidating the timeline.",
+      "citations": []
+    },
+    {
+      "text": "Despite ongoing advances in quantum hardware, security experts and researchers maintain that no quantum system currently possesses the cryptographically relevant scale required to hack the Bitcoin network.",
+      "citations": []
+    }
+  ]
+}

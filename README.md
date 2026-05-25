@@ -10,6 +10,22 @@ The project now has three primary execution options:
 
 The public leaderboard should use the third option so reported rows compare major frontier LLMs through one common agent harness: Codex plus OpenRouter plus the selected lateral-reading skill variant.
 
+## Current Empirical Leaderboard
+
+The current public leaderboard is from a May 25, 2026 DRAGUN Task 2 report-generation run using Codex as the agent, OpenRouter as the generation provider, the default lateral-reading skill at commit `1051e45`, and the AutoJudge system judged by GLM-5.1 through OpenRouter. All rows completed 30/30 valid topics, had a citation URL pass rate of 1.0, and had zero forbidden-source violations.
+
+Rank is based on `auto_supportive_score` (higher is better). `auto_contradictory_score` is included as a contradiction signal (lower is better).
+
+| Rank | Model | Provider | Auto supportive score | Auto contradictory score | Mean report words | Reports |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| 1 | `anthropic/claude-opus-4.7` | OpenRouter | 0.4084 | 0.0177 | 600.4 | [reports/claude-opus-4.7](reports/claude-opus-4.7/) |
+| 2 | `openai/gpt-5.5` | OpenRouter | 0.3442 | 0.0070 | 399.9 | [reports/gpt-5.5](reports/gpt-5.5/) |
+| 3 | `google/gemini-3.1-pro-preview` | OpenRouter | 0.2665 | 0.0076 | 214.9 | [reports/gemini-3.1-pro-preview](reports/gemini-3.1-pro-preview/) |
+
+Detailed artifacts are checked in as [leaderboard CSV](leaderboard/leaderboard.csv), [leaderboard JSON](leaderboard/leaderboard.json), and [public per-article reports](reports/).
+
+Treat this leaderboard as an empirical run result, not as a strict controlled experiment or deterministic conclusion. The setup does not control every component that can affect generation or judging, including OpenRouter model routing and provider behavior, backend batch processing, service-tier scheduling, OpenRouter-provided web search and web fetch behavior, search index freshness, and ordinary nondeterminism in model generation and AutoJudge scoring. The table is useful for comparing these runs under this harness and date, but it should not be read as a stable model-capability ordering.
+
 ## Quick Start
 
 ```bash

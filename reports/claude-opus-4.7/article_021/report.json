@@ -1,0 +1,95 @@
+{
+  "responses": [
+    {
+      "text": "The news.com.au article claims NASA scientists have found evidence of a parallel universe where time runs backwards, based on the Antarctic Impulsive Transient Antenna (ANITA) experiment detecting cosmic-ray-like particles that appeared to come up out of the Antarctic ice.",
+      "citations": [
+        "https://www.news.com.au/technology/science/space/nasa-reveals-existence-of-parallel-universe-where-time-runs-backwards/news-story/4ba8516b17d87bc5abd24d45c1aabcbc"
+      ]
+    },
+    {
+      "text": "This framing is misleading: NASA never announced a parallel universe, and the ANITA principal investigator Peter Gorham has publicly said he and his collaborators never proposed a parallel-universe explanation for the anomalous signals.",
+      "citations": [
+        "https://www.sciencealert.com/of-course-nasa-did-not-detect-a-parallel-universe-in-antarctica",
+        "https://www.inverse.com/science/parallel-universe-claims",
+        "https://www.hawaii.edu/news/2018/12/10/antarctica-physics-discovery/"
+      ]
+    },
+    {
+      "text": "The underlying real finding is that during ANITA flights in December 2006 and December 2014 the balloon-borne radio array detected two upward-moving cosmic-ray-like events whose radio polarity was not inverted, which is unexpected because cosmic-ray signals reflected off the ice should have inverted polarity.",
+      "citations": [
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.121.161102",
+        "https://www.hawaii.edu/news/2018/12/10/antarctica-physics-discovery/",
+        "https://www.syfy.com/syfy-wire/no-nasa-did-not-discover-a-parallel-universe-where-time-runs-backwards"
+      ]
+    },
+    {
+      "text": "The published ANITA paper in Physical Review Letters describes these events as in tension with the Standard Model neutrino cross section and offers conventional explanations such as tau-lepton decay from a tau-neutrino interaction, not a parallel universe.",
+      "citations": [
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.121.161102"
+      ]
+    },
+    {
+      "text": "The parallel-universe storyline traces back to an April 2020 New Scientist feature that mentioned a separate speculative CPT-symmetric \"mirror\" cosmology paper alongside the ANITA anomalies, after which tabloids conflated the two into the viral \"NASA found a parallel universe where time runs backwards\" headline that news.com.au repeats.",
+      "citations": [
+        "https://www.sciencealert.com/of-course-nasa-did-not-detect-a-parallel-universe-in-antarctica",
+        "https://www.ibtimes.sg/hoax-busted-nasa-found-parallel-universe-where-time-moves-backwards-here-truth-45552"
+      ]
+    },
+    {
+      "text": "Gorham told ScienceAlert that journalists \"have ascribed research and papers to us which we never wrote, and theories, such as those involving parallel universes, which neither we nor our collaborators hypothesised about,\" and the University of Hawaiʻi added an editor's note on May 21, 2020 stating that media incorrectly connected its research to parallel-universe theory.",
+      "citations": [
+        "https://www.sciencealert.com/of-course-nasa-did-not-detect-a-parallel-universe-in-antarctica",
+        "https://www.hawaii.edu/news/2018/12/10/antarctica-physics-discovery/"
+      ]
+    },
+    {
+      "text": "Independent physicists quoted by CNET and cited in the news.com.au article itself, including Geraint Lewis of the University of Sydney and Pat Scott of the University of Queensland, said many ordinary candidate explanations remain on the table and that nothing about ANITA's data necessarily indicates a parallel universe.",
+      "citations": [
+        "https://www.news.com.au/technology/science/space/nasa-reveals-existence-of-parallel-universe-where-time-runs-backwards/news-story/4ba8516b17d87bc5abd24d45c1aabcbc",
+        "https://www.inverse.com/science/parallel-universe-claims"
+      ]
+    },
+    {
+      "text": "Other researchers, including Ibrahim Safa and Alex Pizzuto of the University of Wisconsin–Madison and the IceCube collaboration, have argued the anomalies are most plausibly explained by mundane effects such as unusual radio reflections from features in the Antarctic ice rather than new physics, and IceCube saw no corresponding neutrino flux that would be expected if the events were astrophysical neutrinos.",
+      "citations": [
+        "https://www.ibtimes.sg/hoax-busted-nasa-found-parallel-universe-where-time-moves-backwards-here-truth-45552",
+        "https://www.syfy.com/syfy-wire/no-nasa-did-not-discover-a-parallel-universe-where-time-runs-backwards"
+      ]
+    },
+    {
+      "text": "A follow-up ANITA-IV analysis published in Physical Review Letters in 2021 detected additional anomalous near-horizon events but no further steeply upward-going events like the original two, leaving the anomalies unresolved rather than confirming any exotic explanation.",
+      "citations": [
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.126.071103"
+      ]
+    },
+    {
+      "text": "As of 2025 the radio pulses remain unexplained but mainstream coverage in Discover Magazine reports that Gorham and collaborator Abigail Vieregg still doubt parallel-universe and extra-dimensional explanations, with Vieregg saying \"it's probably not the discovery of dark matter… not extra dimensions or whatever, but it is weird,\" and the successor experiment PUEO is intended to pin down the cause.",
+      "citations": [
+        "https://www.discovermagazine.com/antarctica-s-mysterious-radio-pulses-remain-unexplained-but-better-particle-experiments-could-change-that-48854"
+      ]
+    },
+    {
+      "text": "Key missing context in the news.com.au piece is that ANITA is a University of Hawaiʻi-led experiment only partly funded by NASA (with additional DOE funding), so framing the result as a NASA \"reveal\" overstates NASA's role and authorship.",
+      "citations": [
+        "https://www.syfy.com/syfy-wire/no-nasa-did-not-discover-a-parallel-universe-where-time-runs-backwards",
+        "https://www.hawaii.edu/news/2018/12/10/antarctica-physics-discovery/"
+      ]
+    },
+    {
+      "text": "News.com.au is a mainstream Australian commercial news site owned by News Corp Australia and the article is bylined and dated May 22, 2020, but in this case it recycled tabloid framing without adding independent verification and selectively quoted only the most sensational interpretation of the underlying physics paper.",
+      "citations": [
+        "https://www.news.com.au/technology/science/space/nasa-reveals-existence-of-parallel-universe-where-time-runs-backwards/news-story/4ba8516b17d87bc5abd24d45c1aabcbc",
+        "https://www.sciencealert.com/of-course-nasa-did-not-detect-a-parallel-universe-in-antarctica"
+      ]
+    },
+    {
+      "text": "Bottom line: the headline claim that \"NASA reveals existence of parallel universe where time runs backwards\" is false as stated; ANITA detected genuinely anomalous radio signals that are still unexplained, but no NASA announcement, no peer-reviewed paper, and none of the ANITA team members have claimed evidence of a parallel universe or backward-running time.",
+      "citations": [
+        "https://www.sciencealert.com/of-course-nasa-did-not-detect-a-parallel-universe-in-antarctica",
+        "https://www.discovermagazine.com/antarctica-s-mysterious-radio-pulses-remain-unexplained-but-better-particle-experiments-could-change-that-48854",
+        "https://www.hawaii.edu/news/2018/12/10/antarctica-physics-discovery/",
+        "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.121.161102"
+      ]
+    }
+  ]
+}

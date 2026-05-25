@@ -1,0 +1,46 @@
+{
+  "responses": [
+    {
+      "text": "The provided article addresses the \"Momo challenge,\" an internet phenomenon that allegedly involved a grotesque figure coercing children into dangerous tasks or self-harm via platforms like YouTube and WhatsApp.",
+      "citations": [
+        "https://nymag.com/intelligencer/2019/03/momo-challenge-hoax.html",
+        "https://www.snopes.com/news/2019/02/26/momo-challenge-suicide-game/"
+      ]
+    },
+    {
+      "text": "The \"challenge\" is widely recognized as a viral hoax that gained traction due to unverified rumors spread by concerned parents, local news outlets, and law enforcement agencies.",
+      "citations": [
+        "https://www.bbc.com/news/technology-47393510",
+        "https://www.theatlantic.com/technology/archive/2019/02/momo-challenge-hoax/583825/"
+      ]
+    },
+    {
+      "text": "There are no confirmed reports of any child harming themselves or being forced to participate in the challenge.",
+      "citations": [
+        "https://www.npr.org/2019/03/01/699268301/the-momo-challenge-is-a-hoax-that-shows-how-scared-parents-are",
+        "https://www.vox.com/2019/3/3/18248783/momo-challenge-hoax-explained"
+      ]
+    },
+    {
+      "text": "The unsettling image used to depict \"Momo\" is actually a cropped photograph of a 2016 sculpture named \"Mother Bird,\" created by a Japanese artist for the special effects company Link Factory.",
+      "citations": [
+        "https://www.snopes.com/news/2019/02/26/momo-challenge-suicide-game/",
+        "https://www.bbc.com/news/technology-47393510"
+      ]
+    },
+    {
+      "text": "Tech companies, including YouTube, have officially stated that they found no evidence of videos promoting the Momo challenge on their platforms.",
+      "citations": [
+        "https://nymag.com/intelligencer/2019/03/momo-challenge-hoax.html",
+        "https://www.washingtonpost.com/technology/2019/03/01/momo-challenge-isnt-viral-danger-children-online-it-sure-is-viral/"
+      ]
+    },
+    {
+      "text": "The author concludes that adults sharing these unsubstantiated rumors actually legitimize the hoax, thereby failing to model the very online literacy and skepticism they want to teach children.",
+      "citations": [
+        "https://nymag.com/intelligencer/2019/03/momo-challenge-hoax.html",
+        "https://www.theatlantic.com/technology/archive/2019/02/momo-challenge-hoax/583825/"
+      ]
+    }
+  ]
+}

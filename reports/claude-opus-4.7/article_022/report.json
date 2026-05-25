@@ -1,0 +1,106 @@
+{
+  "responses": [
+    {
+      "text": "The target article from news.com.au, published April 16, 2019 and bylined Frank Chung, summarizes early information about the April 15, 2019 Notre Dame Cathedral fire and devotes much of its length to claims that arson has been 'shut down' while still elevating speculative links between the blaze and a wave of attacks on French churches.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904"
+      ]
+    },
+    {
+      "text": "News.com.au is the digital arm of News Corp Australia and is generally classified as a mainstream tabloid-style news site whose travel section is not a primary source for French criminal investigations, so this piece is best read as an early aggregation rather than original reporting from Paris.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904"
+      ]
+    },
+    {
+      "text": "The article's core factual claims about the timeline match contemporaneous reporting: the blaze began about 6:50 p.m. local time on April 15, 2019, was first visible in the attic near the spire, and was fought by roughly 400 firefighters while the spire collapsed on live television.",
+      "citations": [
+        "https://www.cnn.com/2019/04/16/europe/notre-dame-cathedral-fire-intl",
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904"
+      ]
+    },
+    {
+      "text": "The article correctly reports Paris prosecutor Rémy Heitz's early statement that the fire appeared accidental and that an 'involuntary' cause was the focus, a position later reaffirmed by French investigators who, after years of inquiry, ruled out any criminal act and treated the fire as accidental.",
+      "citations": [
+        "https://www.cnn.com/2019/04/16/europe/notre-dame-cathedral-fire-intl",
+        "https://www.ouest-france.fr/culture/patrimoine/notre-dame-de-paris/notre-dame-de-paris-l-incendie-n-est-pas-d-origine-criminelle-conclut-l-enquete-7678993",
+        "https://www.fireriskheritage.net/analysis-of-risks-and-solutions-for-cultural-heritage/the-notre-dame-de-paris-fire-investigations/"
+      ]
+    },
+    {
+      "text": "Subsequent investigations have continued to favor accidental causes such as an electrical short circuit, possibly involving temporary electronic bells installed in the spire, or an improperly extinguished cigarette, while no definitive cause has been confirmed as of recent reporting.",
+      "citations": [
+        "https://www.pbs.org/newshour/world/short-circuit-likely-caused-notre-dame-fire-police-say",
+        "https://www.connexionfrance.com/news/notre-dame-fire-new-cause-investigated-as-2024-service-date-confirmed/436143",
+        "https://www.fireriskheritage.net/analysis-of-risks-and-solutions-for-cultural-heritage/the-notre-dame-de-paris-fire-investigations/"
+      ]
+    },
+    {
+      "text": "The article's headline framing 'ARSON CLAIMS SHUT DOWN' is accurate in that French officials publicly rejected arson from the outset, but more than half of the piece is then devoted to repeating arson-adjacent insinuations about church desecrations, which risks leaving the impression of a connection that authorities have explicitly denied.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904",
+        "https://www.fireriskheritage.net/analysis-of-risks-and-solutions-for-cultural-heritage/the-notre-dame-de-paris-fire-investigations/"
+      ]
+    },
+    {
+      "text": "The article's description of the March 2019 Saint-Sulpice fire as a 'suspected arson attack' oversimplifies the case: police did conclude the fire was deliberately set when a pile of clothing belonging to a homeless person was ignited at a side door, but the parish priest and investigators rejected the idea that it was an anti-Christian profanation, and the leading theory became a dispute among rough sleepers.",
+      "citations": [
+        "https://www.leparisien.fr/paris-75/paris-l-incendie-a-l-eglise-saint-sulpice-n-etait-pas-accidentel-18-03-2019-8034678.php",
+        "https://www.lefigaro.fr/culture/2019/03/18/03004-20190318ARTFIG00083-vitraux-et-angelots-endommages-bilan-des-degradations-a-l-eglise-saint-sulpice-a-paris.php",
+        "https://www.vaticannews.va/fr/eglise/news/2019-03/saint-sulpice-paris-incendie-reaction-cure.html"
+      ]
+    },
+    {
+      "text": "The Observatory on Intolerance and Discrimination Against Christians in Europe, quoted in the article, is a real Vienna-based advocacy group whose 2019 annual report cites a French Interior Ministry figure of 1,063 'anti-Christian acts' in 2018 and a roughly 250 percent increase in attacks on Christian sites from 2008 to 2018.",
+      "citations": [
+        "https://www.intoleranceagainstchristians.eu/fileadmin/user_upload/publications/files/Report2019_final.pdf",
+        "https://www.pravmir.com/observatory-releases-report-on-christian-persecution-in-europe/"
+      ]
+    },
+    {
+      "text": "The article's specific statistic that there was 'a 25 per cent increase in attacks on Catholic churches in the first two months of the year compared with 2018' is attributed only to Newsweek quoting the Observatory's executive director Ellen Fantini and is not corroborated in the Observatory's published annual report, so it should be treated as an advocacy-group estimate rather than an audited official figure.",
+      "citations": [
+        "https://www.newsweek.com/notre-dame-lou-dobbs-arson-fire-accident-islamists-fox-business-vandalism-1398879",
+        "https://www.intoleranceagainstchristians.eu/fileadmin/user_upload/publications/files/Report2019_final.pdf"
+      ]
+    },
+    {
+      "text": "The article's account of Fox News host Shep Smith cutting off French commentator Philippe Karsenty for suggesting arson is consistent with Newsweek and other contemporaneous reports, and Smith's on-air rebuke against speculative conspiracy theories is accurately quoted.",
+      "citations": [
+        "https://www.newsweek.com/notre-dame-lou-dobbs-arson-fire-accident-islamists-fox-business-vandalism-1398879",
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904"
+      ]
+    },
+    {
+      "text": "The article correctly notes that Karsenty was convicted of defamation in 2013 in connection with his claims that France 2 staged footage of the killing of 12-year-old Mohammed al-Dura, a conviction upheld by the Paris Court of Appeal and reported by the BBC, Al Jazeera, and Times of Israel.",
+      "citations": [
+        "https://www.bbc.co.uk/news/world-middle-east-23075865",
+        "https://www.aljazeera.com/news/2013/6/26/pro-israeli-activist-found-guilty-of-libel",
+        "https://www.timesofisrael.com/leading-critic-of-french-al-dura-coverage-convicted/"
+      ]
+    },
+    {
+      "text": "The article's claim that Karsenty was 'incorrectly identified on-screen as a French elected official' is misleading, because Karsenty had been elected as a councillor and later deputy mayor of Neuilly-sur-Seine and was widely described as an elected official in profiles from 2011 onward, so the label was at minimum defensible at the time of the broadcast.",
+      "citations": [
+        "https://fr.wikipedia.org/wiki/Philippe_Karsenty",
+        "https://www.veroniquechemla.info/2011/05/questions-answers-with-philippe.html",
+        "https://www.neuilly-sur-seine.fr/ne/c,k/videolist/marche+de+neuilly+sur+seine+jours,0"
+      ]
+    },
+    {
+      "text": "Key context missing from the article is that the cathedral was surrounded by scaffolding for an active renovation project, that fire investigators began questioning workers and cathedral staff within days, and that the early evidence base pointed strongly toward technical and procedural failures rather than any third-party intrusion.",
+      "citations": [
+        "https://www.pbs.org/newshour/world/short-circuit-likely-caused-notre-dame-fire-police-say",
+        "https://www.fireriskheritage.net/analysis-of-risks-and-solutions-for-cultural-heritage/the-notre-dame-de-paris-fire-investigations/"
+      ]
+    },
+    {
+      "text": "Bottom line: the article is broadly accurate on the basic timeline, official statements, and Karsenty's defamation conviction, but its structure juxtaposes the official 'accidental' finding with an extended sympathetic recap of arson speculation and church-attack statistics, producing a framing more suggestive of foul play than the underlying evidence then or now supports.",
+      "citations": [
+        "https://www.news.com.au/travel/travel-updates/how-did-the-notre-dame-cathedral-blaze-start/news-story/0047a8551efcbe8574ff958c5c641904",
+        "https://www.fireriskheritage.net/analysis-of-risks-and-solutions-for-cultural-heritage/the-notre-dame-de-paris-fire-investigations/",
+        "https://www.ouest-france.fr/culture/patrimoine/notre-dame-de-paris/notre-dame-de-paris-l-incendie-n-est-pas-d-origine-criminelle-conclut-l-enquete-7678993"
+      ]
+    }
+  ]
+}

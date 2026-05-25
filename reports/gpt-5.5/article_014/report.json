@@ -1,0 +1,72 @@
+{
+  "responses": [
+    {
+      "text": "Distractify’s article frames the “Blackout Challenge” as a dangerous TikTok-linked trend and cites a 10-year-old girl in Italy and 12-year-old Joshua Haileyesus in Colorado as child victims connected to asphyxiation challenges.",
+      "citations": [
+        "https://www.distractify.com/p/tiktok-blackout-challenge"
+      ]
+    },
+    {
+      "text": "The core safety warning is well supported because CDC describes the older “choking game” as self-strangulation to induce cerebral hypoxia and says prolonged strangulation can cause serious neurologic injury or death.",
+      "citations": [
+        "https://www.cdc.gov/mmwr/preview/mmwrhtml/mm5706a1.htm"
+      ]
+    },
+    {
+      "text": "The Italian privacy regulator’s January 22, 2021 order confirms that it took urgent action against TikTok after reports of the death of a 10-year-old girl from Palermo and concerns that TikTok’s age-verification measures were inadequate.",
+      "citations": [
+        "https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9524194",
+        "https://www.gpdp.it/web/guest/home/docweb/-/docweb-display/docweb/9524224"
+      ]
+    },
+    {
+      "text": "The Italian regulator’s order did not itself prove that a TikTok video caused the child’s death, and it referred to press reports and an ongoing judicial investigation rather than making a final causation finding.",
+      "citations": [
+        "https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9524194"
+      ]
+    },
+    {
+      "text": "CBS Colorado reported on March 30, 2021 that Joshua Haileyesus’s family said he remained on life support after apparently trying to choke himself, but CBS also noted that it was unclear where he got the idea.",
+      "citations": [
+        "https://www.cbsnews.com/colorado/news/passout-challenge-joshua-haileyesus-blackout-choke-challenge-choking-aurora-warning/"
+      ]
+    },
+    {
+      "text": "CBS Colorado later reported that Joshua died after 19 days on life support and that his family believed he may have attempted the online “Blackout Challenge.”",
+      "citations": [
+        "https://www.cbsnews.com/colorado/news/joshua-haileyesus-dies-blackout-challenge-aurora/"
+      ]
+    },
+    {
+      "text": "Distractify’s March 2021 version matched the contemporaneous Colorado reporting in saying Joshua was brain dead or fighting for his life, but later versions of the same article were updated after his April 2021 death.",
+      "citations": [
+        "https://www.distractify.com/p/tiktok-blackout-challenge",
+        "https://www.cbsnews.com/colorado/news/passout-challenge-joshua-haileyesus-blackout-choke-challenge-choking-aurora-warning/",
+        "https://www.cbsnews.com/colorado/news/joshua-haileyesus-dies-blackout-challenge-aurora/"
+      ]
+    },
+    {
+      "text": "The article’s “TikTok trend” wording is somewhat stronger than the best available evidence because multiple outside sources describe family belief, regulatory concern, or platform-linked reports rather than independently verified proof that either child saw a specific TikTok video that caused the act.",
+      "citations": [
+        "https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9524194",
+        "https://www.cbsnews.com/colorado/news/passout-challenge-joshua-haileyesus-blackout-choke-challenge-choking-aurora-warning/"
+      ]
+    },
+    {
+      "text": "TikTok’s current public rules say the platform does not allow content that shows or promotes dangerous activities or challenges that could cause significant physical harm, and TikTok’s reporting page says users can report content they believe violates the guidelines.",
+      "citations": [
+        "https://www.tiktok.com/community-guidelines/en/mental-behavioral-health",
+        "https://www.tiktok.com/safety/en/reporting"
+      ]
+    },
+    {
+      "text": "Overall, the article is directionally credible about the danger of asphyxiation challenges and the reported cases, but readers should treat the causal attribution to TikTok as partly unproven and based mainly on family statements, media reports, and regulator concern rather than conclusive public investigative findings.",
+      "citations": [
+        "https://www.distractify.com/p/tiktok-blackout-challenge",
+        "https://www.cdc.gov/mmwr/preview/mmwrhtml/mm5706a1.htm",
+        "https://www.garanteprivacy.it/home/docweb/-/docweb-display/docweb/9524194",
+        "https://www.cbsnews.com/colorado/news/passout-challenge-joshua-haileyesus-blackout-choke-challenge-choking-aurora-warning/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "responses": [
+    {
+      "text": "The target is a November 26, 2017 explainer by Emily Earlenbaugh on GreenState, a cannabis lifestyle and news vertical published by the Hearst-owned San Francisco Chronicle, that asks whether cannabis can cure cancer.",
+      "citations": [
+        "https://www.greenstate.com/health/explainer-does-marijuana-cure-cancer/",
+        "https://www.greenstate.com/about-us/"
+      ]
+    },
+    {
+      "text": "GreenState is a commercially oriented cannabis site rather than a peer-reviewed medical outlet, so its health explainers should be read as journalism that needs independent corroboration before being treated as clinical guidance.",
+      "citations": [
+        "https://www.greenstate.com/about-us/"
+      ]
+    },
+    {
+      "text": "The article's framing question (\"is cannabis a cure – or is this just wishful thinking?\") sits between anecdote-driven optimism and expert caution, and it ultimately concedes that there is no clinical proof cannabis cures cancer.",
+      "citations": [
+        "https://www.greenstate.com/health/explainer-does-marijuana-cure-cancer/"
+      ]
+    },
+    {
+      "text": "The article's headline statistic that \"one in three of us will be diagnosed\" with cancer in our lifetimes is close to U.S. estimates: the National Cancer Institute reports that roughly 40% of people will be diagnosed with cancer at some point, and the American Cancer Society puts U.S. lifetime risk at about 41% for men and 39% for women.",
+      "citations": [
+        "https://www.cancer.gov/about-cancer/understanding/statistics",
+        "https://www.cancer.org/cancer/risk-prevention/understanding-cancer-risk/lifetime-probability-of-developing-or-dying-from-cancer.html"
+      ]
+    },
+    {
+      "text": "The article attributes a projection that cancer's \"death toll will have increased by 60%\" by 2030 to the \"National Institute of Cancer,\" but the correct U.S. agency is the National Cancer Institute, and the widely cited ~60% increase by 2030 is a global projection of new cancer cases from the World Health Organization's International Agency for Research on Cancer, not specifically a U.S. death-toll estimate.",
+      "citations": [
+        "https://www.cancer.gov/",
+        "https://www.who.int/news-room/fact-sheets/detail/cancer",
+        "https://www.iarc.who.int/cards_page/world-cancer-report/"
+      ]
+    },
+    {
+      "text": "The article's implication that U.S. \"cancer rates are only rising\" omits important context: NCI/SEER data show that the age-adjusted U.S. cancer death rate has been declining since the early 1990s, even though the absolute number of cases and deaths grows as the population ages.",
+      "citations": [
+        "https://www.cancer.gov/about-cancer/understanding/statistics",
+        "https://seer.cancer.gov/statfacts/html/all.html"
+      ]
+    },
+    {
+      "text": "The patient anecdotes about Dennis Hill (prostate cancer) and Kelly Hauf (brain tumor) circulate primarily on cannabis advocacy and self-published sites such as cannabisoilsuccess.com and patient testimonial pages, not in peer-reviewed case reports, so they cannot be independently verified as cannabis-caused cures.",
+      "citations": [
+        "https://cannabisoilsuccess.com/dennis-hill-curing-prostate-cancer-with-cannabis-oil/",
+        "https://www.theweedblog.com/cannabis-cured-my-cancer-kelly-haufs-story/"
+      ]
+    },
+    {
+      "text": "Oncologist Donald Abrams of UCSF's Osher Center for Integrative Medicine, quoted in the article as skeptical that cannabis is itself a cure, is a real integrative-oncology researcher who has long studied cannabis for cancer symptom management and has publicly said the same thing in other interviews.",
+      "citations": [
+        "https://osher.ucsf.edu/donald-abrams-md",
+        "https://www.cancer.gov/about-cancer/treatment/cam/hp/cannabis-pdq"
+      ]
+    },
+    {
+      "text": "The article's claim that cannabis is well-established for chemotherapy side effects like nausea, vomiting, pain, and appetite loss matches the 2017 National Academies of Sciences, Engineering, and Medicine report The Health Effects of Cannabis and Cannabinoids, which found conclusive or substantial evidence for cannabinoids in treating chemotherapy-induced nausea and chronic pain.",
+      "citations": [
+        "https://nap.nationalacademies.org/catalog/24625/the-health-effects-of-cannabis-and-cannabinoids-the-current-state",
+        "https://www.nationalacademies.org/news/2017/01/health-effects-of-cannabis-and-cannabinoids-the-current-state-of-evidence-and-recommendations-for-research"
+      ]
+    },
+    {
+      "text": "That same National Academies report also concluded that there is insufficient evidence to support or refute cannabis or cannabinoids as effective treatments for cancers, including glioma, which matches the article's caveat that researchers \"don't have the solid evidence they'd need to recommend cannabis for cancer treatment.\"",
+      "citations": [
+        "https://nap.nationalacademies.org/catalog/24625/the-health-effects-of-cannabis-and-cannabinoids-the-current-state",
+        "https://www.cancer.gov/about-cancer/treatment/cam/hp/cannabis-pdq"
+      ]
+    },
+    {
+      "text": "The article's description of preclinical research is consistent with the NCI's own cannabis and cannabinoids PDQ summary, which notes that laboratory and animal studies have shown cannabinoids can inhibit tumor growth and induce cancer-cell death, while emphasizing that this has not been demonstrated in clinical trials in humans.",
+      "citations": [
+        "https://www.cancer.gov/about-cancer/treatment/cam/patient/cannabis-pdq",
+        "https://www.cancer.gov/about-cancer/treatment/cam/hp/cannabis-pdq"
+      ]
+    },
+    {
+      "text": "David Meiri is a real cannabis-cancer researcher at the Technion – Israel Institute of Technology whose lab has published on cannabinoid effects against breast and other cancer cells in vitro, supporting the article's quote that cannabinoids can \"specifically inhibit cancer cell growth\" in laboratory settings.",
+      "citations": [
+        "https://meirilab.net.technion.ac.il/",
+        "https://pubmed.ncbi.nlm.nih.gov/31052333/"
+      ]
+    },
+    {
+      "text": "Independent oncology bodies including the American Cancer Society and Cancer Research UK echo the article's bottom line that there is no good clinical evidence cannabis cures cancer in humans, and they warn patients not to substitute cannabis for proven treatments.",
+      "citations": [
+        "https://www.cancer.org/cancer/managing-cancer/treatment-types/complementary-and-integrative-medicine/marijuana-and-cancer.html",
+        "https://www.cancerresearchuk.org/about-cancer/treatment/complementary-alternative-therapies/individual-therapies/cannabis"
+      ]
+    },
+    {
+      "text": "Missing context worth flagging: the article foregrounds two unverifiable cure anecdotes before presenting expert skepticism, which can leave casual readers with a stronger pro-cure impression than the cited science actually supports, and it does not mention that cannabis can interact with chemotherapy drugs and immunotherapy response.",
+      "citations": [
+        "https://www.cancer.gov/about-cancer/treatment/cam/patient/cannabis-pdq",
+        "https://www.cancer.org/cancer/managing-cancer/treatment-types/complementary-and-integrative-medicine/marijuana-and-cancer.html"
+      ]
+    },
+    {
+      "text": "Bottom line: GreenState's 2017 explainer is broadly accurate in its core conclusion that cannabis is not a proven cancer cure and is best supported as a symptom-management adjunct, but it overstates rising U.S. cancer mortality, misnames the National Cancer Institute, and gives anecdotal \"cure\" stories more narrative weight than the underlying evidence justifies.",
+      "citations": []
+    }
+  ]
+}

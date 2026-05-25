@@ -1,0 +1,106 @@
+{
+  "responses": [
+    {
+      "text": "The target is a WebMD reference article titled \"Health Benefits of Jackfruit,\" reviewed by registered dietitian Kathleen M. Zelman on June 19, 2019, presenting jackfruit's botanical description, nutrition, claimed health benefits, allergy risks, and preparation tips.",
+      "citations": [
+        "https://www.webmd.com/food-recipes/health-benefits-jackfruit"
+      ]
+    },
+    {
+      "text": "WebMD is a consumer health site whose reference articles are reviewed by medical professionals, but it is a commercial publisher that runs advertising and has previously been criticized for sponsor influence, so its general-audience nutrition pieces are best treated as broadly reliable background rather than primary scientific sources.",
+      "citations": [
+        "https://www.webmd.com/about-webmd-policies/about-editorial-policy",
+        "https://www.nytimes.com/2017/03/22/business/media/medical-websites-ads.html"
+      ]
+    },
+    {
+      "text": "The article's headline claim that jackfruit is the largest tree fruit in the world is supported by botanical references including the California Rare Fruit Growers and Wikipedia, which describe it as the largest tree-borne fruit.",
+      "citations": [
+        "https://crfg.org/homepage/library/fruitfacts/jackfruit/",
+        "https://en.wikipedia.org/wiki/Jackfruit"
+      ]
+    },
+    {
+      "text": "WebMD's size and weight figures (up to 3 feet long, 20 inches wide, and up to 110 pounds) are in the same range reported by independent sources, which cite lengths of 30–100 cm (about 10–40 inches), diameters up to 50 cm (20 inches), and weights up to roughly 55 kg (about 120 pounds), so the numbers are plausible upper bounds rather than typical sizes.",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Jackfruit",
+        "https://crfg.org/homepage/library/fruitfacts/jackfruit/"
+      ]
+    },
+    {
+      "text": "The claim of up to 500 seeds per fruit, each up to about 1.5 inches long, is corroborated by the California Rare Fruit Growers, which reports 100–500 seeds about 3/4 to 1‑1/2 inches long, and by a 2023 scoping review reporting 100–500 seeds per fruit.",
+      "citations": [
+        "https://crfg.org/homepage/library/fruitfacts/jackfruit/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10743863/"
+      ]
+    },
+    {
+      "text": "The per-serving nutrition values WebMD lists for one cup of sliced raw jackfruit (157 calories, 2 g fat, 38 g carbs, 3 g protein) match USDA FoodData Central values for the same 165 g serving (157 kcal, ~1.1 g fat, 38.4 g carbs, 2.8 g protein), although the 2 g fat figure is slightly rounded up from about 1 g.",
+      "citations": [
+        "https://tools.myfooddata.com/nutrition-comparison/174687-174687-174687/wt1-wt1-wt1",
+        "https://www.medicalnewstoday.com/articles/324787"
+      ]
+    },
+    {
+      "text": "The 40 mg calcium per cup figure is broadly consistent with USDA-derived sources, which report jackfruit as a modest calcium source (on the order of tens of milligrams per cup) and a more substantial source of potassium, magnesium, and vitamin C than calcium.",
+      "citations": [
+        "https://www.medicalnewstoday.com/articles/324787",
+        "https://tools.myfooddata.com/nutrition-comparison/174687-174687-174687/wt1-wt1-wt1"
+      ]
+    },
+    {
+      "text": "The article's framing of jackfruit as rich in vitamin C, B vitamins, folate, niacin, riboflavin, potassium, and magnesium is supported by USDA-based nutrient profiles, but the comparative phrasing \"higher in some vitamins and minerals than apples, apricots, bananas, and avocados\" is vague and cherry-picks favorable comparisons rather than reflecting overall nutrient density.",
+      "citations": [
+        "https://www.medicalnewstoday.com/articles/324787",
+        "https://fdc.nal.usda.gov/food-details/173963/nutrients"
+      ]
+    },
+    {
+      "text": "The claim that jackfruit's yellow color comes from carotenoids that are \"high in vitamin A\" overstates the science: jackfruit does contain carotenoids and some provitamin‑A activity, but USDA data show only modest vitamin A content per serving, and carotenoid levels vary by cultivar and ripeness.",
+      "citations": [
+        "https://www.medicalnewstoday.com/articles/324787",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10743863/"
+      ]
+    },
+    {
+      "text": "WebMD's general statement that antioxidants \"may help prevent diseases like cancer and heart disease\" reflects mechanistic and observational research but overstates the evidence, since large randomized trials of antioxidant supplements have generally failed to show reductions in cancer or cardiovascular mortality, and authorities caution against assuming a direct disease-prevention effect from dietary antioxidants.",
+      "citations": [
+        "https://www.nccih.nih.gov/health/antioxidants-in-depth",
+        "https://www.cancer.gov/about-cancer/causes-prevention/risk/diet/antioxidants-fact-sheet"
+      ]
+    },
+    {
+      "text": "The diabetes claim that \"one study found that jackfruit extract made it easier for people with diabetes to control their blood sugar\" is plausible but underspecified, since a 2021 randomized, double-blind, placebo-controlled trial of green jackfruit flour replacing rice or wheat in type 2 diabetes did show significant reductions in HbA1c and fasting and postprandial glucose, while other diabetes evidence comes mainly from animal studies and small leaf-extract trials.",
+      "citations": [
+        "https://pubmed.ncbi.nlm.nih.gov/34127645/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10743863/"
+      ]
+    },
+    {
+      "text": "The allergy warning that people with a birch pollen allergy are at higher risk of reacting to jackfruit is well supported by the immunology literature, which identifies a Bet v 1–homologous allergen in jackfruit and documents oral allergy syndrome and even anaphylaxis in birch‑pollen‑sensitized patients.",
+      "citations": [
+        "https://www.sciencedirect.com/science/article/abs/pii/S0091674904003100",
+        "https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2222.2010.03486.x",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13059140/"
+      ]
+    },
+    {
+      "text": "WebMD omits an important additional risk: jackfruit has also been linked to latex-fruit syndrome, with several published case reports of anaphylaxis in latex-allergic patients, so readers with latex allergy should be cautious even if they have no birch pollen allergy.",
+      "citations": [
+        "https://journals.sagepub.com/doi/10.1177/21526567211009195",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13059140/"
+      ]
+    },
+    {
+      "text": "The preparation and storage tips (oiling hands and knife to handle sticky sap, eating unripe jackfruit as a meat substitute in BBQ or teriyaki dishes, and refrigerating ripe fruit) are consistent with mainstream culinary and horticultural guidance from sources such as the California Rare Fruit Growers.",
+      "citations": [
+        "https://crfg.org/homepage/library/fruitfacts/jackfruit/",
+        "https://www.medicalnewstoday.com/articles/324787"
+      ]
+    },
+    {
+      "text": "Bottom line: the WebMD article is a generally accurate, dietitian‑reviewed consumer overview whose botanical and nutrition facts line up with USDA and horticultural sources and whose birch‑pollen allergy warning is medically grounded, but its health‑benefit language is optimistic and under-sourced, it omits the latex‑fruit allergy risk, and several claims (carotenoid vitamin A content, cancer and heart disease prevention, and the diabetes study) are real but weaker or more nuanced than the article implies.",
+      "citations": []
+    }
+  ]
+}

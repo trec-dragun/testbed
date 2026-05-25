@@ -1,0 +1,75 @@
+{
+  "responses": [
+    {
+      "text": "The target is a health-and-nutrition web article by Jenny Hills that says instant noodles are linked to heart attack, stroke, high blood pressure, diabetes, weight gain, and possibly cancer, and it attributes concern to TBHQ, MSG, high salt and fat, a 2014 Korean nutrition study, and a pill-camera digestion video.",
+      "citations": [
+        "http://www.healthyandnaturalworld.com/video-reveals-what-happens-inside-your-stomach-when-you-eat-ramen-noodles/",
+        "https://www.healthyandnaturalworld.com/instant-noodles-dangers/"
+      ]
+    },
+    {
+      "text": "The strongest cited health evidence is the 2014 Journal of Nutrition paper, which analyzed 10,711 South Korean adults and found instant noodles two or more times per week were associated with higher prevalence of metabolic syndrome in women but not men.",
+      "citations": [
+        "https://dash.harvard.edu/server/api/core/bitstreams/9333b843-3f65-44c3-9582-8832fafdb95a/content"
+      ]
+    },
+    {
+      "text": "That paper reported an odds ratio of 1.68 with a 95 percent confidence interval of 1.10 to 2.55 for metabolic syndrome in women eating instant noodles at least twice weekly, but its authors said their cross-sectional study could not infer a causal relation.",
+      "citations": [
+        "https://dash.harvard.edu/server/api/core/bitstreams/9333b843-3f65-44c3-9582-8832fafdb95a/content"
+      ]
+    },
+    {
+      "text": "Because the paper studied metabolic syndrome rather than actual strokes, heart attacks, diabetes diagnoses, or cancer cases, the target's causal wording that instant noodles could cause stroke and heart attack overstates the direct evidence.",
+      "citations": [
+        "http://www.healthyandnaturalworld.com/video-reveals-what-happens-inside-your-stomach-when-you-eat-ramen-noodles/",
+        "https://dash.harvard.edu/server/api/core/bitstreams/9333b843-3f65-44c3-9582-8832fafdb95a/content"
+      ]
+    },
+    {
+      "text": "The broader nutrition concern is credible because a survey of 765 instant noodle products in 10 countries found one average packet could contribute 35 percent to 95 percent of the World Health Organization recommended daily sodium maximum, and high salt intake raises blood pressure, a major cardiovascular risk factor.",
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5490591/"
+      ]
+    },
+    {
+      "text": "The target's warning about TBHQ has some basis because TBHQ is a regulated antioxidant food additive, but the Joint FAO and WHO Expert Committee on Food Additives set an acceptable daily intake of 0 to 0.7 milligrams per kilogram of body weight rather than treating normal permitted use as a proven cancer cause.",
+      "citations": [
+        "https://www.inchem.org/documents/jecfa/jeceval/jec_2240.htm",
+        "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-172/subpart-B/section-172.185"
+      ]
+    },
+    {
+      "text": "JECFA noted that high-level TBHQ consumers might exceed the acceptable daily intake under some estimates, but it also said available data were insufficient to estimate how many consumers would do so or for how long.",
+      "citations": [
+        "https://www.inchem.org/documents/jecfa/jeceval/jec_2240.htm"
+      ]
+    },
+    {
+      "text": "The target's MSG framing is misleading because the FDA says added MSG is generally recognized as safe, typical servings with added MSG contain less than 0.5 grams, and controlled studies have not consistently triggered reported reactions in self-identified sensitive people.",
+      "citations": [
+        "https://www.fda.gov/food/food-additives-petitions/questions-and-answers-monosodium-glutamate-msg"
+      ]
+    },
+    {
+      "text": "The pill-camera digestion video is weak evidence for health harm because Scientific American reported it involved only two volunteers and said more volunteers would be needed to determine whether the apparent slower digestion had physiological significance.",
+      "citations": [
+        "https://www.scientificamerican.com/blog/observations/what-processed-food-looks-like-during-digestionof-course-its-not-pretty-video/"
+      ]
+    },
+    {
+      "text": "Independent fact-checking of a similar viral ramen claim rated it unproven, noting that the 2014 study was self-reported, cross-sectional, not reproduced at that time, and not necessarily applicable outside Korea.",
+      "citations": [
+        "https://www.snopes.com/fact-check/harvard-study-ramen-damage-body/"
+      ]
+    },
+    {
+      "text": "Overall, the article is partly grounded in real evidence that frequent instant noodle consumption can be a marker of poor diet quality and cardiometabolic risk, but it uses alarmist causal language and cancer claims that are stronger than the cited studies support.",
+      "citations": [
+        "https://dash.harvard.edu/server/api/core/bitstreams/9333b843-3f65-44c3-9582-8832fafdb95a/content",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5490591/",
+        "https://www.snopes.com/fact-check/harvard-study-ramen-damage-body/"
+      ]
+    }
+  ]
+}
