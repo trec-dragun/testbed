@@ -11,6 +11,7 @@ PROVIDER="${PROVIDER:-anthropic}"
 AGENT="${AGENT:-}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_ID="${RUN_ID:-}"
+MAX_ATTEMPTS="${RUN_TOPIC_MAX_ATTEMPTS:-}"
 RETRY_DELAY_SECONDS="${RUN_TOPIC_RETRY_DELAY_SECONDS:-}"
 BOOTSTRAP=1
 OVERWRITE=0
@@ -34,6 +35,7 @@ Options:
   --run-id ID            Output run ID
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
+  --max-attempts N       Maximum attempts per article
   --retry-delay-seconds N
                         Seconds to wait after a failed attempt before retrying
   --no-bootstrap         Skip dependency/data bootstrap
@@ -53,6 +55,7 @@ while [[ $# -gt 0 ]]; do
     --run-id) RUN_ID="$2"; shift 2 ;;
     --limit) LIMIT="$2"; shift 2 ;;
     --overwrite) OVERWRITE=1; shift ;;
+    --max-attempts) MAX_ATTEMPTS="$2"; shift 2 ;;
     --retry-delay-seconds) RETRY_DELAY_SECONDS="$2"; shift 2 ;;
     --no-bootstrap) BOOTSTRAP=0; shift ;;
     --score) SCORE=1; shift ;;
@@ -96,6 +99,9 @@ if [[ -n "$RUN_ID" ]]; then
 fi
 if [[ "$OVERWRITE" == "1" ]]; then
   BATCH_ARGS+=(--overwrite)
+fi
+if [[ -n "$MAX_ATTEMPTS" ]]; then
+  BATCH_ARGS+=(--max-attempts "$MAX_ATTEMPTS")
 fi
 if [[ -n "$RETRY_DELAY_SECONDS" ]]; then
   BATCH_ARGS+=(--retry-delay-seconds "$RETRY_DELAY_SECONDS")

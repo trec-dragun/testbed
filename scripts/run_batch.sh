@@ -33,8 +33,8 @@ OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS="${OPENROUTER_WEB_FETCH_BLOCKED_DOMAINS:-}"
 RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
-MAX_ATTEMPTS="${RUN_TOPIC_MAX_ATTEMPTS:-3}"
-RETRY_DELAY_SECONDS="${RUN_TOPIC_RETRY_DELAY_SECONDS:-60}"
+MAX_ATTEMPTS="${RUN_TOPIC_MAX_ATTEMPTS:-5}"
+RETRY_DELAY_SECONDS="${RUN_TOPIC_RETRY_DELAY_SECONDS:-120}"
 
 case "$CODEX_SANDBOX" in
   read-only|workspace-write|danger-full-access) ;;
@@ -71,9 +71,9 @@ Options:
   --run-id ID            Output run ID
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
-  --max-attempts N       Maximum attempts per article (default: 3)
+  --max-attempts N       Maximum attempts per article (default: 5)
   --retry-delay-seconds N
-                        Seconds to wait after a failed attempt before retrying (default: 60)
+                        Seconds to wait after a failed attempt before retrying (default: 120)
 EOF
 }
 
