@@ -34,6 +34,7 @@ RUN_ID="${RUN_ID:-}"
 LIMIT=0
 OVERWRITE=0
 MAX_ATTEMPTS="${RUN_TOPIC_MAX_ATTEMPTS:-3}"
+RETRY_DELAY_SECONDS="${RUN_TOPIC_RETRY_DELAY_SECONDS:-60}"
 
 case "$CODEX_SANDBOX" in
   read-only|workspace-write|danger-full-access) ;;
@@ -71,6 +72,8 @@ Options:
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
   --max-attempts N       Maximum attempts per article (default: 3)
+  --retry-delay-seconds N
+                        Seconds to wait after a failed attempt before retrying (default: 60)
 EOF
 }
 
@@ -87,6 +90,7 @@ while [[ $# -gt 0 ]]; do
     --limit) LIMIT="$2"; shift 2 ;;
     --overwrite) OVERWRITE=1; shift ;;
     --max-attempts) MAX_ATTEMPTS="$2"; shift 2 ;;
+    --retry-delay-seconds) RETRY_DELAY_SECONDS="$2"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "unknown option: $1" >&2; usage; exit 2 ;;
   esac
@@ -119,6 +123,10 @@ if [[ -z "$RUN_ID" ]]; then
 fi
 if ! [[ "$MAX_ATTEMPTS" =~ ^[1-9][0-9]*$ ]]; then
   echo "error: --max-attempts must be a positive integer" >&2
+  exit 2
+fi
+if ! [[ "$RETRY_DELAY_SECONDS" =~ ^[0-9]+$ ]]; then
+  echo "error: --retry-delay-seconds must be a nonnegative integer" >&2
   exit 2
 fi
 RUN_ID="$(python3 "$ROOT_DIR/scripts/sanitize_id.py" "$RUN_ID")"
@@ -241,7 +249,12 @@ while IFS= read -r TOPIC_ID; do
       echo "logs: $ATTEMPT_DIR" >&2
       exit "$ATTEMPT_STATUS"
     fi
-    echo "[$CURRENT/$TOTAL] failed $TOPIC_ALIAS | attempt $ATTEMPT/$MAX_ATTEMPTS | retrying"
+    if [[ "$RETRY_DELAY_SECONDS" -gt 0 ]]; then
+      echo "[$CURRENT/$TOTAL] failed $TOPIC_ALIAS | attempt $ATTEMPT/$MAX_ATTEMPTS | waiting ${RETRY_DELAY_SECONDS}s before retry"
+      sleep "$RETRY_DELAY_SECONDS"
+    else
+      echo "[$CURRENT/$TOTAL] failed $TOPIC_ALIAS | attempt $ATTEMPT/$MAX_ATTEMPTS | retrying"
+    fi
     ATTEMPT=$((ATTEMPT + 1))
   done
   if [[ "$ATTEMPT" -gt 1 ]]; then
@@ -281,6 +294,8 @@ cat > "$RUN_DIR/manifest.json" <<EOF
   "codex_approval_policy": "$CODEX_APPROVAL_POLICY",
   "codex_sandbox": "$CODEX_SANDBOX",
   "codex_web_search": "$CODEX_WEB_SEARCH",
+  "max_attempts": "$MAX_ATTEMPTS",
+  "retry_delay_seconds": "$RETRY_DELAY_SECONDS",
   "openrouter_web_search": "$OPENROUTER_WEB_SEARCH",
   "openrouter_web_search_engine": "$OPENROUTER_WEB_SEARCH_ENGINE",
   "openrouter_web_search_max_results": "$OPENROUTER_WEB_SEARCH_MAX_RESULTS",

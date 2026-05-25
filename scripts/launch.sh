@@ -11,6 +11,7 @@ PROVIDER="${PROVIDER:-anthropic}"
 AGENT="${AGENT:-}"
 CLAUDE_REASONING_EFFORT="${CLAUDE_REASONING_EFFORT:-high}"
 RUN_ID="${RUN_ID:-}"
+RETRY_DELAY_SECONDS="${RUN_TOPIC_RETRY_DELAY_SECONDS:-}"
 BOOTSTRAP=1
 OVERWRITE=0
 LIMIT=0
@@ -33,6 +34,8 @@ Options:
   --run-id ID            Output run ID
   --limit N              Run only the first N topics
   --overwrite            Replace existing run output
+  --retry-delay-seconds N
+                        Seconds to wait after a failed attempt before retrying
   --no-bootstrap         Skip dependency/data bootstrap
   --score                Run AutoJudge after generation
 EOF
@@ -50,6 +53,7 @@ while [[ $# -gt 0 ]]; do
     --run-id) RUN_ID="$2"; shift 2 ;;
     --limit) LIMIT="$2"; shift 2 ;;
     --overwrite) OVERWRITE=1; shift ;;
+    --retry-delay-seconds) RETRY_DELAY_SECONDS="$2"; shift 2 ;;
     --no-bootstrap) BOOTSTRAP=0; shift ;;
     --score) SCORE=1; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -92,6 +96,9 @@ if [[ -n "$RUN_ID" ]]; then
 fi
 if [[ "$OVERWRITE" == "1" ]]; then
   BATCH_ARGS+=(--overwrite)
+fi
+if [[ -n "$RETRY_DELAY_SECONDS" ]]; then
+  BATCH_ARGS+=(--retry-delay-seconds "$RETRY_DELAY_SECONDS")
 fi
 
 "$ROOT_DIR/scripts/run_batch.sh" "${BATCH_ARGS[@]}"

@@ -58,6 +58,8 @@ For a smoke test, add `--limit 1`.
 
 `--model` may also be omitted. Defaults are `sonnet` for Anthropic, `gpt-5.5` for OpenAI/Codex, and `openai/gpt-5.2` for OpenRouter.
 
+Failed article attempts are retried up to three times. The batch runner waits 60 seconds before each retry by default; override with `--retry-delay-seconds N` or `RUN_TOPIC_RETRY_DELAY_SECONDS=N`.
+
 For leaderboard runs, refresh the exact OpenRouter model slugs from `https://openrouter.ai/api/v1/models` before launching a batch.
 
 ## Skill Variants
