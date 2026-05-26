@@ -1,0 +1,1410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DRAGUN Skill Testbed: a benchmark landing page for lateral-reading skill evaluation, empirical leaderboard results, and public report artifacts.">
+  <title>DRAGUN Skill Testbed</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #20232a;
+      --muted: #5e6673;
+      --line: #d7dce2;
+      --paper: #fbfaf6;
+      --panel: #ffffff;
+      --teal: #0f6f6a;
+      --teal-dark: #084a48;
+      --rust: #9b4e2e;
+      --gold: #b5892c;
+      --green: #46715d;
+      --blue: #315a84;
+      --shadow: 0 18px 55px rgba(37, 43, 52, 0.12);
+      --radius: 8px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: var(--teal-dark);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+    }
+
+    a:hover {
+      color: var(--rust);
+    }
+
+    code {
+      background: #f2f5f4;
+      border: 1px solid #dce3e1;
+      border-radius: 4px;
+      color: #24333a;
+      font: 0.92em/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      padding: 0.08em 0.3em;
+      white-space: nowrap;
+    }
+
+    .skip {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      z-index: 10;
+      background: var(--panel);
+      color: var(--ink);
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .skip:focus {
+      left: 12px;
+    }
+
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(251, 250, 246, 0.92);
+      border-bottom: 1px solid rgba(215, 220, 226, 0.78);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      width: min(100% - 32px, var(--max));
+      min-height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      color: var(--ink);
+      font-weight: 750;
+      text-decoration: none;
+      letter-spacing: 0;
+    }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.94rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 640;
+    }
+
+    nav a:hover {
+      color: var(--teal-dark);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: min(560px, calc(100vh - 160px));
+      border-bottom: 1px solid var(--line);
+      background: #f5f0e7;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.9;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(251, 250, 246, 0.96) 0%, rgba(251, 250, 246, 0.86) 44%, rgba(251, 250, 246, 0.34) 100%),
+        linear-gradient(180deg, rgba(251, 250, 246, 0.16), rgba(251, 250, 246, 0.86));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 56px 0 40px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--rust);
+      font-weight: 760;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 38px;
+      height: 2px;
+      background: var(--rust);
+    }
+
+    h1 {
+      max-width: 1040px;
+      margin: 20px 0 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.5rem, 5.3vw, 4.4rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    h1 > span {
+      display: block;
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .lede {
+      max-width: 1200px;
+      color: #373d45;
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      line-height: 1.55;
+      margin: 0 0 30px;
+    }
+
+    .hero-actions,
+    .resource-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 15px;
+      border: 1px solid var(--teal-dark);
+      border-radius: var(--radius);
+      background: var(--teal-dark);
+      color: #fff;
+      font-weight: 720;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(8, 74, 72, 0.18);
+    }
+
+    .button:hover {
+      color: #fff;
+      background: #063f3d;
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--teal-dark);
+      box-shadow: none;
+    }
+
+    .button.secondary:hover {
+      background: #fff;
+      color: var(--rust);
+      border-color: var(--rust);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 0;
+    }
+
+    .metrics-band {
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+
+    .metrics-panel {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(190px, 0.62fr) minmax(0, 2.6fr);
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 16px 44px rgba(37, 43, 52, 0.08);
+    }
+
+    .metrics-intro {
+      padding: 18px 20px;
+      background: #f7faf7;
+      border-right: 1px solid var(--line);
+    }
+
+    .metrics-intro span {
+      display: block;
+      color: var(--rust);
+      font-size: 0.74rem;
+      font-weight: 760;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+    }
+
+    .metrics-intro strong {
+      display: block;
+      color: var(--ink);
+      font-size: 1.02rem;
+      line-height: 1.25;
+    }
+
+    .metrics-band .hero-stats {
+      width: 100%;
+    }
+
+    .stat {
+      position: relative;
+      min-height: 82px;
+      border-right: 1px solid var(--line);
+      background: #ffffff;
+      padding: 15px 16px 13px;
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--teal);
+    }
+
+    .stat:nth-child(2)::before { background: var(--rust); }
+    .stat:nth-child(3)::before { background: var(--gold); }
+    .stat:nth-child(4)::before { background: var(--green); }
+
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+
+    .stat strong small {
+      color: var(--muted);
+      font: 760 0.62rem/1 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin-left: 5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    main {
+      background: var(--paper);
+    }
+
+    section {
+      padding: 76px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section.hero {
+      padding: 0;
+    }
+
+    section.alt {
+      background: #ffffff;
+    }
+
+    .wrap {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(280px, 0.48fr);
+      gap: 42px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .eyebrow {
+      color: var(--rust);
+      font-weight: 760;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      margin: 0 0 10px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 1.06rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .section-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .leaderboard-shell {
+      overflow-x: auto;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 16px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    th {
+      color: #3b4149;
+      background: #f3f5f1;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .th-note {
+      display: block;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 680;
+      letter-spacing: 0;
+      margin-top: 3px;
+      text-transform: none;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:hover {
+      background: #faf7ef;
+    }
+
+    .rank {
+      width: 58px;
+      font-weight: 780;
+      color: var(--rust);
+    }
+
+    .model {
+      font-weight: 760;
+      color: var(--ink);
+    }
+
+    .score {
+      font-variant-numeric: tabular-nums;
+      font-weight: 720;
+    }
+
+    .score-value {
+      display: block;
+    }
+
+    .score-note {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 650;
+      margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    .leaderboard-note {
+      margin-top: 18px;
+      color: var(--muted);
+    }
+
+    .leaderboard-note p {
+      margin: 0 0 6px;
+    }
+
+    .leaderboard-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .leaderboard-note strong {
+      color: var(--ink);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature,
+    .resource,
+    .caveat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .feature {
+      border-top: 4px solid var(--teal);
+    }
+
+    .feature:nth-child(2) { border-top-color: var(--rust); }
+    .feature:nth-child(3) { border-top-color: var(--blue); }
+
+    .feature p,
+    .resource p,
+    .caveat p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .method {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(280px, 0.48fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .method-text {
+      padding: 24px;
+      border-left: 4px solid var(--gold);
+      background: #fffdf7;
+      border-radius: var(--radius);
+    }
+
+    .method-text p {
+      margin: 0 0 14px;
+      color: #3f454e;
+    }
+
+    .method-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .facts {
+      display: grid;
+      gap: 10px;
+    }
+
+    .fact {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+
+    .fact strong {
+      display: block;
+      color: var(--ink);
+    }
+
+    .fact span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .report-browser {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .model-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .model-tab {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #f7f9f6;
+      color: var(--ink);
+      cursor: pointer;
+      display: grid;
+      gap: 5px;
+      min-height: 94px;
+      padding: 15px 16px;
+      text-align: left;
+      font: inherit;
+    }
+
+    .model-tab:hover {
+      border-color: var(--teal);
+      background: #f3faf7;
+    }
+
+    .model-tab[aria-selected="true"] {
+      border-color: var(--teal-dark);
+      background: #edf7f5;
+      box-shadow: inset 0 3px 0 var(--teal);
+    }
+
+    .model-name {
+      font-weight: 780;
+      line-height: 1.2;
+    }
+
+    .model-rank,
+    .model-score {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
+
+    .report-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fffdf8;
+      padding: 20px;
+    }
+
+    .report-panel[hidden] {
+      display: none;
+    }
+
+    .report-panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+    }
+
+    .report-panel-head > div {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .report-panel-head h3 {
+      margin-bottom: 6px;
+    }
+
+    .report-panel-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .report-pill {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 10px;
+      border: 1px solid #c9d9d5;
+      border-radius: 999px;
+      background: #f1f7f5;
+      color: var(--teal-dark);
+      font-size: 0.86rem;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .article-links {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(116px, 1fr));
+      gap: 8px;
+      font-size: 0.92rem;
+    }
+
+    .article-links a {
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #dfe5e8;
+      border-radius: 6px;
+      display: flex;
+      font-weight: 650;
+      min-height: 38px;
+      padding: 8px 10px;
+      text-decoration: none;
+    }
+
+    .article-links a:hover {
+      background: #f7fbfa;
+      border-color: var(--teal);
+    }
+
+    .resources {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .resource {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 230px;
+    }
+
+    .resource-actions {
+      margin-top: 22px;
+    }
+
+    .caveat {
+      border-left: 4px solid var(--rust);
+      background: #fff9f5;
+    }
+
+    footer {
+      padding: 32px 0 42px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 860px) {
+      nav ul {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        padding: 66px 0 52px;
+      }
+
+      .section-head,
+      .method,
+      .model-tabs,
+      .resources,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics-intro {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .metrics-intro span {
+        margin-bottom: 0;
+      }
+
+      .metrics-band .hero-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stat:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .report-panel-head {
+        display: block;
+      }
+
+      .report-pill {
+        margin-top: 12px;
+      }
+
+      section {
+        padding: 58px 0;
+      }
+
+      .article-links {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .metrics-band .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .metrics-intro {
+        display: block;
+      }
+
+      .metrics-intro span {
+        margin-bottom: 7px;
+      }
+
+      .stat,
+      .stat:nth-child(2n) {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .stat:last-child {
+        border-bottom: 0;
+      }
+
+      .article-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hero-canvas {
+        opacity: 0.45;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="DRAGUN Skill Testbed home">
+        <span>DRAGUN Skill Testbed</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#leaderboard">Leaderboard</a></li>
+          <li><a href="#skill">Skill</a></li>
+          <li><a href="#reports">Reports</a></li>
+          <li><a href="#experiment">Experiment</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top" aria-label="DRAGUN Skill Testbed introduction">
+    <canvas class="hero-canvas" id="reading-map" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="kicker">TREC 2025 DRAGUN resources</p>
+      <h1>
+        <span>Benchmarking</span>
+        <span><span class="nowrap">AI-assisted</span> lateral reading</span>
+        <span>for news trustworthiness.</span>
+      </h1>
+      <p class="lede">
+        A public testbed for evaluating lateral-reading skills and frontier LLM backbones on
+        DRAGUN report generation.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="#leaderboard">View leaderboard</a>
+        <a class="button secondary" href="https://github.com/trec-dragun/testbed">Run the testbed</a>
+        <a class="button secondary" href="https://github.com/trec-dragun/lateral-reading-skill">Study the skill</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="metrics-band" aria-label="Benchmark summary">
+    <div class="metrics-panel">
+      <div class="metrics-intro">
+        <span>Benchmark snapshot</span>
+        <strong>Current public run</strong>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <strong>30</strong>
+          <span>news articles</span>
+        </div>
+        <div class="stat">
+          <strong>90</strong>
+          <span>generated reports</span>
+        </div>
+        <div class="stat">
+          <strong>3 <small>LLM families</small></strong>
+          <span>Claude, GPT, Gemini</span>
+        </div>
+        <div class="stat">
+          <strong>GLM-5.1</strong>
+          <span>AutoJudge</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <section id="leaderboard" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Empirical leaderboard</p>
+            <h2>Codex plus OpenRouter report-generation results.</h2>
+          </div>
+          <p class="section-note">
+            Run date: May 25, 2026. All rows used Codex as the agent, OpenRouter as the generation
+            provider, and the same lateral-reading skill commit, <code>1051e45</code>.
+          </p>
+        </div>
+        <div class="leaderboard-shell">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Model</th>
+                <th>Auto supportive <span class="th-note">raw / normalized</span></th>
+                <th>Auto contradictory <span class="th-note">raw / normalized</span></th>
+                <th>Mean words</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="rank">1</td>
+                <td><span class="model">anthropic/claude-opus-4.7</span></td>
+                <td class="score"><span class="score-value">0.4084</span><span class="score-note">norm 6.96e-4</span></td>
+                <td class="score"><span class="score-value">0.0177</span><span class="score-note">norm 3.14e-5</span></td>
+                <td class="score">600.4</td>
+              </tr>
+              <tr>
+                <td class="rank">2</td>
+                <td><span class="model">openai/gpt-5.5</span></td>
+                <td class="score"><span class="score-value">0.3442</span><span class="score-note">norm 8.84e-4</span></td>
+                <td class="score"><span class="score-value">0.0070</span><span class="score-note">norm 1.75e-5</span></td>
+                <td class="score">399.9</td>
+              </tr>
+              <tr>
+                <td class="rank">3</td>
+                <td><span class="model">google/gemini-3.1-pro-preview</span></td>
+                <td class="score"><span class="score-value">0.2665</span><span class="score-note">norm 1.33e-3</span></td>
+                <td class="score"><span class="score-value">0.0076</span><span class="score-note">norm 2.99e-5</span></td>
+                <td class="score">214.9</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="leaderboard-note">
+          <p>
+            <strong>Normalization.</strong> The secondary line is
+            <code>score / report_word_count</code>, averaged across topics. It is shown because report length was
+            not controlled in this run.
+          </p>
+          <p>
+            Full artifacts: <a href="leaderboard/leaderboard.csv">leaderboard.csv</a> and
+            <a href="leaderboard/leaderboard.json">leaderboard.json</a>. Ranking still uses
+            <code>auto_supportive_score</code>; lower <code>auto_contradictory_score</code> is preferable.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skill">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Lateral-reading skill</p>
+            <h2>A portable research workflow for checking claims beyond the target article.</h2>
+          </div>
+          <p class="section-note">
+            The skill asks an agent to leave the source text, search laterally, compare independent evidence,
+            and return a structured trustworthiness report with citations.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="feature">
+            <h3>Corroborate central claims</h3>
+            <p>
+              The workflow prioritizes independent sources that confirm, qualify, or dispute the article's
+              important factual claims rather than summarizing the article in isolation.
+            </p>
+          </article>
+          <article class="feature">
+            <h3>Trace source quality</h3>
+            <p>
+              Reports distinguish primary sources, official records, reputable reporting, and weaker evidence,
+              making the evidentiary basis visible to readers and evaluators.
+            </p>
+          </article>
+          <article class="feature">
+            <h3>Return auditable artifacts</h3>
+            <p>
+              Each run produces JSON and rendered HTML reports with explicit citations, allowing downstream
+              scoring, inspection, and reuse by benchmark participants.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="setting" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Experimental setting</p>
+            <h2>Useful empirical evidence, not a controlled model ranking.</h2>
+          </div>
+          <p class="section-note">
+            The benchmark is designed to make agent behavior and report artifacts inspectable. The current
+            leaderboard should be read as one run under one harness and date.
+          </p>
+        </div>
+        <div class="method">
+          <div class="method-text">
+            <p>
+              For this public run, Codex executed the lateral-reading skill against anonymous DRAGUN articles.
+              OpenRouter supplied the generation models: GPT-5.5, Claude Opus 4.7, and Gemini 3.1 Pro Preview.
+              AutoJudge then scored the produced reports using GLM-5.1 through OpenRouter.
+            </p>
+            <p>
+              The setup intentionally keeps private evaluation metadata outside the model-facing workspace and
+              validates output schema, citation URLs, and forbidden-source leakage before leaderboard reporting.
+            </p>
+            <p>
+              It is not a strict controlled experiment. Model provider routing, backend batch behavior,
+              service-tier scheduling, OpenRouter web search and fetch behavior, search index freshness, model
+              nondeterminism, and AutoJudge variance can all influence results.
+            </p>
+          </div>
+          <div class="facts" aria-label="Run facts">
+            <div class="fact">
+              <strong>Agent</strong>
+              <span>Codex</span>
+            </div>
+            <div class="fact">
+              <strong>Provider</strong>
+              <span>OpenRouter</span>
+            </div>
+            <div class="fact">
+              <strong>Judge</strong>
+              <span>AutoJudge with GLM-5.1 through OpenRouter</span>
+            </div>
+            <div class="fact">
+              <strong>Validation</strong>
+              <span>30/30 valid topics for every listed model</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reports">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Public report browser</p>
+            <h2>Read the exact HTML reports served by GitHub Pages.</h2>
+          </div>
+          <p class="section-note">
+            Open any article below to inspect the rendered report for that model. The paired JSON and target
+            text files live beside each HTML page in the repository.
+          </p>
+        </div>
+        <div class="report-browser" data-report-browser>
+          <div class="model-tabs" role="tablist" aria-label="Choose a model report set">
+            <button class="model-tab" id="tab-claude" type="button" role="tab" aria-selected="true" aria-controls="panel-claude" data-report-target="panel-claude">
+              <span class="model-name">Claude Opus 4.7</span>
+              <span class="model-rank">Rank 1</span>
+              <span class="model-score">Auto supportive 0.4084</span>
+            </button>
+            <button class="model-tab" id="tab-gpt" type="button" role="tab" aria-selected="false" aria-controls="panel-gpt" data-report-target="panel-gpt">
+              <span class="model-name">GPT-5.5</span>
+              <span class="model-rank">Rank 2</span>
+              <span class="model-score">Auto supportive 0.3442</span>
+            </button>
+            <button class="model-tab" id="tab-gemini" type="button" role="tab" aria-selected="false" aria-controls="panel-gemini" data-report-target="panel-gemini">
+              <span class="model-name">Gemini 3.1 Pro Preview</span>
+              <span class="model-rank">Rank 3</span>
+              <span class="model-score">Auto supportive 0.2665</span>
+            </button>
+          </div>
+
+          <div class="report-panel" id="panel-claude" role="tabpanel" aria-labelledby="tab-claude">
+            <div class="report-panel-head">
+              <div>
+                <h3>Claude Opus 4.7 reports</h3>
+                <p>Rank 1 by AutoJudge supportive score. Mean report length: 600.4 words across 30 valid topics.</p>
+              </div>
+              <span class="report-pill">30 reports</span>
+            </div>
+            <div class="article-links" aria-label="Claude Opus report links">
+              <a href="reports/claude-opus-4.7/article_001/report.html">Article 001</a>
+              <a href="reports/claude-opus-4.7/article_002/report.html">Article 002</a>
+              <a href="reports/claude-opus-4.7/article_003/report.html">Article 003</a>
+              <a href="reports/claude-opus-4.7/article_004/report.html">Article 004</a>
+              <a href="reports/claude-opus-4.7/article_005/report.html">Article 005</a>
+              <a href="reports/claude-opus-4.7/article_006/report.html">Article 006</a>
+              <a href="reports/claude-opus-4.7/article_007/report.html">Article 007</a>
+              <a href="reports/claude-opus-4.7/article_008/report.html">Article 008</a>
+              <a href="reports/claude-opus-4.7/article_009/report.html">Article 009</a>
+              <a href="reports/claude-opus-4.7/article_010/report.html">Article 010</a>
+              <a href="reports/claude-opus-4.7/article_011/report.html">Article 011</a>
+              <a href="reports/claude-opus-4.7/article_012/report.html">Article 012</a>
+              <a href="reports/claude-opus-4.7/article_013/report.html">Article 013</a>
+              <a href="reports/claude-opus-4.7/article_014/report.html">Article 014</a>
+              <a href="reports/claude-opus-4.7/article_015/report.html">Article 015</a>
+              <a href="reports/claude-opus-4.7/article_016/report.html">Article 016</a>
+              <a href="reports/claude-opus-4.7/article_017/report.html">Article 017</a>
+              <a href="reports/claude-opus-4.7/article_018/report.html">Article 018</a>
+              <a href="reports/claude-opus-4.7/article_019/report.html">Article 019</a>
+              <a href="reports/claude-opus-4.7/article_020/report.html">Article 020</a>
+              <a href="reports/claude-opus-4.7/article_021/report.html">Article 021</a>
+              <a href="reports/claude-opus-4.7/article_022/report.html">Article 022</a>
+              <a href="reports/claude-opus-4.7/article_023/report.html">Article 023</a>
+              <a href="reports/claude-opus-4.7/article_024/report.html">Article 024</a>
+              <a href="reports/claude-opus-4.7/article_025/report.html">Article 025</a>
+              <a href="reports/claude-opus-4.7/article_026/report.html">Article 026</a>
+              <a href="reports/claude-opus-4.7/article_027/report.html">Article 027</a>
+              <a href="reports/claude-opus-4.7/article_028/report.html">Article 028</a>
+              <a href="reports/claude-opus-4.7/article_029/report.html">Article 029</a>
+              <a href="reports/claude-opus-4.7/article_030/report.html">Article 030</a>
+            </div>
+          </div>
+
+          <div class="report-panel" id="panel-gpt" role="tabpanel" aria-labelledby="tab-gpt" hidden>
+            <div class="report-panel-head">
+              <div>
+                <h3>GPT-5.5 reports</h3>
+                <p>Rank 2 by AutoJudge supportive score. Mean report length: 399.9 words across 30 valid topics.</p>
+              </div>
+              <span class="report-pill">30 reports</span>
+            </div>
+            <div class="article-links" aria-label="GPT-5.5 report links">
+              <a href="reports/gpt-5.5/article_001/report.html">Article 001</a>
+              <a href="reports/gpt-5.5/article_002/report.html">Article 002</a>
+              <a href="reports/gpt-5.5/article_003/report.html">Article 003</a>
+              <a href="reports/gpt-5.5/article_004/report.html">Article 004</a>
+              <a href="reports/gpt-5.5/article_005/report.html">Article 005</a>
+              <a href="reports/gpt-5.5/article_006/report.html">Article 006</a>
+              <a href="reports/gpt-5.5/article_007/report.html">Article 007</a>
+              <a href="reports/gpt-5.5/article_008/report.html">Article 008</a>
+              <a href="reports/gpt-5.5/article_009/report.html">Article 009</a>
+              <a href="reports/gpt-5.5/article_010/report.html">Article 010</a>
+              <a href="reports/gpt-5.5/article_011/report.html">Article 011</a>
+              <a href="reports/gpt-5.5/article_012/report.html">Article 012</a>
+              <a href="reports/gpt-5.5/article_013/report.html">Article 013</a>
+              <a href="reports/gpt-5.5/article_014/report.html">Article 014</a>
+              <a href="reports/gpt-5.5/article_015/report.html">Article 015</a>
+              <a href="reports/gpt-5.5/article_016/report.html">Article 016</a>
+              <a href="reports/gpt-5.5/article_017/report.html">Article 017</a>
+              <a href="reports/gpt-5.5/article_018/report.html">Article 018</a>
+              <a href="reports/gpt-5.5/article_019/report.html">Article 019</a>
+              <a href="reports/gpt-5.5/article_020/report.html">Article 020</a>
+              <a href="reports/gpt-5.5/article_021/report.html">Article 021</a>
+              <a href="reports/gpt-5.5/article_022/report.html">Article 022</a>
+              <a href="reports/gpt-5.5/article_023/report.html">Article 023</a>
+              <a href="reports/gpt-5.5/article_024/report.html">Article 024</a>
+              <a href="reports/gpt-5.5/article_025/report.html">Article 025</a>
+              <a href="reports/gpt-5.5/article_026/report.html">Article 026</a>
+              <a href="reports/gpt-5.5/article_027/report.html">Article 027</a>
+              <a href="reports/gpt-5.5/article_028/report.html">Article 028</a>
+              <a href="reports/gpt-5.5/article_029/report.html">Article 029</a>
+              <a href="reports/gpt-5.5/article_030/report.html">Article 030</a>
+            </div>
+          </div>
+
+          <div class="report-panel" id="panel-gemini" role="tabpanel" aria-labelledby="tab-gemini" hidden>
+            <div class="report-panel-head">
+              <div>
+                <h3>Gemini 3.1 Pro Preview reports</h3>
+                <p>Rank 3 by AutoJudge supportive score. Mean report length: 214.9 words across 30 valid topics.</p>
+              </div>
+              <span class="report-pill">30 reports</span>
+            </div>
+            <div class="article-links" aria-label="Gemini report links">
+              <a href="reports/gemini-3.1-pro-preview/article_001/report.html">Article 001</a>
+              <a href="reports/gemini-3.1-pro-preview/article_002/report.html">Article 002</a>
+              <a href="reports/gemini-3.1-pro-preview/article_003/report.html">Article 003</a>
+              <a href="reports/gemini-3.1-pro-preview/article_004/report.html">Article 004</a>
+              <a href="reports/gemini-3.1-pro-preview/article_005/report.html">Article 005</a>
+              <a href="reports/gemini-3.1-pro-preview/article_006/report.html">Article 006</a>
+              <a href="reports/gemini-3.1-pro-preview/article_007/report.html">Article 007</a>
+              <a href="reports/gemini-3.1-pro-preview/article_008/report.html">Article 008</a>
+              <a href="reports/gemini-3.1-pro-preview/article_009/report.html">Article 009</a>
+              <a href="reports/gemini-3.1-pro-preview/article_010/report.html">Article 010</a>
+              <a href="reports/gemini-3.1-pro-preview/article_011/report.html">Article 011</a>
+              <a href="reports/gemini-3.1-pro-preview/article_012/report.html">Article 012</a>
+              <a href="reports/gemini-3.1-pro-preview/article_013/report.html">Article 013</a>
+              <a href="reports/gemini-3.1-pro-preview/article_014/report.html">Article 014</a>
+              <a href="reports/gemini-3.1-pro-preview/article_015/report.html">Article 015</a>
+              <a href="reports/gemini-3.1-pro-preview/article_016/report.html">Article 016</a>
+              <a href="reports/gemini-3.1-pro-preview/article_017/report.html">Article 017</a>
+              <a href="reports/gemini-3.1-pro-preview/article_018/report.html">Article 018</a>
+              <a href="reports/gemini-3.1-pro-preview/article_019/report.html">Article 019</a>
+              <a href="reports/gemini-3.1-pro-preview/article_020/report.html">Article 020</a>
+              <a href="reports/gemini-3.1-pro-preview/article_021/report.html">Article 021</a>
+              <a href="reports/gemini-3.1-pro-preview/article_022/report.html">Article 022</a>
+              <a href="reports/gemini-3.1-pro-preview/article_023/report.html">Article 023</a>
+              <a href="reports/gemini-3.1-pro-preview/article_024/report.html">Article 024</a>
+              <a href="reports/gemini-3.1-pro-preview/article_025/report.html">Article 025</a>
+              <a href="reports/gemini-3.1-pro-preview/article_026/report.html">Article 026</a>
+              <a href="reports/gemini-3.1-pro-preview/article_027/report.html">Article 027</a>
+              <a href="reports/gemini-3.1-pro-preview/article_028/report.html">Article 028</a>
+              <a href="reports/gemini-3.1-pro-preview/article_029/report.html">Article 029</a>
+              <a href="reports/gemini-3.1-pro-preview/article_030/report.html">Article 030</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experiment" class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Experiment with DRAGUN</p>
+            <h2>Use the repository artifacts to reproduce, extend, or audit the benchmark.</h2>
+          </div>
+          <p class="section-note">
+            The public page is an entry point. The repositories contain the runnable harness, skill package,
+            resources, schemas, scripts, and output contracts.
+          </p>
+        </div>
+        <div class="resources">
+          <article class="resource">
+            <div>
+              <h3>Run the testbed</h3>
+              <p>
+                Clone the benchmark harness, bootstrap the resources, run model batches, validate reports,
+                and rebuild the leaderboard from scored outputs.
+              </p>
+            </div>
+            <div class="resource-actions">
+              <a class="button" href="https://github.com/trec-dragun/testbed">Open testbed repo</a>
+            </div>
+          </article>
+          <article class="resource">
+            <div>
+              <h3>Inspect the lateral-reading skill</h3>
+              <p>
+                Review the portable skill used by this run, adapt it for ablations, or compare alternative
+                skill designs under the same report-generation contract.
+              </p>
+            </div>
+            <div class="resource-actions">
+              <a class="button" href="https://github.com/trec-dragun/lateral-reading-skill">Open skill repo</a>
+            </div>
+          </article>
+          <article class="resource">
+            <div>
+              <h3>Use DRAGUN resources</h3>
+              <p>
+                Access the supporting resource package used by the benchmark setup and connect new runs to
+                the broader DRAGUN evaluation workflow.
+              </p>
+            </div>
+            <div class="resource-actions">
+              <a class="button" href="https://github.com/trec-dragun/resources">Open resources repo</a>
+            </div>
+          </article>
+        </div>
+        <div class="caveat" style="margin-top: 24px;">
+          <h3>Interpretation note</h3>
+          <p>
+            These results are a transparent empirical snapshot. They are valuable for inspection and comparison
+            under this harness, but they should not be cited as a deterministic conclusion about permanent model
+            ordering or provider-independent capability.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>DRAGUN Skill Testbed. Static benchmark landing page for GitHub Pages.</span>
+      <span><a href="README.md">README</a> · <a href="LICENSE">License</a> · <a href="https://github.com/trec-dragun/testbed">GitHub</a></span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const browser = document.querySelector("[data-report-browser]");
+      if (!browser) return;
+
+      const tabs = Array.from(browser.querySelectorAll("[data-report-target]"));
+      const panels = Array.from(browser.querySelectorAll("[role='tabpanel']"));
+
+      function showPanel(tab) {
+        tabs.forEach(function (item) {
+          item.setAttribute("aria-selected", item === tab ? "true" : "false");
+        });
+
+        panels.forEach(function (panel) {
+          panel.hidden = panel.id !== tab.dataset.reportTarget;
+        });
+      }
+
+      tabs.forEach(function (tab, index) {
+        tab.addEventListener("click", function () {
+          showPanel(tab);
+        });
+
+        tab.addEventListener("keydown", function (event) {
+          if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+          event.preventDefault();
+
+          let nextIndex = index;
+          if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+          if (event.key === "Home") nextIndex = 0;
+          if (event.key === "End") nextIndex = tabs.length - 1;
+
+          tabs[nextIndex].focus();
+          showPanel(tabs[nextIndex]);
+        });
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      const canvas = document.getElementById("reading-map");
+      const ctx = canvas.getContext("2d");
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const colors = ["#0f6f6a", "#9b4e2e", "#b5892c", "#46715d", "#315a84"];
+      let width = 0;
+      let height = 0;
+      let nodes = [];
+      let animationFrame = 0;
+
+      function resize() {
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        width = canvas.clientWidth;
+        height = canvas.clientHeight;
+        canvas.width = Math.floor(width * ratio);
+        canvas.height = Math.floor(height * ratio);
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+        nodes = makeNodes();
+        draw(0);
+      }
+
+      function makeNodes() {
+        const count = Math.max(28, Math.floor(width / 34));
+        return Array.from({ length: count }, function (_, index) {
+          const band = index % 5;
+          return {
+            x: width * (0.42 + Math.random() * 0.58),
+            y: height * (0.08 + Math.random() * 0.84),
+            r: 2.5 + Math.random() * 4.8,
+            color: colors[band],
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.0015 + Math.random() * 0.0025
+          };
+        });
+      }
+
+      function draw(time) {
+        ctx.clearRect(0, 0, width, height);
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = "#f5f0e7";
+        ctx.fillRect(0, 0, width, height);
+
+        const centerX = width * 0.72;
+        const centerY = height * 0.5;
+
+        nodes.forEach(function (node, index) {
+          const drift = prefersReduced ? 0 : Math.sin(time * node.speed + node.phase) * 10;
+          const x = node.x + drift;
+          const y = node.y + Math.cos(time * node.speed + node.phase) * (prefersReduced ? 0 : 8);
+
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          const cpX = (x + centerX) / 2 + Math.sin(index) * 80;
+          const cpY = (y + centerY) / 2 + Math.cos(index) * 45;
+          ctx.quadraticCurveTo(cpX, cpY, x, y);
+          ctx.strokeStyle = node.color;
+          ctx.globalAlpha = 0.13;
+          ctx.lineWidth = 1.3;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.fillStyle = node.color;
+          ctx.globalAlpha = 0.62;
+          ctx.arc(x, y, node.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        if (!prefersReduced) {
+          animationFrame = requestAnimationFrame(draw);
+        }
+      }
+
+      window.addEventListener("resize", resize, { passive: true });
+      resize();
+
+      if (prefersReduced && animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    })();
+  </script>
+</body>
+</html>
